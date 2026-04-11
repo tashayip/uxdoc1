@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LangBuddy — Teacher Mission Hub v13</title>
+<title>LangBuddy — Teacher Mission Hub v16</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Darumadrop+One&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -196,6 +196,7 @@ button, input, select, textarea { font-family: inherit; }
 /* ═══ FORM ═══ */
 .f-label { font-family: var(--head); font-size: 13px; font-weight: 600; text-transform: none; letter-spacing: -.1px; color: var(--ink2); margin-bottom: 6px; display: block; }
 .f-hint  { font-family: var(--body); font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+.req { color: var(--red); font-weight: 700; margin-left: 1px; font-size: 14px; line-height: 1; }
 .f-input, .f-select, .f-textarea { width: 100%; border: 1.5px solid var(--border); border-radius: var(--r); padding: 9px 12px; font-family: var(--body); font-size: 13px; color: var(--ink); background: var(--surface); transition: border-color .15s; outline: none; }
 .f-input:focus, .f-select:focus, .f-textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(12,159,229,.1); }
 .f-textarea { resize: vertical; min-height: 72px; line-height: 1.55; }
@@ -264,6 +265,13 @@ button, input, select, textarea { font-family: inherit; }
 
 /* ═══ EDITOR BOTTOM BAR ═══ */
 .editor-bottom { background: var(--surface); border-top: 1px solid var(--border); padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; bottom: 0; z-index: 40; flex-shrink: 0; }
+/* step-based editor */
+.sec-step-hidden { display: none; }
+.review-grid { display: flex; flex-direction: column; margin-top: 4px; }
+.review-row  { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+.review-row:last-child { border-bottom: none; }
+.review-label { font-family: var(--head); font-size: 11.5px; font-weight: 600; color: var(--muted); width: 120px; flex-shrink: 0; }
+.review-val   { font-family: var(--body); font-size: 13px; color: var(--ink2); flex: 1; line-height: 1.5; }
 
 /* ═══ PHONE FRAME ═══ */
 .phone-wrap { width: 270px; flex-shrink: 0; }
@@ -463,6 +471,31 @@ button, input, select, textarea { font-family: inherit; }
 .kb-toggle input:checked + .kb-slider::after { transform: translateX(16px); }
 /* upload inside kb */
 .kb-upload-btn { flex-shrink: 0; }
+/* curriculum sub-panel */
+.kb-detail { border-top: 1px solid var(--border); background: var(--faint); }
+.kb-detail.hidden { display: none; }
+.kb-detail-inner { padding: 12px 14px 14px 46px; display: flex; flex-direction: column; gap: 8px; }
+.kb-detail-section-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 2px; }
+.kb-detail-section-title { font-family: var(--head); font-size: 12.5px; font-weight: 600; color: var(--ink2); }
+.kb-detail-section-meta  { font-family: var(--body); font-size: 11px; color: var(--dim); }
+/* selected tags above the list */
+.topic-tags-row { display: flex; flex-wrap: wrap; gap: 5px; }
+.topic-tags-row:empty { display: none; }
+/* search input */
+.topic-search-input { padding: 6px 10px !important; font-size: 12.5px !important; }
+/* scrollable checklist */
+.topic-list { border: 1.5px solid var(--border); border-radius: var(--r); background: var(--surface); max-height: 208px; overflow-y: auto; }
+.topic-list-item { display: flex; align-items: center; gap: 9px; padding: 8px 11px; cursor: pointer; transition: background .1s; border-bottom: 1px solid var(--border); font-family: var(--body); font-size: 12.5px; color: var(--ink2); user-select: none; }
+.topic-list-item:last-child { border-bottom: none; }
+.topic-list-item:hover { background: var(--faint); }
+.topic-list-item.checked { background: var(--blue-tint); }
+.topic-list-item.checked .tli-check { border-color: var(--blue); background: var(--blue); }
+.topic-list-item.checked .tli-check::after { opacity: 1; }
+.topic-list-item.filtered { display: none; }
+.tli-check { flex-shrink: 0; width: 15px; height: 15px; border: 1.5px solid var(--border-2); border-radius: 3px; background: var(--surface); position: relative; transition: background .12s, border-color .12s; }
+.tli-check::after { content: ''; position: absolute; left: 3px; top: 0px; width: 5px; height: 9px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg); opacity: 0; transition: opacity .1s; }
+.tli-label { flex: 1; line-height: 1.4; }
+.topic-list-empty { padding: 12px 11px; font-size: 12px; color: var(--dim); font-family: var(--body); }
 
 /* ═══ FIELD CLUSTER — divider-style grouping (no box) ═══ */
 /* The section-card is the container; clusters are logical dividers within it */
@@ -684,6 +717,7 @@ button, input, select, textarea { font-family: inherit; }
       <button class="nav-tab active" onclick="showScreen('s-home')">My Classes</button>
       <button class="nav-tab" onclick="showScreen('s-library')">Library</button>
       <button class="nav-tab" onclick="showScreen('s-my-missions')">My Missions</button>
+      <button class="nav-tab" onclick="showScreen('s-changelog')" style="color:var(--dim);font-size:12px;">Changelog</button>
     </div>
     <div class="nav-right">
       <button class="btn btn-primary" onclick="showEditorNew()">+ Create Mission</button>
@@ -766,6 +800,7 @@ button, input, select, textarea { font-family: inherit; }
       <button class="nav-tab active" onclick="showScreen('s-home')">My Classes</button>
       <button class="nav-tab" onclick="showScreen('s-library')">Library</button>
       <button class="nav-tab" onclick="showScreen('s-my-missions')">My Missions</button>
+      <button class="nav-tab" onclick="showScreen('s-changelog')" style="color:var(--dim);font-size:12px;">Changelog</button>
     </div>
     <div class="nav-right">
       <button class="btn btn-primary" onclick="showScreen('s-find')">+ Add Mission</button>
@@ -1002,6 +1037,7 @@ button, input, select, textarea { font-family: inherit; }
       <button class="nav-tab active" onclick="showScreen('s-home')">My Classes</button>
       <button class="nav-tab" onclick="showScreen('s-library')">Library</button>
       <button class="nav-tab" onclick="showScreen('s-my-missions')">My Missions</button>
+      <button class="nav-tab" onclick="showScreen('s-changelog')" style="color:var(--dim);font-size:12px;">Changelog</button>
     </div>
     <div class="nav-right"><div class="avatar">MT</div></div>
   </nav>
@@ -1128,6 +1164,7 @@ button, input, select, textarea { font-family: inherit; }
       <button class="nav-tab active" onclick="showScreen('s-home')">My Classes</button>
       <button class="nav-tab" onclick="showScreen('s-library')">Library</button>
       <button class="nav-tab" onclick="showScreen('s-my-missions')">My Missions</button>
+      <button class="nav-tab" onclick="showScreen('s-changelog')" style="color:var(--dim);font-size:12px;">Changelog</button>
     </div>
     <div class="nav-right"><div class="avatar">MT</div></div>
   </nav>
@@ -1238,6 +1275,7 @@ button, input, select, textarea { font-family: inherit; }
       <button class="nav-tab" onclick="showScreen('s-home')">My Classes</button>
       <button class="nav-tab active" onclick="showScreen('s-library')">Library</button>
       <button class="nav-tab" onclick="showScreen('s-my-missions')">My Missions</button>
+      <button class="nav-tab" onclick="showScreen('s-changelog')" style="color:var(--dim);font-size:12px;">Changelog</button>
     </div>
     <div class="nav-right">
       <button class="btn btn-primary" onclick="showEditorNew()">+ Create Mission</button>
@@ -1422,13 +1460,14 @@ button, input, select, textarea { font-family: inherit; }
   S5 — MISSION EDITOR
 ════════════════════════════════ -->
 <div class="screen" id="s-editor">
-  <div class="proto-bar">v13 · <strong>Mission Editor</strong> · Sec 1: two clusters — "What students see" + "Who is this for?" · Sec 2: "The objective" + "Resources" · Sec 3: Buddy setup · Opens pre-filled when editing existing missions</div>
+  <div class="proto-bar">v16 · <strong>Mission Editor</strong> · Step-based flow · Required fields marked * · Copy tightened across all steps</div>
   <nav class="topnav">
     <span class="nav-logo" onclick="showScreen('s-home')">LangBuddy</span>
     <div class="nav-tabs">
       <button class="nav-tab active" onclick="showScreen('s-home')">My Classes</button>
       <button class="nav-tab" onclick="showScreen('s-library')">Library</button>
       <button class="nav-tab" onclick="showScreen('s-my-missions')">My Missions</button>
+      <button class="nav-tab" onclick="showScreen('s-changelog')" style="color:var(--dim);font-size:12px;">Changelog</button>
     </div>
     <div class="nav-right">
       <button class="btn btn-secondary" onclick="showScreen('s-preview')">👁 Preview</button>
@@ -1440,22 +1479,22 @@ button, input, select, textarea { font-family: inherit; }
     <button class="step-back-btn" id="step-back-btn" onclick="showScreen('s-home')">← My Classes</button>
     <div class="step-nav-sep"></div>
     <div class="step-items">
-      <div class="step-item sn-active" id="step-1" onclick="scrollToSection(1)" title="About this mission">
+      <div class="step-item sn-active" id="step-1" onclick="goToStep(1)" title="About this mission" style="cursor:pointer;">
         <div class="step-num" id="step-num-1">1</div>
         <span class="step-label">About</span>
       </div>
       <div class="step-connector" id="step-conn-1"></div>
-      <div class="step-item" id="step-2" onclick="scrollToSection(2)" title="Design the mission">
+      <div class="step-item" id="step-2" onclick="goToStep(2)" title="Design the mission" style="cursor:pointer;">
         <div class="step-num" id="step-num-2">2</div>
         <span class="step-label">Design</span>
       </div>
       <div class="step-connector" id="step-conn-2"></div>
-      <div class="step-item" id="step-3" onclick="scrollToSection(3)" title="Set up the Buddy">
+      <div class="step-item" id="step-3" onclick="goToStep(3)" title="Set up the Buddy" style="cursor:pointer;">
         <div class="step-num" id="step-num-3">3</div>
         <span class="step-label">Buddy</span>
       </div>
       <div class="step-connector" id="step-conn-3"></div>
-      <div class="step-item" id="step-4" onclick="scrollToSection(4)" title="Assign to a class">
+      <div class="step-item" id="step-4" onclick="goToStep(4)" title="Assign to a class" style="cursor:pointer;">
         <div class="step-num" id="step-num-4">4</div>
         <span class="step-label">Assign</span>
       </div>
@@ -1470,7 +1509,7 @@ button, input, select, textarea { font-family: inherit; }
         <div class="section-step">1</div>
         <div>
           <div class="section-title">About this mission</div>
-          <div class="section-sub" id="editor-sub-1">Let's create a mission with a clear practice objective — helping students get better at speaking in real conversations.</div>
+          <div class="section-sub" id="editor-sub-1">Give it a name that makes students want to dive in.</div>
         </div>
       </div>
 
@@ -1479,7 +1518,7 @@ button, input, select, textarea { font-family: inherit; }
         <div class="cluster-label no-sep">What students see</div>
 
         <div class="f-group">
-          <label class="f-label">Mission name<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Name the scenario, not just the topic. Good names feel like a mission students can picture — e.g. "Buy groceries at the market", not "Food vocabulary".</span></span></label>
+          <label class="f-label">Mission name<span class="req">*</span><span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Think scenario, not topic. "Buy dinner at the market" beats "Food vocabulary".</span></span></label>
           <div class="flex gap12 items-start">
             <div class="emoji-pick-wrap">
               <button class="emoji-pick-btn" id="emoji-btn" onclick="toggleEmojiPicker(event)" title="Choose an icon for this mission">🛒</button>
@@ -1521,9 +1560,9 @@ button, input, select, textarea { font-family: inherit; }
         </div>
 
         <div class="f-group">
-          <label class="f-label">Mission description</label>
+          <label class="f-label">Mission description<span class="req">*</span></label>
           <textarea class="f-textarea" id="editor-desc" placeholder="e.g. Head to the wet market and see if you can buy tonight's dinner — all in Chinese! 🛒" style="min-height:52px;">Head to the wet market and see if you can buy tonight's dinner — all in Chinese! 🛒</textarea>
-          <div class="f-hint">This is the first thing students read — make it sound like a mission they want to take on.</div>
+          <div class="f-hint">Make it sound like an adventure, not homework.</div>
         </div>
       </div>
 
@@ -1532,20 +1571,20 @@ button, input, select, textarea { font-family: inherit; }
         <div class="cluster-label">Who is this for?</div>
 
         <div class="f-group">
-          <label class="f-label">Audience<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">The Buddy calibrates its vocabulary, difficulty, and correction style based on the level and band you select here.</span></span></label>
+          <label class="f-label">Designed for<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">The Buddy calibrates its vocabulary, difficulty, and correction style based on the level and band you select here.</span></span></label>
           <div class="f-row-3">
-            <select class="f-select" id="editor-lang">
+            <select class="f-select" id="editor-lang" onchange="syncKnowledgeBase()">
               <option selected>Chinese Language</option>
               <option>Malay Language</option>
               <option>Tamil Language</option>
             </select>
-            <select class="f-select" id="editor-level">
+            <select class="f-select" id="editor-level" onchange="syncKnowledgeBase()">
               <option>Sec 1</option>
               <option selected>Sec 2</option>
               <option>Sec 3</option>
               <option>Sec 4</option>
             </select>
-            <select class="f-select" id="editor-band">
+            <select class="f-select" id="editor-band" onchange="syncKnowledgeBase()">
               <option>G1 (Foundation)</option>
               <option>G2 (Standard)</option>
               <option selected>G3 (Advanced)</option>
@@ -1570,7 +1609,7 @@ button, input, select, textarea { font-family: inherit; }
       </button>
       <div class="more-opts-body" id="sec1-more">
         <div class="f-group" style="margin-top:16px;margin-bottom:0;">
-          <label class="f-label">Extra notes <span style="font-size:11px;font-weight:400;text-transform:none;color:var(--muted);">Optional</span></label>
+          <label class="f-label">Extra notes</label>
           <textarea class="f-textarea" style="min-height:52px;" placeholder="e.g. 'Prep for their oral exam next week' or 'Students are seeing this topic for the first time'"></textarea>
         </div>
       </div>
@@ -1582,7 +1621,7 @@ button, input, select, textarea { font-family: inherit; }
         <div class="section-step">2</div>
         <div>
           <div class="section-title">Design the mission</div>
-          <div class="section-sub">Set the learning focus and scene — the AI gets your full brief, students get their mission.</div>
+          <div class="section-sub">Brief the Buddy and set the scene.</div>
         </div>
       </div>
 
@@ -1591,15 +1630,15 @@ button, input, select, textarea { font-family: inherit; }
         <div class="cluster-label no-sep">The objective</div>
 
         <div class="f-group">
-          <label class="f-label">Learning focus<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Goes to the Buddy as its guiding goal. Students don't see this — it shapes how the Buddy steers the conversation.</span></span></label>
+          <label class="f-label">Learning focus<span class="req">*</span><span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Your private brief to the Buddy. Sets the learning goal — students never see it.</span></span></label>
           <input class="f-input" id="editor-objective" placeholder="e.g. bargaining, describing quantities, using comparison words" value="Bargaining and using money-related vocabulary">
-          <div class="f-hint">Students don't see this — it shapes how the Buddy guides the conversation.</div>
+          <div class="f-hint">Your private brief to the Buddy — students don't see this.</div>
         </div>
 
         <div class="f-group">
-          <label class="f-label">The task</label>
+          <label class="f-label">The task<span class="req">*</span></label>
           <textarea class="f-textarea" id="editor-task" style="min-height:88px;" placeholder="e.g. You're at a wet market. Buy 3 ingredients for dinner, ask the price, and try to bargain — all in Chinese.">You're at a wet market. Buy ingredients for a family dinner and bargain for a good price — all in Chinese.</textarea>
-          <div class="f-hint">What exactly must the student do? Write it as an instruction they could follow.</div>
+          <div class="f-hint">Write it as a clear instruction the student follows.</div>
         </div>
       </div>
 
@@ -1608,7 +1647,43 @@ button, input, select, textarea { font-family: inherit; }
         <div class="cluster-label">Resources</div>
 
         <div class="f-group">
-          <label class="f-label">Key vocabulary<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Shown to students as a word bank during the conversation. The Buddy also nudges them to use these words naturally.</span></span></label>
+          <label class="f-label">Knowledge base <span style="font-size:11px;font-weight:400;text-transform:none;color:var(--muted);">What the Buddy knows before the conversation starts</span></label>
+          <div class="kb-box">
+            <div class="kb-row">
+              <div class="kb-row-icon">🏫</div>
+              <div class="kb-row-body">
+                <div class="kb-row-title">MTL Curriculum information</div>
+                <div class="kb-row-sub" id="kb-curriculum-sub">Chinese Language · Sec 2 · G3</div>
+              </div>
+              <label class="kb-toggle">
+                <input type="checkbox" id="kb-curriculum-toggle" checked onchange="toggleCurriculumKB(this.checked)">
+                <span class="kb-slider"></span>
+              </label>
+            </div>
+            <div id="kb-curriculum-detail" class="kb-detail">
+              <div class="kb-detail-inner">
+                <div class="kb-detail-section-head">
+                  <span class="kb-detail-section-title">📖 Textbook topics</span>
+                  <span class="kb-detail-section-meta">Textbook only for now — more sources coming soon</span>
+                </div>
+                <div id="topic-tags-row" class="topic-tags-row"></div>
+                <input id="topic-input" class="f-input topic-search-input" placeholder="Search topics…" oninput="filterTopics(this.value)">
+                <div id="topic-list" class="topic-list"></div>
+              </div>
+            </div>
+            <div class="kb-row">
+              <div class="kb-row-icon">📎</div>
+              <div class="kb-row-body">
+                <div class="kb-row-title">Your own materials</div>
+                <div class="kb-row-sub">Add a passage, lesson plan, or word list</div>
+              </div>
+              <button class="btn btn-secondary btn-sm kb-upload-btn" onclick="event.stopPropagation()">Upload file</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="f-group">
+          <label class="f-label">Key vocabulary<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Extra words you want students to practise — on top of what's already in the knowledge base. Shown as a word bank during the conversation, and the Buddy nudges students to use them naturally.</span></span></label>
           <div class="ss-wrap">
             <div class="tag-row" onclick="document.getElementById('vocab-input').focus()" id="editor-vocab">
               <div class="tag">鱼 yú — fish <span class="tag-x" onclick="this.parentElement.remove();event.stopPropagation()">×</span></div>
@@ -1628,32 +1703,7 @@ button, input, select, textarea { font-family: inherit; }
               <div class="ss-option" onclick="addVocabTag('打折 — discount')"><span class="ss-option-icon">🔤</span><span class="ss-option-label">打折 — discount</span></div>
             </div>
           </div>
-          <div class="f-hint mt6">Shown in-app as a word bank. Type + Enter to add, or pick from suggestions.</div>
-        </div>
-
-        <div class="f-group">
-          <label class="f-label">Knowledge base <span style="font-size:11px;font-weight:400;text-transform:none;color:var(--muted);">What the Buddy knows before the conversation starts</span></label>
-          <div class="kb-box">
-            <div class="kb-row">
-              <div class="kb-row-icon">🏫</div>
-              <div class="kb-row-body">
-                <div class="kb-row-title">MTL Curriculum information</div>
-                <div class="kb-row-sub">Chinese Language · Sec 2 · G3 — vocab list, learning objectives, textbook level</div>
-              </div>
-              <label class="kb-toggle">
-                <input type="checkbox" checked onchange="return false;">
-                <span class="kb-slider"></span>
-              </label>
-            </div>
-            <div class="kb-row">
-              <div class="kb-row-icon">📎</div>
-              <div class="kb-row-body">
-                <div class="kb-row-title">Your own materials</div>
-                <div class="kb-row-sub">Add a textbook passage, lesson plan, or custom word list — optional</div>
-              </div>
-              <button class="btn btn-secondary btn-sm kb-upload-btn" onclick="event.stopPropagation()">Upload file</button>
-            </div>
-          </div>
+          <div class="f-hint mt6">Shown as a word bank during the conversation. Type to add or pick from suggestions.</div>
         </div>
       </div>
 
@@ -1665,13 +1715,13 @@ button, input, select, textarea { font-family: inherit; }
       </button>
       <div class="more-opts-body" id="sec2-more">
         <div class="f-group" style="margin-top:16px;">
-          <label class="f-label">Sentence patterns<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Optional. The Buddy gently nudges students to use these structures in context — not forcing it, just creating natural openings.</span></span></label>
+          <label class="f-label">Sentence patterns<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">The Buddy gently nudges students to use these structures in context — not forcing it, just creating natural openings.</span></span></label>
           <textarea class="f-textarea" id="editor-patterns" placeholder="e.g. 虽然...但是...&#10;我觉得...&#10;不但...而且...">我想买...
 这个多少钱？
 可以便宜一点吗？</textarea>
         </div>
         <div class="f-group" style="margin-bottom:0;">
-          <label class="f-label">Extra notes <span style="font-size:11px;font-weight:400;text-transform:none;color:var(--muted);">Optional</span></label>
+          <label class="f-label">Extra notes</label>
           <textarea class="f-textarea" style="min-height:52px;" placeholder="e.g. 'Focus on the bargaining vocab from Chapter 4' or 'Don't give hints unless the student is really stuck'"></textarea>
         </div>
       </div>
@@ -1683,7 +1733,7 @@ button, input, select, textarea { font-family: inherit; }
         <div class="section-step">3</div>
         <div>
           <div class="section-title">Set up the Buddy</div>
-          <div class="section-sub">The Buddy is the AI persona that talks with your students during the mission — choose how it sounds and behaves.</div>
+          <div class="section-sub">Shape how the Buddy sounds and behaves.</div>
         </div>
       </div>
 
@@ -1724,7 +1774,7 @@ button, input, select, textarea { font-family: inherit; }
             <button class="pill-opt sel" onclick="selectPill(this)">Medium (~10 min)</button>
             <button class="pill-opt" onclick="selectPill(this)">Open-ended</button>
           </div>
-          <div class="f-hint mt4">Controls how long the Buddy keeps the conversation going before wrapping up.</div>
+          <div class="f-hint mt4">How long before the Buddy wraps up.</div>
         </div>
       </div>
 
@@ -1733,7 +1783,7 @@ button, input, select, textarea { font-family: inherit; }
         <div class="cluster-label">Language &amp; accessibility</div>
 
         <div class="f-group">
-          <label class="f-label">Language balance</label>
+          <label class="f-label">Language mix<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Controls how much English the Buddy uses in its replies. All the way left = the Buddy responds only in the target language. Drag right to allow more English — useful for lower-level students who need extra support.</span></span></label>
           <div class="lang-mix-track-wrap">
             <div class="lang-mix-bar" id="lm-bar"></div>
             <input type="range" class="lang-mix-range" id="lang-mix-range" min="0" max="100" value="0"
@@ -1804,7 +1854,7 @@ button, input, select, textarea { font-family: inherit; }
           </div>
         </div>
         <div class="f-group" style="margin-bottom:0;">
-          <label class="f-label">Extra notes <span style="font-size:11px;font-weight:400;text-transform:none;color:var(--muted);">Optional</span></label>
+          <label class="f-label">Extra notes</label>
           <textarea class="f-textarea" style="min-height:52px;" placeholder="e.g. 'This class needs encouragement' or 'Push for full sentences'"></textarea>
           <div class="f-hint mt4">Anything else the Buddy should know about your class.</div>
         </div>
@@ -1812,9 +1862,14 @@ button, input, select, textarea { font-family: inherit; }
     </div>
 
     <!-- SECTION 4: Assign to a class -->
-    <div class="assign-section" id="sec-4">
-      <div class="section-title-sm" style="margin-bottom:3px;">Assign to a class</div>
-      <div class="section-sub" style="margin-bottom:14px;">Students see this mission once you publish. Only classes matching your audience are shown.</div>
+    <div class="section-card sec-step-hidden" id="sec-4">
+      <div class="section-header">
+        <div class="section-step">4</div>
+        <div>
+          <div class="section-title">Assign to a class</div>
+          <div class="section-sub">Which class gets this mission?</div>
+        </div>
+      </div>
       <div class="ss-wrap">
         <div class="tag-row" onclick="document.getElementById('class-search').focus()" id="editor-classes">
           <div class="tag">Chinese Language · Sec 2 · G3 <span class="tag-x" onclick="this.parentElement.remove();event.stopPropagation()">×</span></div>
@@ -1844,17 +1899,20 @@ button, input, select, textarea { font-family: inherit; }
           </div>
         </div>
       </div>
-      <div class="f-hint mt8">Showing Chinese Language classes — filtered to match your audience in step 1.</div>
+      <div class="f-hint mt8">Filtered to match your Step 1 selection.</div>
     </div>
+
+    <!-- Review state (populated by buildReview()) -->
+    <div class="section-card sec-step-hidden" id="sec-review"></div>
 
   </div>
 
   <!-- Sticky bottom bar -->
   <div class="editor-bottom">
-    <button class="btn btn-ghost" onclick="showScreen('s-class')">← Back</button>
-    <div class="flex gap8">
-      <button class="btn btn-ghost" onclick="showScreen('s-my-missions')">Save as draft</button>
-      <button class="btn btn-primary btn-lg" onclick="openModal('m-publish')">Publish →</button>
+    <button class="btn btn-ghost" id="editor-prev-btn">← Back</button>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <button class="btn btn-ghost" onclick="showScreen('s-my-missions')">Save draft</button>
+      <button class="btn btn-primary btn-lg" id="editor-next-btn">Next →</button>
     </div>
   </div>
 </div>
@@ -1871,6 +1929,7 @@ button, input, select, textarea { font-family: inherit; }
       <button class="nav-tab active" onclick="showScreen('s-home')">My Classes</button>
       <button class="nav-tab" onclick="showScreen('s-library')">Library</button>
       <button class="nav-tab" onclick="showScreen('s-my-missions')">My Missions</button>
+      <button class="nav-tab" onclick="showScreen('s-changelog')" style="color:var(--dim);font-size:12px;">Changelog</button>
     </div>
     <div class="nav-right"><div class="avatar">MT</div></div>
   </nav>
@@ -2009,6 +2068,7 @@ button, input, select, textarea { font-family: inherit; }
       <button class="nav-tab" onclick="showScreen('s-home')">My Classes</button>
       <button class="nav-tab" onclick="showScreen('s-library')">Library</button>
       <button class="nav-tab active" onclick="showScreen('s-my-missions')">My Missions</button>
+      <button class="nav-tab" onclick="showScreen('s-changelog')" style="color:var(--dim);font-size:12px;">Changelog</button>
     </div>
     <div class="nav-right">
       <button class="btn btn-primary" onclick="showEditorNew()">+ Create Mission</button>
@@ -2095,6 +2155,7 @@ button, input, select, textarea { font-family: inherit; }
       <button class="nav-tab active" onclick="showScreen('s-home')">My Classes</button>
       <button class="nav-tab" onclick="showScreen('s-library')">Library</button>
       <button class="nav-tab" onclick="showScreen('s-my-missions')">My Missions</button>
+      <button class="nav-tab" onclick="showScreen('s-changelog')" style="color:var(--dim);font-size:12px;">Changelog</button>
     </div>
     <div class="nav-right"><div class="avatar">MT</div></div>
   </nav>
@@ -2350,7 +2411,8 @@ function showScreen(id) {
   const navMap = {
     's-home': 0, 's-class': 0, 's-find': 0,
     's-library': 1,
-    's-my-missions': 2, 's-editor': 2, 's-preview': 2, 's-insights': 0
+    's-my-missions': 2, 's-editor': 2, 's-preview': 2, 's-insights': 0,
+    's-changelog': 3,
   };
   const activeIdx = navMap[id] ?? 0;
   if (el) {
@@ -2640,9 +2702,9 @@ function showEditorNew() {
   // Reset back button (crumb-bar removed in v12)
   const bb = document.getElementById('step-back-btn');
   if (bb) bb.textContent = '← My Classes';
+  syncKnowledgeBase();
   showScreen('s-editor');
-  _activeStep = 0; setActiveStep(1);
-  setTimeout(updateStepStates, 50);
+  goToStep(1);
 }
 
 // Helper: pre-set vocab tags
@@ -2754,13 +2816,104 @@ function showStudentTable() {
 
 // ── STEP NAV ─────────────────────────────────────────
 // Scroll editor page to a section, accounting for sticky bars
-function scrollToSection(n) {
-  const el = document.getElementById('sec-' + n);
-  if (!el) return;
-  // 54px topnav + 44px step-nav (crumb-bar removed) + 8px gap
-  const offset = 54 + 44 + 8;
-  const top = el.getBoundingClientRect().top + window.scrollY - offset;
-  window.scrollTo({ top, behavior: 'smooth' });
+function goToStep(n) {
+  if (n < 1 || n > 4) return;
+  ['sec-1','sec-2','sec-3','sec-4','sec-review'].forEach(id =>
+    document.getElementById(id)?.classList.add('sec-step-hidden'));
+  document.getElementById('sec-' + n)?.classList.remove('sec-step-hidden');
+  _activeStep = n;
+  for (let i = 1; i <= 4; i++) {
+    const item = document.getElementById('step-' + i);
+    if (item) item.classList.toggle('sn-active', i === n);
+  }
+  updateStepStates();
+  updateEditorNav();
+  window.scrollTo(0, 0);
+}
+
+function updateEditorNav() {
+  const prev = document.getElementById('editor-prev-btn');
+  const next = document.getElementById('editor-next-btn');
+  if (!prev || !next) return;
+  if (_activeStep <= 1) {
+    prev.textContent = '← Back';
+    prev.onclick = () => showScreen('s-class');
+  } else {
+    prev.textContent = '← Previous';
+    prev.onclick = () => goToStep(_activeStep - 1);
+  }
+  if (_activeStep >= 4) {
+    next.textContent = 'Review & Publish →';
+    next.onclick = showReview;
+  } else {
+    next.textContent = 'Next →';
+    next.onclick = () => goToStep(_activeStep + 1);
+  }
+}
+
+function showReview() {
+  ['sec-1','sec-2','sec-3','sec-4'].forEach(id =>
+    document.getElementById(id)?.classList.add('sec-step-hidden'));
+  buildReview();
+  document.getElementById('sec-review')?.classList.remove('sec-step-hidden');
+  for (let i = 1; i <= 4; i++)
+    document.getElementById('step-' + i)?.classList.remove('sn-active');
+  updateStepStates();
+  const prev = document.getElementById('editor-prev-btn');
+  const next = document.getElementById('editor-next-btn');
+  if (prev) { prev.textContent = '← Back to Assign'; prev.onclick = () => goToStep(4); }
+  if (next) { next.textContent = 'Publish →'; next.onclick = () => openModal('m-publish'); }
+  window.scrollTo(0, 0);
+}
+
+function buildReview() {
+  const rev = document.getElementById('sec-review');
+  if (!rev) return;
+  const emoji    = document.getElementById('emoji-btn')?.textContent?.trim() || '🎯';
+  const titleMtl = document.getElementById('editor-title-mtl')?.value || '—';
+  const titleEn  = document.getElementById('editor-title-en')?.value  || '—';
+  const lang     = document.getElementById('editor-lang')?.value  || '';
+  const level    = document.getElementById('editor-level')?.value || '';
+  const band     = (document.getElementById('editor-band')?.value || '').split(' ')[0];
+  const mtype    = document.querySelector('#sec-1 .pill-opt.sel')?.textContent?.trim() || '—';
+  const objective= document.getElementById('editor-objective')?.value || '—';
+  const task     = document.getElementById('editor-task')?.value || '—';
+  const vocabN   = document.querySelectorAll('#editor-vocab .tag').length;
+  const topicsN  = document.querySelectorAll('#topic-list .topic-list-item.checked').length;
+  const buddy    = document.querySelector('.role-card.sel .role-name')?.textContent?.trim() || '—';
+  const convLen  = document.querySelector('#sec-3 .pill-opt.sel')?.textContent?.trim() || '—';
+  const classes  = [...document.querySelectorAll('#editor-classes .tag')]
+    .map(t => t.textContent.replace('×','').trim()).join(', ') || 'None assigned';
+
+  const row = (label, val) =>
+    `<div class="review-row"><div class="review-label">${label}</div><div class="review-val">${val}</div></div>`;
+
+  rev.innerHTML = `
+    <div class="section-header">
+      <div class="section-step" style="background:var(--green);color:#fff;">✓</div>
+      <div>
+        <div class="section-title">Review before publishing</div>
+        <div class="section-sub">Check everything looks right. Jump back to any step to make changes.</div>
+      </div>
+    </div>
+    <div class="review-grid">
+      ${row('Mission', `${emoji} <strong>${titleMtl}</strong> · ${titleEn}`)}
+      ${row('Designed for', `${lang} · ${level} · ${band} &nbsp;·&nbsp; ${mtype}`)}
+      ${row('Objective', objective)}
+      ${row('Task', task)}
+      ${row('Resources', `${topicsN} topic${topicsN !== 1 ? 's' : ''} · ${vocabN} vocab word${vocabN !== 1 ? 's' : ''}`)}
+      ${row('Buddy', `${buddy} · ${convLen}`)}
+      ${row('Assigned to', classes)}
+    </div>
+    <div style="margin-top:20px;padding:14px 16px;background:var(--faint);border:1.5px solid var(--border);border-radius:var(--r);">
+      <div style="font-family:var(--head);font-size:11.5px;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.3px;">Jump back to edit</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-secondary btn-sm" onclick="goToStep(1)">1 · About</button>
+        <button class="btn btn-secondary btn-sm" onclick="goToStep(2)">2 · Design</button>
+        <button class="btn btn-secondary btn-sm" onclick="goToStep(3)">3 · Buddy</button>
+        <button class="btn btn-secondary btn-sm" onclick="goToStep(4)">4 · Assign</button>
+      </div>
+    </div>`;
 }
 
 // Update which step is highlighted as "active" (in view)
@@ -2986,10 +3139,524 @@ function showEditorExisting(key) {
   const bb = document.getElementById('step-back-btn');
   if (bb) bb.textContent = '← ' + (d.titleEn || d.titleMtl || 'Mission');
 
+  syncKnowledgeBase();
   showScreen('s-editor');
-  _activeStep = 0; setActiveStep(1);
-  setTimeout(updateStepStates, 50);
+  goToStep(1);
+}
+
+/* ── Knowledge base: textbook topic combobox ─────────────────────── */
+const TOPIC_DATA = {
+  // Chinese Language
+  'Chinese Language|Sec 1|G1': [
+    'Unit 1 — 我的家庭 (My Family)',
+    'Unit 2 — 学校生活 (School Life)',
+    'Unit 3 — 我的朋友 (My Friends)',
+    'Unit 4 — 日常生活 (Daily Routines)',
+    'Unit 5 — 节日庆典 (Festivals & Celebrations)',
+    'Unit 6 — 饮食文化 (Food Culture)',
+  ],
+  'Chinese Language|Sec 1|G2': [
+    'Unit 1 — 自我介绍 (Self Introduction)',
+    'Unit 2 — 课外活动 (CCAs)',
+    'Unit 3 — 健康生活 (Healthy Living)',
+    'Unit 4 — 环境保护 (Environment)',
+    'Unit 5 — 科技与生活 (Tech & Life)',
+    'Unit 6 — 传统文化 (Traditional Culture)',
+  ],
+  'Chinese Language|Sec 1|G3': [
+    'Unit 1 — 青少年成长 (Growing Up)',
+    'Unit 2 — 社会关怀 (Community Care)',
+    'Unit 3 — 文化传承 (Cultural Heritage)',
+    'Unit 4 — 环球视野 (Global Perspectives)',
+    'Unit 5 — 科学与未来 (Science & Future)',
+    'Unit 6 — 议论与思辨 (Critical Thinking)',
+  ],
+  'Chinese Language|Sec 2|G1': [
+    'Unit 1 — 家庭与亲情 (Family Bonds)',
+    'Unit 2 — 学习与成长 (Learning & Growth)',
+    'Unit 3 — 社区与归属 (Community)',
+    'Unit 4 — 市场与购物 (Shopping)',
+    'Unit 5 — 娱乐与休闲 (Leisure)',
+    'Unit 6 — 爱护环境 (Caring for Environment)',
+  ],
+  'Chinese Language|Sec 2|G2': [
+    'Unit 1 — 青春与梦想 (Youth & Dreams)',
+    'Unit 2 — 人际关系 (Relationships)',
+    'Unit 3 — 消费与理财 (Consumer & Finance)',
+    'Unit 4 — 健康与体育 (Health & Sports)',
+    'Unit 5 — 媒体与资讯 (Media & Information)',
+    'Unit 6 — 公民意识 (Civic Awareness)',
+  ],
+  'Chinese Language|Sec 2|G3': [
+    'Unit 1A — 社会议题 (Social Issues)',
+    'Unit 1B — 贫富差距 (Wealth Inequality)',
+    'Unit 2A — 文学与阅读 (Literature & Reading)',
+    'Unit 2B — 现代诗歌 (Modern Poetry)',
+    'Unit 3A — 市场购物 (Market & Shopping)',
+    'Unit 3B — 消费文化 (Consumer Culture)',
+    'Unit 4A — 环境与可持续发展 (Sustainability)',
+    'Unit 4B — 气候变化 (Climate Change)',
+    'Unit 5A — 多元文化社会 (Multicultural Society)',
+    'Unit 5B — 种族和谐 (Racial Harmony)',
+    'Unit 6A — 全球化 (Globalisation)',
+    'Unit 6B — 文化冲击 (Culture Clash)',
+    'Unit 7A — 科技与伦理 (Technology & Ethics)',
+    'Unit 7B — 人工智能 (Artificial Intelligence)',
+    'Unit 8A — 公民责任 (Civic Responsibility)',
+    'Unit 8B — 义工服务 (Volunteer Work)',
+    'Unit 9A — 传统与现代 (Tradition & Modernity)',
+    'Unit 9B — 华族习俗 (Chinese Customs)',
+    'Unit 10A — 口试综合复习 (Oral Exam Revision)',
+    'Unit 10B — 议论技巧 (Debating Skills)',
+  ],
+  'Chinese Language|Sec 3|G1': [
+    'Unit 1 — 职业与工作 (Work & Career)',
+    'Unit 2 — 生活技能 (Life Skills)',
+    'Unit 3 — 旅游与文化 (Travel & Culture)',
+    'Unit 4 — 人生价值观 (Values)',
+    'Unit 5 — 国家与社会 (Nation & Society)',
+    'Unit 6 — 华族文化 (Chinese Culture)',
+  ],
+  'Chinese Language|Sec 3|G2': [
+    'Unit 1 — 理想与抱负 (Ambitions)',
+    'Unit 2 — 网络时代 (Digital Age)',
+    'Unit 3 — 道德与责任 (Ethics & Responsibility)',
+    'Unit 4 — 新加坡精神 (Singapore Spirit)',
+    'Unit 5 — 文学欣赏 (Literary Appreciation)',
+    'Unit 6 — 未来社会 (Future Society)',
+  ],
+  'Chinese Language|Sec 3|G3': [
+    'Unit 1 — 身份认同 (Identity)',
+    'Unit 2 — 伦理困境 (Ethical Dilemmas)',
+    'Unit 3 — 艺术与创意 (Arts & Creativity)',
+    'Unit 4 — 国际视野 (International Perspectives)',
+    'Unit 5 — 语言与文化 (Language & Culture)',
+    'Unit 6 — 议论文写作 (Argumentative Writing)',
+  ],
+  'Chinese Language|Sec 4|G1': [
+    'Unit 1 — 人生规划 (Life Planning)',
+    'Unit 2 — 社会贡献 (Social Contribution)',
+    'Unit 3 — 传统与现代 (Tradition & Modernity)',
+    'Unit 4 — 华语的重要性 (Importance of CL)',
+    'Unit 5 — 综合复习 (Revision — Topics 1–4)',
+    'Unit 6 — 口试备考 (Oral Exam Prep)',
+  ],
+  'Chinese Language|Sec 4|G2': [
+    'Unit 1 — 时事与观点 (Current Affairs)',
+    'Unit 2 — 科技伦理 (Tech Ethics)',
+    'Unit 3 — 文化遗产 (Cultural Heritage)',
+    'Unit 4 — 全球公民 (Global Citizenship)',
+    'Unit 5 — 综合复习 (Revision — Topics 1–4)',
+    'Unit 6 — 口试备考 (Oral Exam Prep)',
+  ],
+  'Chinese Language|Sec 4|G3': [
+    'Unit 1 — 社会变迁 (Social Change)',
+    'Unit 2 — 哲学与人生 (Philosophy & Life)',
+    'Unit 3 — 国际关系 (International Relations)',
+    'Unit 4 — 文学与批评 (Literature & Criticism)',
+    'Unit 5 — 综合复习 (Revision — Topics 1–4)',
+    'Unit 6 — 口试备考 (Oral Exam Prep)',
+  ],
+  // Malay Language
+  'Malay Language|Sec 1|G1': [
+    'Unit 1 — Keluarga Saya (My Family)',
+    'Unit 2 — Kehidupan di Sekolah (School Life)',
+    'Unit 3 — Hobi dan Minat (Hobbies & Interests)',
+    'Unit 4 — Kehidupan Harian (Daily Life)',
+    'Unit 5 — Perayaan (Festivals)',
+    'Unit 6 — Makanan dan Minuman (Food & Drinks)',
+  ],
+  'Malay Language|Sec 1|G2': [
+    'Unit 1 — Pengenalan Diri (Self Introduction)',
+    'Unit 2 — Aktiviti Ko-Kurikulum (CCAs)',
+    'Unit 3 — Hidup Sihat (Healthy Living)',
+    'Unit 4 — Alam Sekitar (Environment)',
+    'Unit 5 — Teknologi (Technology)',
+    'Unit 6 — Budaya Melayu (Malay Culture)',
+  ],
+  'Malay Language|Sec 1|G3': [
+    'Unit 1 — Pemuda Harapan Bangsa (Youth)',
+    'Unit 2 — Tanggungjawab Sosial (Social Responsibility)',
+    'Unit 3 — Warisan Budaya (Cultural Heritage)',
+    'Unit 4 — Pandangan Global (Global Perspectives)',
+    'Unit 5 — Sains dan Masa Depan (Science & Future)',
+    'Unit 6 — Pemikiran Kritis (Critical Thinking)',
+  ],
+  'Malay Language|Sec 2|G1': [
+    'Unit 1 — Ikatan Kekeluargaan (Family Bonds)',
+    'Unit 2 — Belajar dan Membesar (Learning & Growth)',
+    'Unit 3 — Komuniti Kita (Our Community)',
+    'Unit 4 — Membeli-belah (Shopping)',
+    'Unit 5 — Masa Lapang (Leisure)',
+    'Unit 6 — Sayangi Alam (Care for Nature)',
+  ],
+  'Malay Language|Sec 2|G2': [
+    'Unit 1 — Impian Belia (Youth Dreams)',
+    'Unit 2 — Hubungan Sosial (Relationships)',
+    'Unit 3 — Wang dan Perbelanjaan (Finance)',
+    'Unit 4 — Kesihatan dan Sukan (Health & Sports)',
+    'Unit 5 — Media dan Maklumat (Media)',
+    'Unit 6 — Kesedaran Sivik (Civic Awareness)',
+  ],
+  'Malay Language|Sec 2|G3': [
+    'Unit 1 — Isu Masyarakat (Social Issues)',
+    'Unit 2 — Kesusasteraan (Literature)',
+    'Unit 3 — Pasaran dan Perdagangan (Market & Trade)',
+    'Unit 4 — Kelestarian Alam (Sustainability)',
+    'Unit 5 — Masyarakat Majmuk (Multicultural Society)',
+    'Unit 6 — Globalisasi (Globalisation)',
+  ],
+  'Malay Language|Sec 3|G1': [
+    'Unit 1 — Kerjaya dan Pekerjaan (Career)',
+    'Unit 2 — Kemahiran Hidup (Life Skills)',
+    'Unit 3 — Pelancongan dan Budaya (Travel & Culture)',
+    'Unit 4 — Nilai Kehidupan (Values)',
+    'Unit 5 — Negara dan Masyarakat (Nation & Society)',
+    'Unit 6 — Budaya Melayu (Malay Culture)',
+  ],
+  'Malay Language|Sec 3|G2': [
+    'Unit 1 — Cita-cita (Ambitions)',
+    'Unit 2 — Era Digital (Digital Era)',
+    'Unit 3 — Etika dan Tanggungjawab (Ethics)',
+    'Unit 4 — Semangat Singapura (Singapore Spirit)',
+    'Unit 5 — Apresiasi Sastera (Literary Appreciation)',
+    'Unit 6 — Masyarakat Masa Depan (Future Society)',
+  ],
+  'Malay Language|Sec 3|G3': [
+    'Unit 1 — Identiti (Identity)',
+    'Unit 2 — Dilema Etika (Ethical Dilemmas)',
+    'Unit 3 — Seni dan Kreativiti (Arts & Creativity)',
+    'Unit 4 — Perspektif Antarabangsa (International Perspectives)',
+    'Unit 5 — Bahasa dan Budaya (Language & Culture)',
+    'Unit 6 — Penulisan Argumentatif (Argumentative Writing)',
+  ],
+  'Malay Language|Sec 4|G1': [
+    'Unit 1 — Perancangan Hidup (Life Planning)',
+    'Unit 2 — Sumbangan Sosial (Social Contribution)',
+    'Unit 3 — Tradisi dan Kemodenan (Tradition & Modernity)',
+    'Unit 4 — Kepentingan Bahasa Melayu (Importance of ML)',
+    'Unit 5 — Ulangkaji Menyeluruh (Revision)',
+    'Unit 6 — Persediaan Lisan (Oral Exam Prep)',
+  ],
+  'Malay Language|Sec 4|G2': [
+    'Unit 1 — Hal Semasa (Current Affairs)',
+    'Unit 2 — Etika Teknologi (Tech Ethics)',
+    'Unit 3 — Warisan Budaya (Cultural Heritage)',
+    'Unit 4 — Warga Global (Global Citizenship)',
+    'Unit 5 — Ulangkaji Menyeluruh (Revision)',
+    'Unit 6 — Persediaan Lisan (Oral Exam Prep)',
+  ],
+  'Malay Language|Sec 4|G3': [
+    'Unit 1 — Perubahan Sosial (Social Change)',
+    'Unit 2 — Falsafah dan Kehidupan (Philosophy & Life)',
+    'Unit 3 — Hubungan Antarabangsa (International Relations)',
+    'Unit 4 — Sastera dan Kritikan (Literature & Criticism)',
+    'Unit 5 — Ulangkaji Menyeluruh (Revision)',
+    'Unit 6 — Persediaan Lisan (Oral Exam Prep)',
+  ],
+  // Tamil Language
+  'Tamil Language|Sec 1|G1': [
+    'Unit 1 — என் குடும்பம் (My Family)',
+    'Unit 2 — பள்ளி வாழ்க்கை (School Life)',
+    'Unit 3 — என் நண்பர்கள் (My Friends)',
+    'Unit 4 — அன்றாட வாழ்க்கை (Daily Routines)',
+    'Unit 5 — திருவிழாக்கள் (Festivals)',
+    'Unit 6 — உணவு கலாச்சாரம் (Food Culture)',
+  ],
+  'Tamil Language|Sec 1|G2': [
+    'Unit 1 — என்னை அறிமுகப்படுத்துகிறேன் (Self Introduction)',
+    'Unit 2 — பாடப்புற செயல்பாடுகள் (CCAs)',
+    'Unit 3 — ஆரோக்கியமான வாழ்க்கை (Healthy Living)',
+    'Unit 4 — சுற்றுச்சூழல் (Environment)',
+    'Unit 5 — தொழில்நுட்பம் (Technology)',
+    'Unit 6 — தமிழ் கலாச்சாரம் (Tamil Culture)',
+  ],
+  'Tamil Language|Sec 1|G3': [
+    'Unit 1 — இளையோர் வளர்ச்சி (Youth Development)',
+    'Unit 2 — சமூக அக்கறை (Social Care)',
+    'Unit 3 — கலாச்சார மரபு (Cultural Heritage)',
+    'Unit 4 — உலகளாவிய கண்ணோட்டம் (Global Perspectives)',
+    'Unit 5 — விஞ்ஞானமும் எதிர்காலமும் (Science & Future)',
+    'Unit 6 — விமர்சன சிந்தனை (Critical Thinking)',
+  ],
+  'Tamil Language|Sec 2|G1': [
+    'Unit 1 — குடும்ப உறவுகள் (Family Bonds)',
+    'Unit 2 — கற்றல் வளர்ச்சி (Learning & Growth)',
+    'Unit 3 — சமூகம் (Community)',
+    'Unit 4 — சந்தை வணிகம் (Shopping)',
+    'Unit 5 — ஓய்வு நேரம் (Leisure)',
+    'Unit 6 — சுற்றுச்சூழல் பாதுகாப்பு (Nature Care)',
+  ],
+  'Tamil Language|Sec 2|G2': [
+    'Unit 1 — இளைஞர் கனவுகள் (Youth Dreams)',
+    'Unit 2 — சமூக உறவுகள் (Relationships)',
+    'Unit 3 — நுகர்வோர் கல்வி (Consumer Education)',
+    'Unit 4 — உடல் நலம் மற்றும் விளையாட்டு (Health & Sports)',
+    'Unit 5 — ஊடகம் (Media)',
+    'Unit 6 — குடிமை விழிப்புணர்வு (Civic Awareness)',
+  ],
+  'Tamil Language|Sec 2|G3': [
+    'Unit 1 — சமூக சிக்கல்கள் (Social Issues)',
+    'Unit 2 — இலக்கியம் (Literature)',
+    'Unit 3 — வணிகமும் பரிமாற்றமும் (Trade & Exchange)',
+    'Unit 4 — நிலையான வளர்ச்சி (Sustainability)',
+    'Unit 5 — பன்முக சமூகம் (Multicultural Society)',
+    'Unit 6 — உலகமயமாக்கல் (Globalisation)',
+  ],
+  'Tamil Language|Sec 3|G1': [
+    'Unit 1 — தொழில் மற்றும் வேலை (Career & Work)',
+    'Unit 2 — வாழ்க்கை திறன்கள் (Life Skills)',
+    'Unit 3 — பயணமும் கலாச்சாரமும் (Travel & Culture)',
+    'Unit 4 — வாழ்க்கை விழுமியங்கள் (Values)',
+    'Unit 5 — நாடு மற்றும் சமூகம் (Nation & Society)',
+    'Unit 6 — தமிழ் கலாச்சாரம் (Tamil Culture)',
+  ],
+  'Tamil Language|Sec 3|G2': [
+    'Unit 1 — லட்சியங்கள் (Ambitions)',
+    'Unit 2 — டிஜிட்டல் யுகம் (Digital Age)',
+    'Unit 3 — நெறிமுறை மற்றும் பொறுப்பு (Ethics & Responsibility)',
+    'Unit 4 — சிங்கப்பூர் உணர்வு (Singapore Spirit)',
+    'Unit 5 — இலக்கிய பாராட்டு (Literary Appreciation)',
+    'Unit 6 — எதிர்கால சமூகம் (Future Society)',
+  ],
+  'Tamil Language|Sec 3|G3': [
+    'Unit 1 — அடையாளம் (Identity)',
+    'Unit 2 — நெறிமுறை சிக்கல்கள் (Ethical Dilemmas)',
+    'Unit 3 — கலை மற்றும் படைப்பாற்றல் (Arts & Creativity)',
+    'Unit 4 — சர்வதேச கண்ணோட்டம் (International Perspectives)',
+    'Unit 5 — மொழியும் கலாச்சாரமும் (Language & Culture)',
+    'Unit 6 — வாதாட எழுதுதல் (Argumentative Writing)',
+  ],
+  'Tamil Language|Sec 4|G1': [
+    'Unit 1 — வாழ்க்கை திட்டமிடல் (Life Planning)',
+    'Unit 2 — சமூக பங்களிப்பு (Social Contribution)',
+    'Unit 3 — பாரம்பரியமும் நவீனமும் (Tradition & Modernity)',
+    'Unit 4 — தமிழின் முக்கியத்துவம் (Importance of Tamil)',
+    'Unit 5 — விரிவான மதிப்பாய்வு (Revision)',
+    'Unit 6 — வாய்மொழி தேர்வு தயாரிப்பு (Oral Exam Prep)',
+  ],
+  'Tamil Language|Sec 4|G2': [
+    'Unit 1 — நடப்பு நிகழ்வுகள் (Current Affairs)',
+    'Unit 2 — தொழில்நுட்ப நெறிமுறை (Tech Ethics)',
+    'Unit 3 — கலாச்சார மரபு (Cultural Heritage)',
+    'Unit 4 — உலகளாவிய குடிமகன் (Global Citizenship)',
+    'Unit 5 — விரிவான மதிப்பாய்வு (Revision)',
+    'Unit 6 — வாய்மொழி தேர்வு தயாரிப்பு (Oral Exam Prep)',
+  ],
+  'Tamil Language|Sec 4|G3': [
+    'Unit 1 — சமூக மாற்றம் (Social Change)',
+    'Unit 2 — தத்துவமும் வாழ்க்கையும் (Philosophy & Life)',
+    'Unit 3 — சர்வதேச உறவுகள் (International Relations)',
+    'Unit 4 — இலக்கியமும் விமர்சனமும் (Literature & Criticism)',
+    'Unit 5 — விரிவான மதிப்பாய்வு (Revision)',
+    'Unit 6 — வாய்மொழி தேர்வு தயாரிப்பு (Oral Exam Prep)',
+  ],
+};
+
+function renderTopicList(lang, level, bandFull) {
+  const band   = bandFull.split(' ')[0];
+  const key    = `${lang}|${level}|${band}`;
+  let topics   = (TOPIC_DATA[key] || []).slice();
+  // Pad to 20 for simulation
+  let i = topics.length + 1;
+  while (topics.length < 20) { topics.push(`Unit ${i} — 补充单元 (Supplementary Unit ${i})`); i++; }
+  const list   = document.getElementById('topic-list');
+  if (!list) return;
+  list.innerHTML = '';
+  topics.forEach(t => {
+    const row = document.createElement('div');
+    row.className = 'topic-list-item';
+    row.dataset.value = t;
+    row.innerHTML = `<span class="tli-check"></span><span class="tli-label">${t}</span>`;
+    row.onclick = () => toggleTopicItem(row, t);
+    list.appendChild(row);
+  });
+  const ti = document.getElementById('topic-input');
+  if (ti) ti.value = '';
+  updateTopicTags();
+}
+
+function toggleTopicItem(row, text) {
+  row.classList.toggle('checked');
+  updateTopicTags();
+}
+
+function updateTopicTags() {
+  const tagsRow = document.getElementById('topic-tags-row');
+  if (!tagsRow) return;
+  const checked = document.querySelectorAll('#topic-list .topic-list-item.checked');
+  tagsRow.innerHTML = '';
+  checked.forEach(row => {
+    const t = row.dataset.value;
+    const tag = document.createElement('div');
+    tag.className = 'tag';
+    tag.innerHTML = `${t} <span class="tag-x" onclick="removeTopicTag(this,'${t.replace(/'/g,"\\'")}');event.stopPropagation()">×</span>`;
+    tagsRow.appendChild(tag);
+  });
+}
+
+function removeTopicTag(x, text) {
+  const row = document.querySelector(`#topic-list .topic-list-item[data-value="${CSS.escape(text)}"]`);
+  if (row) row.classList.remove('checked');
+  updateTopicTags();
+}
+
+function filterTopics(q) {
+  const lq = q.toLowerCase();
+  document.querySelectorAll('#topic-list .topic-list-item').forEach(row => {
+    row.classList.toggle('filtered', lq.length > 0 && !row.dataset.value.toLowerCase().includes(lq));
+  });
+  const list = document.getElementById('topic-list');
+  const anyVisible = list && [...list.querySelectorAll('.topic-list-item:not(.filtered)')].length > 0;
+  let empty = list && list.querySelector('.topic-list-empty');
+  if (!anyVisible && list) {
+    if (!empty) { empty = document.createElement('div'); empty.className = 'topic-list-empty'; list.appendChild(empty); }
+    empty.textContent = 'No matching topics.';
+  } else if (empty) {
+    empty.remove();
+  }
+}
+
+function syncKnowledgeBase() {
+  const lang     = (document.getElementById('editor-lang')  || {}).value || 'Chinese Language';
+  const level    = (document.getElementById('editor-level') || {}).value || 'Sec 2';
+  const bandFull = (document.getElementById('editor-band')  || {}).value || 'G3 (Advanced)';
+  const band     = bandFull.split(' ')[0];
+  const sub = document.getElementById('kb-curriculum-sub');
+  if (sub) sub.textContent = `${lang} · ${level} · ${band}`;
+  renderTopicList(lang, level, bandFull);
+}
+
+function toggleCurriculumKB(checked) {
+  const detail = document.getElementById('kb-curriculum-detail');
+  if (!detail) return;
+  detail.classList.toggle('hidden', !checked);
 }
 </script>
+
+<!-- ═══════════════════════════════════════════════════════ CHANGELOG SCREEN -->
+<div class="screen" id="s-changelog">
+  <nav class="topnav">
+    <span class="nav-logo" onclick="showScreen('s-home')">LangBuddy</span>
+    <div class="nav-tabs">
+      <button class="nav-tab" onclick="showScreen('s-home')">My Classes</button>
+      <button class="nav-tab" onclick="showScreen('s-library')">Library</button>
+      <button class="nav-tab" onclick="showScreen('s-my-missions')">My Missions</button>
+      <button class="nav-tab active" onclick="showScreen('s-changelog')" style="font-size:12px;">Changelog</button>
+    </div>
+    <div class="nav-right"><div class="avatar">MT</div></div>
+  </nav>
+  <div class="page-mid" style="max-width:580px;">
+    <div class="ph">
+      <div class="ph-title">Changelog</div>
+      <div class="ph-sub">Mission creation flow — tracked from v13.</div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-ver">v16</span>
+        <span class="cl-date">11 Apr 2026</span>
+        <span class="badge b-blue" style="margin-left:auto;font-size:10px;">Latest</span>
+      </div>
+      <div class="cl-list">
+        <div class="cl-row">
+          <div class="cl-what">Required fields marked with <span style="color:var(--red);font-weight:700;">*</span> — Mission name, Description, Learning focus, The task</div>
+          <div class="cl-why">No consistent signal for required vs optional fields made the form harder to scan. Asterisk is universal and adds zero words for optional fields.</div>
+        </div>
+        <div class="cl-row">
+          <div class="cl-what">"Optional add-ons" subtitle removed from Key vocabulary; all "Optional" inline labels removed</div>
+          <div class="cl-why">Absence of * already signals optional — the extra label was redundant and added visual noise.</div>
+        </div>
+        <div class="cl-row">
+          <div class="cl-what">Section subtitles and field hints rewritten to be shorter and more action-oriented</div>
+          <div class="cl-why">Previous copy was generic and too long — didn't guide or inspire. Short, specific copy is faster to read and feels more purposeful.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-ver">v15</span>
+        <span class="cl-date">11 Apr 2026</span>
+        <span class="badge b-muted" style="margin-left:auto;font-size:10px;"></span>
+      </div>
+      <div class="cl-list">
+        <div class="cl-row">
+          <div class="cl-what">Create Mission redesigned as a step-based flow</div>
+          <div class="cl-why">Single-page scroll was cognitively heavy — teachers couldn't gauge progress or know what was left. One section at a time reduces overload and makes the task feel manageable.</div>
+        </div>
+        <div class="cl-row">
+          <div class="cl-what">Previous / Next controls + free step-jumping via nav</div>
+          <div class="cl-why">Teachers need to move non-linearly — jumping back to fix a title mid-flow shouldn't require scrolling through the whole form.</div>
+        </div>
+        <div class="cl-row">
+          <div class="cl-what">Review state before publish</div>
+          <div class="cl-why">Gives teachers one final check across all steps before committing — reduces publish errors and builds confidence in the flow.</div>
+        </div>
+        <div class="cl-row">
+          <div class="cl-what">Step 4 (Assign) visually consistent with other steps</div>
+          <div class="cl-why">Previously used a different card style — unified so each step feels like part of the same flow.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-ver">v14</span>
+        <span class="cl-date">11 Apr 2026</span>
+        <span class="badge b-muted" style="margin-left:auto;font-size:10px;"></span>
+      </div>
+      <div class="cl-list">
+        <div class="cl-row">
+          <div class="cl-what">"Audience" renamed to "Designed for"</div>
+          <div class="cl-why">Closer to how teachers think — you're choosing who this is for, not describing an audience segment.</div>
+        </div>
+        <div class="cl-row">
+          <div class="cl-what">Knowledge base syncs to selected group</div>
+          <div class="cl-why">KB should always match the student group — keeping them out of sync invites errors.</div>
+        </div>
+        <div class="cl-row">
+          <div class="cl-what">Textbook topics nested under MTL toggle; Knowledge base moved above Key vocabulary</div>
+          <div class="cl-why">Topics only exist within the curriculum — nesting shows the dependency. Structural context should come before teacher add-ons.</div>
+        </div>
+        <div class="cl-row">
+          <div class="cl-what">Topic selector: scrollable checklist with search + selected tags</div>
+          <div class="cl-why">Chip grid breaks above ~12 items. Checklist scales to 50+ and search makes long lists fast to navigate.</div>
+        </div>
+        <div class="cl-row">
+          <div class="cl-what">Key vocabulary → "Optional add-ons" · Language balance → "Language mix"</div>
+          <div class="cl-why">"Optional add-ons" clarifies vocab is supplemental, not the base. "Mix" replaces "balance" — balance implies 50/50, mix reflects a sliding blend.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-ver">v13</span>
+        <span class="cl-date">4 Apr 2026</span>
+        <span class="badge b-muted" style="margin-left:auto;font-size:10px;">Baseline</span>
+      </div>
+      <div class="cl-list">
+        <div class="cl-row">
+          <div class="cl-what" style="color:var(--muted);font-weight:400;">Starting point. Static knowledge base, Audience label, Key vocabulary above Knowledge base.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+/* ═══ CHANGELOG ═══ */
+.cl-entry { margin-bottom: 32px; }
+.cl-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.cl-ver  { font-family: var(--head); font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: -.3px; }
+.cl-date { font-family: var(--body); font-size: 12px; color: var(--dim); }
+.cl-list { border-left: 2px solid var(--border); padding-left: 16px; display: flex; flex-direction: column; gap: 0; }
+.cl-row  { padding: 11px 0; border-bottom: 1px solid var(--border); }
+.cl-row:last-child { border-bottom: none; }
+.cl-what { font-family: var(--head); font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+.cl-why  { font-family: var(--body); font-size: 12px; color: var(--muted); line-height: 1.55; }
+</style>
 </body>
 </html>
