@@ -1614,11 +1614,11 @@ button, input, select, textarea { font-family: inherit; }
             <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
               <div>
                 <div style="font-size:10px;font-family:var(--head);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">MTL language title</div>
-                <input class="f-input" id="editor-title-mtl" placeholder="e.g. 在菜市场买菜">
+                <input class="f-input" id="editor-title-mtl" placeholder="e.g. 聊聊你最喜欢的食物">
               </div>
               <div>
                 <div style="font-size:10px;font-family:var(--head);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">English title</div>
-                <input class="f-input" id="editor-title-en" placeholder="e.g. At the Market">
+                <input class="f-input" id="editor-title-en" placeholder="e.g. Talking About Favourite Food">
               </div>
             </div>
           </div>
@@ -1626,7 +1626,7 @@ button, input, select, textarea { font-family: inherit; }
 
         <div class="f-group">
           <label class="f-label">Mission description<span class="req">*</span></label>
-          <textarea class="f-textarea" id="editor-desc" placeholder="e.g. Head to the wet market and see if you can buy tonight's dinner — all in Chinese! 🛒" style="min-height:52px;"></textarea>
+          <textarea class="f-textarea" id="editor-desc" placeholder="e.g. Chat about favourite food and recommend something delicious to try at a hawker centre." style="min-height:52px;"></textarea>
           <div class="f-hint">Make it sound like an adventure, not homework.</div>
         </div>
       </div>
@@ -1649,13 +1649,13 @@ button, input, select, textarea { font-family: inherit; }
 
         <div class="f-group">
           <label class="f-label">Learning focus<span class="req">*</span><span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Set the learning goal for this mission. Students never see this, but it helps keep the speaking practice focused.</span></span></label>
-          <input class="f-input" id="editor-objective" placeholder="e.g. Develop fluency in explaining food choices, learn vocabulary relating to shopping, and become more confident talking about prices">
+          <input class="f-input" id="editor-objective" placeholder="e.g. Build confidence talking about food preferences and giving recommendations">
           <div class="f-hint">This stays behind the scenes and keeps the mission focused on what students should practise.</div>
         </div>
 
         <div class="f-group">
           <label class="f-label">The task<span class="req">*</span></label>
-          <textarea class="f-textarea" id="editor-task" style="min-height:88px;" placeholder="e.g. Buy ingredients for dinner, ask about prices, and see if you can bargain politely in Chinese."></textarea>
+          <textarea class="f-textarea" id="editor-task" style="min-height:88px;" placeholder="e.g. Talk about food you like, ask what the other person enjoys, and recommend one dish to try."></textarea>
           <div class="f-hint">Focus on what the student will actually do in the conversation.</div>
         </div>
       </div>
@@ -1722,7 +1722,7 @@ button, input, select, textarea { font-family: inherit; }
       <div class="more-opts-body" id="sec2-more">
         <div class="f-group" style="margin-top:16px;">
           <label class="f-label">Sentence patterns<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Useful structures students can lean on during the mission. They support the conversation without needing to be followed word for word.</span></span></label>
-          <textarea class="f-textarea" id="editor-patterns" placeholder="e.g. 我想买...&#10;这个多少钱？&#10;可以便宜一点吗？"></textarea>
+          <textarea class="f-textarea" id="editor-patterns" placeholder="e.g. 我最喜欢吃...&#10;你喜欢吃什么？&#10;我推荐你试试看..."></textarea>
         </div>
         <div class="f-group" style="margin-bottom:0;">
           <label class="f-label">Class notes</label>
@@ -2519,62 +2519,62 @@ function updateVoiceOpts(provider) {
 const LANGUAGE_COPY = {
   'Chinese Language': {
     shortLabel: 'Chinese',
-    titlePlaceholder: 'e.g. 在菜市场买菜',
-    englishTitlePlaceholder: 'e.g. At the Market',
-    descPlaceholder: "e.g. Head to the wet market and see if you can buy tonight's dinner — all in Chinese! 🛒",
-    objectivePlaceholder: 'e.g. Develop fluency in asking for help; build confidence describing food choices',
-    taskPlaceholder: 'e.g. Buy ingredients for dinner, ask about prices, and see if you can bargain politely in Chinese.',
-    patternsPlaceholder: 'e.g. 我觉得...\n你可以告诉我...吗？\n因为...所以...',
-    starterVocab: ['活动 huódòng — activity', '安排 ānpái — arrange', '一起 — together', '为什么 — why'],
+    titlePlaceholder: 'e.g. 聊聊你最喜欢的食物',
+    englishTitlePlaceholder: 'e.g. Talking About Favourite Food',
+    descPlaceholder: 'e.g. Chat about favourite food and recommend something delicious to try at a hawker centre.',
+    objectivePlaceholder: 'e.g. Build confidence talking about food preferences and giving recommendations',
+    taskPlaceholder: 'e.g. Talk about food you like, ask what the other person enjoys, and recommend one dish to try.',
+    patternsPlaceholder: 'e.g. 我最喜欢吃...\n你喜欢吃什么？\n我推荐你试试看...',
+    starterVocab: ['推荐 tuījiàn — recommend', '好吃 hǎochī — tasty', '辣 là — spicy', '甜 tián — sweet'],
     suggestions: [
-      '活动 huódòng — activity',
-      '安排 ānpái — arrange',
-      '计划 jìhuà — plan',
-      '参加 cānjiā — take part',
-      '一起 — together',
-      '为什么 — why',
-      '我觉得... — I think...',
-      '可以吗？ — can we?',
+      '推荐 tuījiàn — recommend',
+      '好吃 hǎochī — tasty',
+      '辣 là — spicy',
+      '甜 tián — sweet',
+      '咸 xián — salty',
+      '最喜欢 zuì xǐhuān — favourite',
+      '我最喜欢吃... — my favourite food is...',
+      '你可以试试看... — you can try...',
     ],
   },
   'Malay Language': {
     shortLabel: 'Malay',
-    titlePlaceholder: 'e.g. Membeli makanan di pasar',
-    englishTitlePlaceholder: 'e.g. At the Market',
-    descPlaceholder: 'e.g. Masuk ke pasar dan lihat sama ada kamu boleh membeli bahan untuk makan malam — semuanya dalam Bahasa Melayu! 🛒',
-    objectivePlaceholder: 'e.g. Develop fluency in asking for help; build confidence describing food choices',
-    taskPlaceholder: 'e.g. Buy ingredients for dinner, ask about prices, and see if you can bargain politely in Malay.',
-    patternsPlaceholder: 'e.g. Saya rasa...\nBoleh kamu ceritakan...?\nKerana... jadi...',
-    starterVocab: ['aktiviti — activity', 'rancang — plan', 'bersama-sama — together', 'mengapa — why'],
+    titlePlaceholder: 'e.g. Bercakap tentang makanan kegemaran',
+    englishTitlePlaceholder: 'e.g. Talking About Favourite Food',
+    descPlaceholder: 'e.g. Chat about favourite food and recommend something tasty to try at a hawker centre.',
+    objectivePlaceholder: 'e.g. Build confidence talking about food preferences and giving recommendations',
+    taskPlaceholder: 'e.g. Talk about food you like, ask what the other person enjoys, and recommend one dish to try.',
+    patternsPlaceholder: 'e.g. Makanan kegemaran saya ialah...\nAwak suka makan apa?\nSaya syorkan awak cuba...',
+    starterVocab: ['syorkan — recommend', 'sedap — tasty', 'pedas — spicy', 'manis — sweet'],
     suggestions: [
-      'aktiviti — activity',
-      'rancang — plan',
-      'cadangan — suggestion',
-      'sertai — take part',
-      'bersama-sama — together',
-      'mengapa — why',
-      'Saya rasa... — I think...',
-      'Boleh tak...? — can we...?',
+      'syorkan — recommend',
+      'sedap — tasty',
+      'pedas — spicy',
+      'manis — sweet',
+      'masin — salty',
+      'kegemaran — favourite',
+      'Makanan kegemaran saya ialah... — my favourite food is...',
+      'Awak patut cuba... — you should try...',
     ],
   },
   'Tamil Language': {
     shortLabel: 'Tamil',
-    titlePlaceholder: 'e.g. சந்தையில் பொருள் வாங்குதல்',
-    englishTitlePlaceholder: 'e.g. At the Market',
-    descPlaceholder: 'e.g. சந்தைக்கு சென்று இரவு உணவுக்கான பொருட்களை வாங்க முடியுமா பாருங்கள் — எல்லாமும் தமிழில்! 🛒',
-    objectivePlaceholder: 'e.g. Develop fluency in asking for help; build confidence describing food choices',
-    taskPlaceholder: 'e.g. Buy ingredients for dinner, ask about prices, and see if you can bargain politely in Tamil.',
-    patternsPlaceholder: 'e.g. நான் நினைக்கிறேன்...\nநீங்கள் சொல்ல முடியுமா...?\nஏனெனில்... அதனால்...',
-    starterVocab: ['நிகழ்வு — event', 'திட்டம் — plan', 'ஒன்றாக — together', 'ஏன் — why'],
+    titlePlaceholder: 'e.g. பிடித்த உணவைப் பற்றி பேசலாம்',
+    englishTitlePlaceholder: 'e.g. Talking About Favourite Food',
+    descPlaceholder: 'e.g. Chat about favourite food and recommend something tasty to try at a hawker centre.',
+    objectivePlaceholder: 'e.g. Build confidence talking about food preferences and giving recommendations',
+    taskPlaceholder: 'e.g. Talk about food you like, ask what the other person enjoys, and recommend one dish to try.',
+    patternsPlaceholder: 'e.g. எனக்கு மிகவும் பிடித்த உணவு...\nஉங்களுக்கு என்ன சாப்பாடு பிடிக்கும்?\nநான் பரிந்துரைப்பது...',
+    starterVocab: ['பரிந்துரை — recommend', 'சுவையாக — tasty', 'காரம் — spicy', 'இனிப்பு — sweet'],
     suggestions: [
-      'நிகழ்வு — event',
-      'திட்டம் — plan',
-      'யோசனை — idea',
-      'பங்கேறு — take part',
-      'ஒன்றாக — together',
-      'ஏன் — why',
-      'நான் நினைக்கிறேன்... — I think...',
-      'செய்யலாமா? — can we do it?',
+      'பரிந்துரை — recommend',
+      'சுவையாக — tasty',
+      'காரம் — spicy',
+      'இனிப்பு — sweet',
+      'உப்பு — salty',
+      'பிடித்தது — favourite',
+      'எனக்கு மிகவும் பிடித்த உணவு... — my favourite food is...',
+      'நீங்கள் இதை முயற்சி செய்யலாம்... — you can try this...',
     ],
   },
 };
