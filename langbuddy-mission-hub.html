@@ -214,6 +214,37 @@ button, input, select, textarea { font-family: inherit; }
 
 /* section card */
 .section-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r-lg); padding: 28px; margin-bottom: 32px; }
+.intro-card { background:
+  radial-gradient(circle at top left, rgba(12,159,229,.13) 0, rgba(12,159,229,0) 38%),
+  linear-gradient(135deg, #f3f9ff 0%, #ffffff 56%, #eef7ff 100%);
+  border-color: #cfe3f6;
+  padding: 22px 24px 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 18px 38px rgba(12,159,229,.08);
+}
+.intro-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.intro-card-copy { display: flex; align-items: center; gap: 9px; min-width: 0; }
+.intro-card-icon { width: 36px; height: 36px; border-radius: 12px; background: rgba(12,159,229,.1); color: var(--blue-dk); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.intro-card .section-title { font-size: 22px; line-height: 1.15; margin-bottom: 6px; max-width: 700px; }
+.intro-card .section-sub { font-size: 14px; color: var(--ink2); line-height: 1.45; max-width: 760px; }
+.intro-dismiss { width: 30px; height: 30px; border-radius: 10px; border: 1px solid transparent; background: rgba(255,255,255,.66); color: var(--muted); font-size: 17px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+.intro-dismiss:hover { background: rgba(255,255,255,.9); border-color: #d8e6f2; color: var(--ink2); }
+.intro-flow { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 14px; }
+.intro-node { border: 1.5px solid #d8e8f6; border-radius: 16px; background: rgba(255,255,255,.88); padding: 14px 16px; display: flex; align-items: center; gap: 12px; min-width: 0; box-shadow: 0 8px 20px rgba(12,159,229,.05); }
+.intro-node-visual { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 26px; box-shadow: inset 0 0 0 1px rgba(12,159,229,.08); }
+.intro-node-visual.teacher { background: linear-gradient(180deg, #e8f5ff 0%, #d7efff 100%); }
+.intro-node-visual.buddy { background: linear-gradient(180deg, #eef7ff 0%, #deefff 100%); }
+.intro-node-copy { min-width: 0; }
+.intro-node-title { font-family: var(--head); font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+.intro-node-example { font-size: 11.5px; color: var(--muted); margin-top: 4px; line-height: 1.35; }
+.intro-arrow { width: 42px; height: 42px; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.94); border: 1.5px solid #d8e8f5; color: var(--blue); font-size: 22px; font-weight: 700; flex-shrink: 0; box-shadow: 0 6px 16px rgba(12,159,229,.05); }
+@media (max-width: 720px) {
+  .intro-card { padding: 18px 18px 16px; }
+  .intro-card .section-title { font-size: 18px; }
+  .intro-card .section-sub { font-size: 13px; }
+  .intro-flow { grid-template-columns: 1fr; }
+  .intro-arrow { justify-self: center; transform: rotate(90deg); width: 28px; height: 28px; font-size: 15px; }
+}
 /* Section header — step badge + big title */
 .section-header { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 24px; }
 .section-step { width: 26px; height: 26px; border-radius: 50%; background: var(--blue); color: #fff; font-family: var(--head); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 3px; }
@@ -1243,7 +1274,7 @@ button, input, select, textarea { font-family: inherit; }
           <div class="mrow-icon">🏫</div>
           <div class="mrow-body">
             <div class="mrow-title">School Life 学校生活</div>
-            <div class="mrow-meta">Textbook Practice · 12 min · Oral exam aligned</div>
+            <div class="mrow-meta">Textbook Practice · 12 min · Oral practice aligned</div>
           </div>
           <div class="mrow-act">
             <span class="btn-tip-wrap"><button class="btn btn-ghost btn-sm" onclick="showEditorNew()"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-right:3px;vertical-align:-1px;flex-shrink:0"><rect x="0.75" y="3.75" width="7.5" height="7.5" rx="1.25" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 2.5V2A1.5 1.5 0 0 1 5 .5h5A1.5 1.5 0 0 1 11.5 2v5A1.5 1.5 0 0 1 10 8.5h-.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Create copy</button><span class="tip-popup">Create your own copy — the original stays unchanged</span></span>
@@ -1334,7 +1365,7 @@ button, input, select, textarea { font-family: inherit; }
             </div>
             <span class="lib-usage-badge" title="24 teachers using" style="margin-left:auto;flex-shrink:0;">👤 24</span>
           </div>
-          <div class="lib-desc">Students practise ordering food and bargaining at a wet market — great for oral exam prep.</div>
+          <div class="lib-desc">Students practise ordering food and bargaining at a wet market — great for oral practice.</div>
         </div>
         <div class="lib-tags-bar">
           <span class="badge b-blue">Chinese</span><span class="badge b-muted">Sec 2</span><span class="badge b-muted">G3</span><span class="badge b-purple">Oral Practice</span>
@@ -1355,7 +1386,7 @@ button, input, select, textarea { font-family: inherit; }
             </div>
             <span class="lib-usage-badge" title="18 teachers using" style="margin-left:auto;flex-shrink:0;">👤 18</span>
           </div>
-          <div class="lib-desc">AI asks about CCA, teachers, and school routines. Aligned to Sec 2 oral exam topics.</div>
+          <div class="lib-desc">AI asks about CCA, teachers, and school routines. Aligned to Sec 2 oral practice topics.</div>
         </div>
         <div class="lib-tags-bar">
           <span class="badge b-blue">Chinese</span><span class="badge b-muted">Sec 2</span><span class="badge b-muted">G3</span><span class="badge b-teal">Textbook Practice</span>
@@ -1503,19 +1534,83 @@ button, input, select, textarea { font-family: inherit; }
 
   <div class="page-mid" style="padding-bottom:80px;padding-top:24px;">
 
+    <div class="section-card intro-card">
+      <div class="intro-card-head">
+        <div class="intro-card-copy">
+          <div class="intro-card-icon">💬</div>
+          <div>
+            <div class="section-title">Design a fun mission for students to practise speaking</div>
+          </div>
+        </div>
+        <button class="intro-dismiss" type="button" aria-label="Dismiss how this works" onclick="dismissIntroCard()">✕</button>
+      </div>
+      <div class="intro-flow">
+        <div class="intro-node">
+          <div class="intro-node-visual teacher">📝</div>
+          <div class="intro-node-copy">
+            <div class="intro-node-title">You set the mission</div>
+          </div>
+        </div>
+        <div class="intro-arrow" aria-hidden="true">→</div>
+        <div class="intro-node">
+          <div class="intro-node-visual buddy">🤖</div>
+          <div class="intro-node-copy">
+            <div class="intro-node-title">Students talk with an AI Buddy to complete the mission</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- SECTION 1: Set the stage -->
     <div class="section-card" id="sec-1">
       <div class="section-header">
         <div class="section-step">1</div>
         <div>
           <div class="section-title">About this mission</div>
-          <div class="section-sub" id="editor-sub-1">Give it a name that makes students want to dive in.</div>
+          <div class="section-sub" id="editor-sub-1">Start by setting up the mission basics so students know what to expect.</div>
         </div>
       </div>
 
-      <!-- CLUSTER A: What students see -->
+      <!-- CLUSTER A: Audience -->
       <div class="field-cluster">
-        <div class="cluster-label no-sep">What students see</div>
+        <div class="cluster-label no-sep">Start here</div>
+
+        <div class="f-group">
+          <label class="f-label">I'm designing a mission for<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">The Buddy calibrates its vocabulary, difficulty, and correction style based on the level and band you select here.</span></span></label>
+          <div class="f-row-3">
+            <select class="f-select" id="editor-lang" onchange="handleAudienceChange()">
+              <option selected>Chinese Language</option>
+              <option>Malay Language</option>
+              <option>Tamil Language</option>
+            </select>
+            <select class="f-select" id="editor-level" onchange="handleAudienceChange()">
+              <option>Sec 1</option>
+              <option selected>Sec 2</option>
+              <option>Sec 3</option>
+              <option>Sec 4</option>
+            </select>
+            <select class="f-select" id="editor-band" onchange="handleAudienceChange()">
+              <option>G1</option>
+              <option>G2</option>
+              <option selected>G3</option>
+              <option>Higher MTL</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="f-group">
+          <label class="f-label">Mission type</label>
+          <div class="pill-group">
+            <button class="pill-opt" onclick="selectPill(this)">Textbook Practice</button>
+            <button class="pill-opt sel" onclick="selectPill(this)">Oral Practice</button>
+            <button class="pill-opt" onclick="selectPill(this)">Fun Practice</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLUSTER B: What students see -->
+      <div class="field-cluster">
+        <div class="cluster-label">Name and pitch the mission</div>
 
         <div class="f-group">
           <label class="f-label">Mission name<span class="req">*</span><span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Think scenario, not topic. "Buy dinner at the market" beats "Food vocabulary".</span></span></label>
@@ -1548,12 +1643,12 @@ button, input, select, textarea { font-family: inherit; }
             </div>
             <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
               <div>
-                <div style="font-size:10px;font-family:var(--head);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">MTL title</div>
-                <input class="f-input" id="editor-title-mtl" placeholder="e.g. 在菜市场买菜" value="在市场">
+                <div style="font-size:10px;font-family:var(--head);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">MTL language title</div>
+                <input class="f-input" id="editor-title-mtl" placeholder="e.g. 在菜市场买菜">
               </div>
               <div>
                 <div style="font-size:10px;font-family:var(--head);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">English title</div>
-                <input class="f-input" id="editor-title-en" placeholder="e.g. Buy groceries at the market" value="At the Market">
+                <input class="f-input" id="editor-title-en" placeholder="e.g. At the Market">
               </div>
             </div>
           </div>
@@ -1561,58 +1656,11 @@ button, input, select, textarea { font-family: inherit; }
 
         <div class="f-group">
           <label class="f-label">Mission description<span class="req">*</span></label>
-          <textarea class="f-textarea" id="editor-desc" placeholder="e.g. Head to the wet market and see if you can buy tonight's dinner — all in Chinese! 🛒" style="min-height:52px;">Head to the wet market and see if you can buy tonight's dinner — all in Chinese! 🛒</textarea>
+          <textarea class="f-textarea" id="editor-desc" placeholder="e.g. Head to the wet market and see if you can buy tonight's dinner — all in Chinese! 🛒" style="min-height:52px;"></textarea>
           <div class="f-hint">Make it sound like an adventure, not homework.</div>
         </div>
       </div>
 
-      <!-- CLUSTER B: Classification -->
-      <div class="field-cluster">
-        <div class="cluster-label">Who is this for?</div>
-
-        <div class="f-group">
-          <label class="f-label">Designed for<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">The Buddy calibrates its vocabulary, difficulty, and correction style based on the level and band you select here.</span></span></label>
-          <div class="f-row-3">
-            <select class="f-select" id="editor-lang" onchange="syncKnowledgeBase()">
-              <option selected>Chinese Language</option>
-              <option>Malay Language</option>
-              <option>Tamil Language</option>
-            </select>
-            <select class="f-select" id="editor-level" onchange="syncKnowledgeBase()">
-              <option>Sec 1</option>
-              <option selected>Sec 2</option>
-              <option>Sec 3</option>
-              <option>Sec 4</option>
-            </select>
-            <select class="f-select" id="editor-band" onchange="syncKnowledgeBase()">
-              <option>G1 (Foundation)</option>
-              <option>G2 (Standard)</option>
-              <option selected>G3 (Advanced)</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="f-group">
-          <label class="f-label">Mission type</label>
-          <div class="pill-group">
-            <button class="pill-opt" onclick="selectPill(this)">Textbook Practice</button>
-            <button class="pill-opt sel" onclick="selectPill(this)">Oral Practice</button>
-            <button class="pill-opt" onclick="selectPill(this)">Fun Practice</button>
-          </div>
-        </div>
-      </div>
-
-      <button class="more-opts-toggle" onclick="toggleMoreOptsSection1(this)" style="margin-top:4px;">
-        <span class="more-opts-line"></span>
-        <span>More options</span>
-        <span class="more-opts-line"></span>
-      </button>
-      <div class="more-opts-body" id="sec1-more">
-        <div class="f-group" style="margin-top:16px;margin-bottom:0;">
-          <label class="f-label">Extra notes</label>
-          <textarea class="f-textarea" style="min-height:52px;" placeholder="e.g. 'Prep for their oral exam next week' or 'Students are seeing this topic for the first time'"></textarea>
-        </div>
-      </div>
     </div>
 
     <!-- SECTION 2: Design the task -->
@@ -1621,33 +1669,33 @@ button, input, select, textarea { font-family: inherit; }
         <div class="section-step">2</div>
         <div>
           <div class="section-title">Design the mission</div>
-          <div class="section-sub">Brief the Buddy and set the scene.</div>
+          <div class="section-sub">Shape the scenario, speaking goal, and language support.</div>
         </div>
       </div>
 
-      <!-- CLUSTER A: What the Buddy must achieve -->
+      <!-- CLUSTER A: Mission goal -->
       <div class="field-cluster">
         <div class="cluster-label no-sep">The objective</div>
 
         <div class="f-group">
-          <label class="f-label">Learning focus<span class="req">*</span><span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Your private brief to the Buddy. Sets the learning goal — students never see it.</span></span></label>
-          <input class="f-input" id="editor-objective" placeholder="e.g. bargaining, describing quantities, using comparison words" value="Bargaining and using money-related vocabulary">
-          <div class="f-hint">Your private brief to the Buddy — students don't see this.</div>
+          <label class="f-label">Learning focus<span class="req">*</span><span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Set the learning goal for this mission. Students never see this, but it helps keep the speaking practice focused.</span></span></label>
+          <input class="f-input" id="editor-objective" placeholder="e.g. Develop fluency in explaining food choices, learn vocabulary relating to shopping, and become more confident talking about prices">
+          <div class="f-hint">This stays behind the scenes and keeps the mission focused on what students should practise.</div>
         </div>
 
         <div class="f-group">
           <label class="f-label">The task<span class="req">*</span></label>
-          <textarea class="f-textarea" id="editor-task" style="min-height:88px;" placeholder="e.g. You're at a wet market. Buy 3 ingredients for dinner, ask the price, and try to bargain — all in Chinese.">You're at a wet market. Buy ingredients for a family dinner and bargain for a good price — all in Chinese.</textarea>
-          <div class="f-hint">Write it as a clear instruction the student follows.</div>
+          <textarea class="f-textarea" id="editor-task" style="min-height:88px;" placeholder="e.g. Buy ingredients for dinner, ask about prices, and see if you can bargain politely in Chinese."></textarea>
+          <div class="f-hint">Focus on what the student will actually do in the conversation.</div>
         </div>
       </div>
 
-      <!-- CLUSTER B: Resources shown to students / Buddy -->
+      <!-- CLUSTER B: Mission resources -->
       <div class="field-cluster">
         <div class="cluster-label">Resources</div>
 
         <div class="f-group">
-          <label class="f-label">Knowledge base <span style="font-size:11px;font-weight:400;text-transform:none;color:var(--muted);">What the Buddy knows before the conversation starts</span></label>
+          <label class="f-label">Knowledge base <span style="font-size:11px;font-weight:400;text-transform:none;color:var(--muted);">What this mission draws on before the conversation starts</span></label>
           <div class="kb-box">
             <div class="kb-row">
               <div class="kb-row-icon">🏫</div>
@@ -1683,25 +1731,13 @@ button, input, select, textarea { font-family: inherit; }
         </div>
 
         <div class="f-group">
-          <label class="f-label">Key vocabulary<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Extra words you want students to practise — on top of what's already in the knowledge base. Shown as a word bank during the conversation, and the Buddy nudges students to use them naturally.</span></span></label>
+          <label class="f-label">Key vocabulary<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Extra words you want students to practise — on top of what's already in the knowledge base. Shown as a word bank during the conversation to support richer, more confident responses.</span></span></label>
           <div class="ss-wrap">
             <div class="tag-row" onclick="document.getElementById('vocab-input').focus()" id="editor-vocab">
-              <div class="tag">鱼 yú — fish <span class="tag-x" onclick="this.parentElement.remove();event.stopPropagation()">×</span></div>
-              <div class="tag">蔬菜 shūcài — vegetables <span class="tag-x" onclick="this.parentElement.remove();event.stopPropagation()">×</span></div>
-              <div class="tag">多少钱 — how much <span class="tag-x" onclick="this.parentElement.remove();event.stopPropagation()">×</span></div>
-              <div class="tag">便宜 — cheap <span class="tag-x" onclick="this.parentElement.remove();event.stopPropagation()">×</span></div>
               <input class="tag-input-inline" id="vocab-input" placeholder="Type to search or add a word…"
                 oninput="filterVocab(this.value)" onfocus="openVocabDropdown()" onkeydown="vocabKeydown(event)">
             </div>
-            <div class="ss-dropdown" id="vocab-dropdown">
-              <div class="ss-option" onclick="addVocabTag('买 mǎi — to buy')"><span class="ss-option-icon">🔤</span><span class="ss-option-label">买 mǎi — to buy</span></div>
-              <div class="ss-option" onclick="addVocabTag('卖 mài — to sell')"><span class="ss-option-icon">🔤</span><span class="ss-option-label">卖 mài — to sell</span></div>
-              <div class="ss-option" onclick="addVocabTag('肉 ròu — meat')"><span class="ss-option-icon">🔤</span><span class="ss-option-label">肉 ròu — meat</span></div>
-              <div class="ss-option" onclick="addVocabTag('水果 shuǐguǒ — fruit')"><span class="ss-option-icon">🔤</span><span class="ss-option-label">水果 shuǐguǒ — fruit</span></div>
-              <div class="ss-option" onclick="addVocabTag('斤 jīn — catty (unit)')"><span class="ss-option-icon">🔤</span><span class="ss-option-label">斤 jīn — catty (unit)</span></div>
-              <div class="ss-option" onclick="addVocabTag('太贵了 — too expensive')"><span class="ss-option-icon">🔤</span><span class="ss-option-label">太贵了 — too expensive</span></div>
-              <div class="ss-option" onclick="addVocabTag('打折 — discount')"><span class="ss-option-icon">🔤</span><span class="ss-option-label">打折 — discount</span></div>
-            </div>
+            <div class="ss-dropdown" id="vocab-dropdown"></div>
           </div>
           <div class="f-hint mt6">Shown as a word bank during the conversation. Type to add or pick from suggestions.</div>
         </div>
@@ -1715,14 +1751,13 @@ button, input, select, textarea { font-family: inherit; }
       </button>
       <div class="more-opts-body" id="sec2-more">
         <div class="f-group" style="margin-top:16px;">
-          <label class="f-label">Sentence patterns<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">The Buddy gently nudges students to use these structures in context — not forcing it, just creating natural openings.</span></span></label>
-          <textarea class="f-textarea" id="editor-patterns" placeholder="e.g. 虽然...但是...&#10;我觉得...&#10;不但...而且...">我想买...
-这个多少钱？
-可以便宜一点吗？</textarea>
+          <label class="f-label">Sentence patterns<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Useful structures students can lean on during the mission. They support the conversation without needing to be followed word for word.</span></span></label>
+          <textarea class="f-textarea" id="editor-patterns" placeholder="e.g. 我想买...&#10;这个多少钱？&#10;可以便宜一点吗？"></textarea>
         </div>
         <div class="f-group" style="margin-bottom:0;">
-          <label class="f-label">Extra notes</label>
-          <textarea class="f-textarea" style="min-height:52px;" placeholder="e.g. 'Focus on the bargaining vocab from Chapter 4' or 'Don't give hints unless the student is really stuck'"></textarea>
+          <label class="f-label">Class notes</label>
+          <textarea class="f-textarea" style="min-height:52px;" placeholder="e.g. 'They're comfortable with the topic but still switch to English quickly' or 'Push this class to speak in longer turns'"></textarea>
+          <div class="f-hint mt4">Add class context that will help shape how this mission runs.</div>
         </div>
       </div>
     </div>
@@ -1783,7 +1818,7 @@ button, input, select, textarea { font-family: inherit; }
         <div class="cluster-label">Language &amp; accessibility</div>
 
         <div class="f-group">
-          <label class="f-label">Language mix<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Controls how much English the Buddy uses in its replies. All the way left = the Buddy responds only in the target language. Drag right to allow more English — useful for lower-level students who need extra support.</span></span></label>
+          <label class="f-label">Language mix<span class="tip-wrap"><span class="tip-icon">?</span><span class="tip-popup">Controls how much English the Buddy uses in its replies. All the way left = the Buddy responds only in the MTL language. Drag right to allow more English — useful for lower-level students who need extra support.</span></span></label>
           <div class="lang-mix-track-wrap">
             <div class="lang-mix-bar" id="lm-bar"></div>
             <input type="range" class="lang-mix-range" id="lang-mix-range" min="0" max="100" value="0"
@@ -1848,14 +1883,14 @@ button, input, select, textarea { font-family: inherit; }
           <div class="check-list">
             <label class="check-row" onclick="toggleCheck(this)"><div class="check-box checked"></div><div><div class="check-label">Use the key vocabulary</div></div></label>
             <label class="check-row" onclick="toggleCheck(this)"><div class="check-box checked"></div><div><div class="check-label">Use the sentence patterns</div></div></label>
-            <label class="check-row" onclick="toggleCheck(this)"><div class="check-box checked"></div><div><div class="check-label">Stay in the target language</div></div></label>
+            <label class="check-row" onclick="toggleCheck(this)"><div class="check-box checked"></div><div><div class="check-label">Stay in the MTL language</div></div></label>
             <label class="check-row" onclick="toggleCheck(this)"><div class="check-box checked"></div><div><div class="check-label">Encourage students when stuck</div></div></label>
             <label class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div><div class="check-label">Push students to complete the scenario</div></div></label>
           </div>
         </div>
         <div class="f-group" style="margin-bottom:0;">
-          <label class="f-label">Extra notes</label>
-          <textarea class="f-textarea" style="min-height:52px;" placeholder="e.g. 'This class needs encouragement' or 'Push for full sentences'"></textarea>
+          <label class="f-label">Class notes</label>
+          <textarea class="f-textarea" style="min-height:52px;" placeholder="e.g. 'This class needs lots of encouragement' or 'Push for fuller answers once they warm up'"></textarea>
           <div class="f-hint mt4">Anything else the Buddy should know about your class.</div>
         </div>
       </div>
@@ -1867,7 +1902,7 @@ button, input, select, textarea { font-family: inherit; }
         <div class="section-step">4</div>
         <div>
           <div class="section-title">Assign to a class</div>
-          <div class="section-sub">Which class gets this mission?</div>
+          <div class="section-sub">Which class gets to see this mission?</div>
         </div>
       </div>
       <div class="ss-wrap">
@@ -1899,7 +1934,6 @@ button, input, select, textarea { font-family: inherit; }
           </div>
         </div>
       </div>
-      <div class="f-hint mt8">Filtered to match your Step 1 selection.</div>
     </div>
 
     <!-- Review state (populated by buildReview()) -->
@@ -2430,6 +2464,25 @@ function closeModal(id) {
   if (m) m.classList.remove('open');
 }
 
+function syncIntroCardVisibility() {
+  const card = document.querySelector('.intro-card');
+  if (!card) return;
+  let dismissed = false;
+  try {
+    dismissed = localStorage.getItem('langbuddy_intro_card_dismissed') === '1';
+  } catch (_) {}
+  const shouldShow = _activeStep === 1 && !dismissed;
+  card.hidden = !shouldShow;
+}
+
+function dismissIntroCard() {
+  const card = document.querySelector('.intro-card');
+  if (card) card.hidden = true;
+  try {
+    localStorage.setItem('langbuddy_intro_card_dismissed', '1');
+  } catch (_) {}
+}
+
 function showClassCreated() {
   closeModal('m-create-class');
   openModal('m-class-created');
@@ -2466,13 +2519,6 @@ function selectRole(el) {
   el.classList.add('sel');
 }
 
-// More options toggle (Section 1 — Extra notes)
-function toggleMoreOptsSection1(btn) {
-  const body = document.getElementById('sec1-more');
-  const isOpen = body.classList.contains('open');
-  body.classList.toggle('open', !isOpen);
-  btn.querySelector('span:nth-child(2)').textContent = isOpen ? 'More options' : 'Fewer options';
-}
 // More options toggle (Section 2)
 function toggleMoreOpts(btn) {
   const body = document.getElementById('sec2-more');
@@ -2500,12 +2546,155 @@ function updateVoiceOpts(provider) {
   sel.innerHTML = voices.map(v => `<option>${v}</option>`).join('');
 }
 
+const LANGUAGE_COPY = {
+  'Chinese Language': {
+    shortLabel: 'Chinese',
+    titlePlaceholder: 'e.g. 在菜市场买菜',
+    englishTitlePlaceholder: 'e.g. At the Market',
+    descPlaceholder: "e.g. Head to the wet market and see if you can buy tonight's dinner — all in Chinese! 🛒",
+    objectivePlaceholder: 'e.g. Develop fluency in asking for help; build confidence describing food choices',
+    taskPlaceholder: 'e.g. Buy ingredients for dinner, ask about prices, and see if you can bargain politely in Chinese.',
+    patternsPlaceholder: 'e.g. 我觉得...\n你可以告诉我...吗？\n因为...所以...',
+    starterVocab: ['活动 huódòng — activity', '安排 ānpái — arrange', '一起 — together', '为什么 — why'],
+    suggestions: [
+      '活动 huódòng — activity',
+      '安排 ānpái — arrange',
+      '计划 jìhuà — plan',
+      '参加 cānjiā — take part',
+      '一起 — together',
+      '为什么 — why',
+      '我觉得... — I think...',
+      '可以吗？ — can we?',
+    ],
+  },
+  'Malay Language': {
+    shortLabel: 'Malay',
+    titlePlaceholder: 'e.g. Membeli makanan di pasar',
+    englishTitlePlaceholder: 'e.g. At the Market',
+    descPlaceholder: 'e.g. Masuk ke pasar dan lihat sama ada kamu boleh membeli bahan untuk makan malam — semuanya dalam Bahasa Melayu! 🛒',
+    objectivePlaceholder: 'e.g. Develop fluency in asking for help; build confidence describing food choices',
+    taskPlaceholder: 'e.g. Buy ingredients for dinner, ask about prices, and see if you can bargain politely in Malay.',
+    patternsPlaceholder: 'e.g. Saya rasa...\nBoleh kamu ceritakan...?\nKerana... jadi...',
+    starterVocab: ['aktiviti — activity', 'rancang — plan', 'bersama-sama — together', 'mengapa — why'],
+    suggestions: [
+      'aktiviti — activity',
+      'rancang — plan',
+      'cadangan — suggestion',
+      'sertai — take part',
+      'bersama-sama — together',
+      'mengapa — why',
+      'Saya rasa... — I think...',
+      'Boleh tak...? — can we...?',
+    ],
+  },
+  'Tamil Language': {
+    shortLabel: 'Tamil',
+    titlePlaceholder: 'e.g. சந்தையில் பொருள் வாங்குதல்',
+    englishTitlePlaceholder: 'e.g. At the Market',
+    descPlaceholder: 'e.g. சந்தைக்கு சென்று இரவு உணவுக்கான பொருட்களை வாங்க முடியுமா பாருங்கள் — எல்லாமும் தமிழில்! 🛒',
+    objectivePlaceholder: 'e.g. Develop fluency in asking for help; build confidence describing food choices',
+    taskPlaceholder: 'e.g. Buy ingredients for dinner, ask about prices, and see if you can bargain politely in Tamil.',
+    patternsPlaceholder: 'e.g. நான் நினைக்கிறேன்...\nநீங்கள் சொல்ல முடியுமா...?\nஏனெனில்... அதனால்...',
+    starterVocab: ['நிகழ்வு — event', 'திட்டம் — plan', 'ஒன்றாக — together', 'ஏன் — why'],
+    suggestions: [
+      'நிகழ்வு — event',
+      'திட்டம் — plan',
+      'யோசனை — idea',
+      'பங்கேறு — take part',
+      'ஒன்றாக — together',
+      'ஏன் — why',
+      'நான் நினைக்கிறேன்... — I think...',
+      'செய்யலாமா? — can we do it?',
+    ],
+  },
+};
+
+function normalizeLanguageForDataset(lang) {
+  return lang || 'Chinese Language';
+}
+
+function normalizeBandForDataset(bandLabel) {
+  return bandLabel === 'Higher MTL' ? 'G3' : bandLabel;
+}
+
+function getLanguageCopy(lang) {
+  return LANGUAGE_COPY[lang] || LANGUAGE_COPY['Chinese Language'];
+}
+
+function getLanguageShortLabel(lang) {
+  return getLanguageCopy(lang).shortLabel || lang || 'MTL language';
+}
+
+function arraysEqual(a, b) {
+  return JSON.stringify(a || []) === JSON.stringify(b || []);
+}
+
+function getCurrentVocabTags() {
+  return [...document.querySelectorAll('#editor-vocab .tag')]
+    .map(tag => tag.childNodes[0]?.textContent?.trim() || tag.textContent.replace('×', '').trim())
+    .filter(Boolean);
+}
+
+function renderVocabSuggestions(items) {
+  const dd = document.getElementById('vocab-dropdown');
+  if (!dd) return;
+  dd.innerHTML = '';
+  (items || []).forEach(item => {
+    const row = document.createElement('div');
+    row.className = 'ss-option';
+    row.innerHTML = `<span class="ss-option-icon">🔤</span><span class="ss-option-label">${item}</span>`;
+    row.onclick = () => addVocabTag(item);
+    dd.appendChild(row);
+  });
+}
+
+function applyLanguageAwareCopy(opts = {}) {
+  const { forceStarterVocab = false } = opts;
+  const lang = (document.getElementById('editor-lang') || {}).value || 'Chinese Language';
+  const copy = getLanguageCopy(lang);
+  const titleMtl = document.getElementById('editor-title-mtl');
+  const titleEn = document.getElementById('editor-title-en');
+  const desc = document.getElementById('editor-desc');
+  const objective = document.getElementById('editor-objective');
+  const task = document.getElementById('editor-task');
+  const patterns = document.getElementById('editor-patterns');
+  if (titleMtl) titleMtl.placeholder = copy.titlePlaceholder;
+  if (titleEn) titleEn.placeholder = copy.englishTitlePlaceholder;
+  if (desc) desc.placeholder = copy.descPlaceholder;
+  if (objective) objective.placeholder = copy.objectivePlaceholder;
+  if (task) task.placeholder = copy.taskPlaceholder;
+  if (patterns) patterns.placeholder = copy.patternsPlaceholder;
+
+  renderVocabSuggestions(copy.suggestions);
+  const vocabRow = document.getElementById('editor-vocab');
+  if (!vocabRow) return;
+  let previousAuto = [];
+  try {
+    previousAuto = JSON.parse(vocabRow.dataset.autoStarter || '[]');
+  } catch (e) {
+    previousAuto = [];
+  }
+  const currentTags = getCurrentVocabTags();
+  const shouldReplace = forceStarterVocab || !currentTags.length || arraysEqual(currentTags, previousAuto);
+  if (shouldReplace) {
+    preSetVocabTags(copy.starterVocab);
+    vocabRow.dataset.autoStarter = JSON.stringify(copy.starterVocab);
+  }
+}
+
+function handleAudienceChange() {
+  applyLanguageAwareCopy();
+  syncKnowledgeBase();
+  const lmr = document.getElementById('lang-mix-range');
+  if (lmr) updateLangMix(lmr.value || 0);
+}
+
 // ── LANGUAGE MIX SLIDER ──────────────────────────────
 function updateLangMix(val) {
   const eng = parseInt(val);
   const mtl = 100 - eng;
   const langSel = document.getElementById('editor-lang');
-  const lang = langSel ? langSel.value.split(' ')[0] : 'MTL';
+  const lang = getLanguageShortLabel(langSel ? langSel.value : '');
   // Update left end-label dynamically
   const ll = document.getElementById('lm-label-left');
   if (ll) ll.textContent = lang + ' only';
@@ -2521,12 +2710,6 @@ function updateLangMix(val) {
 }
 
 // ── SEARCH-SELECT: VOCAB ─────────────────────────────
-const VOCAB_SUGGESTIONS = [
-  '买 mǎi — to buy', '卖 mài — to sell', '肉 ròu — meat',
-  '水果 shuǐguǒ — fruit', '斤 jīn — catty (unit)', '太贵了 — too expensive',
-  '打折 — discount', '价格 jiàgé — price', '新鲜 xīnxiān — fresh',
-  '讨价还价 — bargain', '找钱 — give change', '零钱 — loose change',
-];
 function openVocabDropdown() {
   const dd = document.getElementById('vocab-dropdown');
   if (dd) { dd.classList.add('open'); }
@@ -2542,6 +2725,7 @@ function closeVocabOnOutside(e) {
 function filterVocab(val) {
   const dd = document.getElementById('vocab-dropdown');
   if (!dd) return;
+  if (!dd.children.length) applyLanguageAwareCopy();
   dd.classList.add('open');
   const lower = val.toLowerCase();
   dd.querySelectorAll('.ss-option').forEach(opt => {
@@ -2572,10 +2756,15 @@ const CLASS_OPTIONS = [
   { label: 'Chinese Language · Sec 1 · G3', meta: '22 students' },
   { label: 'Chinese Language · Sec 2 · G2', meta: '26 students' },
   { label: 'Chinese Language · Sec 2 · G3', meta: '34 students' },
+  { label: 'Chinese Language · Sec 3 · Higher MTL', meta: '18 students' },
   { label: 'Chinese Language · Sec 3 · G2', meta: '28 students' },
   { label: 'Chinese Language · Sec 4 · G3', meta: '31 students' },
   { label: 'Malay Language · Sec 1 · G3', meta: '19 students' },
   { label: 'Malay Language · Sec 2 · G2', meta: '24 students' },
+  { label: 'Malay Language · Sec 3 · Higher MTL', meta: '15 students' },
+  { label: 'Malay Language · Sec 3 · G3', meta: '17 students' },
+  { label: 'Tamil Language · Sec 1 · G2', meta: '16 students' },
+  { label: 'Tamil Language · Sec 2 · Higher MTL', meta: '14 students' },
   { label: 'Tamil Language · Sec 2 · G3', meta: '18 students' },
 ];
 function openClassDropdown() {
@@ -2602,7 +2791,18 @@ function renderClassOptions(filter) {
   const dd = document.getElementById('class-dropdown');
   if (!dd) return;
   dd.innerHTML = '';
-  CLASS_OPTIONS.filter(c => !filter || c.label.toLowerCase().includes(filter)).forEach(c => {
+  const lang = (document.getElementById('editor-lang') || {}).value || '';
+  const level = (document.getElementById('editor-level') || {}).value || '';
+  const band = (document.getElementById('editor-band') || {}).value || '';
+  let options = CLASS_OPTIONS.filter(c => !filter || c.label.toLowerCase().includes(filter));
+  if (!filter) {
+    const exact = options.filter(c => c.label.includes(lang) && c.label.includes(level) && c.label.includes(band));
+    const sameLang = options.filter(c => !exact.includes(c) && c.label.includes(lang));
+    const related = options.filter(c => !exact.includes(c) && !sameLang.includes(c) && c.label.includes(level));
+    const rest = options.filter(c => !exact.includes(c) && !sameLang.includes(c) && !related.includes(c));
+    options = [...exact, ...sameLang, ...related, ...rest];
+  }
+  options.forEach(c => {
     const div = document.createElement('div');
     div.className = 'ss-option';
     div.innerHTML = `<span class="ss-option-icon">🟦</span><span class="ss-option-label">${c.label}</span><span class="ss-option-meta">${c.meta}</span>`;
@@ -2678,8 +2878,9 @@ function showEditorNew() {
   document.getElementById('editor-task').value = '';
   document.getElementById('editor-vocab').querySelectorAll('.tag').forEach(t => t.remove());
   document.getElementById('editor-patterns').value = '';
-  document.getElementById('editor-sub-1').textContent = 'Let\'s create a mission with a clear practice objective — helping students get better at speaking in real conversations.';
-  // Reset selects to Sec 1 / G1
+  document.getElementById('editor-sub-1').textContent = 'Start by setting up the mission basics so students know what to expect.';
+  // Reset selects to Chinese / Sec 1 / G1
+  document.getElementById('editor-lang').selectedIndex = 0;
   document.getElementById('editor-level').selectedIndex = 0;
   document.getElementById('editor-band').selectedIndex = 0;
   // Reset role cards (select first — Teacher)
@@ -2695,13 +2896,14 @@ function showEditorNew() {
   const lmr = document.getElementById('lang-mix-range');
   if (lmr) { lmr.value = 0; updateLangMix(0); }
   // Close more opts
-  ['sec1-more','sec2-more','sec3-more'].forEach(id => {
+  ['sec2-more','sec3-more'].forEach(id => {
     const mo = document.getElementById(id);
     if(mo) mo.classList.remove('open');
   });
   // Reset back button (crumb-bar removed in v12)
   const bb = document.getElementById('step-back-btn');
   if (bb) bb.textContent = '← My Classes';
+  applyLanguageAwareCopy({ forceStarterVocab: true });
   syncKnowledgeBase();
   showScreen('s-editor');
   goToStep(1);
@@ -2721,6 +2923,22 @@ function preSetVocabTags(words) {
   });
 }
 
+function setSelectByText(selectEl, value) {
+  if (!selectEl || !value) return;
+  for (let i = 0; i < selectEl.options.length; i++) {
+    if (selectEl.options[i].text === value) {
+      selectEl.selectedIndex = i;
+      return;
+    }
+  }
+  for (let i = 0; i < selectEl.options.length; i++) {
+    if (selectEl.options[i].text.includes(value)) {
+      selectEl.selectedIndex = i;
+      return;
+    }
+  }
+}
+
 // State B: customise from library (pre-filled with library data)
 // params: emoji, titleEn, titleMtl, desc, task, objective, vocab[], level, band, patterns
 function showEditorCustomise(emoji, titleEn, titleMtl, desc, task, objective, vocab, level, band, patterns) {
@@ -2735,26 +2953,20 @@ function showEditorCustomise(emoji, titleEn, titleMtl, desc, task, objective, vo
   preSetVocabTags(vocab);
   // Set level/band dropdowns
   const levelSel = document.getElementById('editor-level');
-  if (levelSel && level) {
-    for (let i = 0; i < levelSel.options.length; i++) {
-      if (levelSel.options[i].text.includes(level)) { levelSel.selectedIndex = i; break; }
-    }
-  }
+  setSelectByText(levelSel, level);
   const bandSel = document.getElementById('editor-band');
-  if (bandSel && band) {
-    for (let i = 0; i < bandSel.options.length; i++) {
-      if (bandSel.options[i].text.includes(band)) { bandSel.selectedIndex = i; break; }
-    }
-  }
+  setSelectByText(bandSel, band);
   document.getElementById('editor-sub-1').textContent = 'Edit your copy — the original stays in the library';
   // Reset language mix slider
   const lmr = document.getElementById('lang-mix-range');
   if (lmr) { lmr.value = 0; updateLangMix(0); }
   // Close more opts
-  ['sec1-more','sec2-more','sec3-more'].forEach(id => {
+  ['sec2-more','sec3-more'].forEach(id => {
     const mo = document.getElementById(id);
     if(mo) mo.classList.remove('open');
   });
+  applyLanguageAwareCopy();
+  syncKnowledgeBase();
   document.querySelector('#s-editor .crumb-cur').textContent = 'Create copy · ' + (titleEn || titleMtl || 'Mission');
   showScreen('s-editor');
 }
@@ -2822,6 +3034,7 @@ function goToStep(n) {
     document.getElementById(id)?.classList.add('sec-step-hidden'));
   document.getElementById('sec-' + n)?.classList.remove('sec-step-hidden');
   _activeStep = n;
+  syncIntroCardVisibility();
   for (let i = 1; i <= 4; i++) {
     const item = document.getElementById('step-' + i);
     if (item) item.classList.toggle('sn-active', i === n);
@@ -2854,6 +3067,8 @@ function updateEditorNav() {
 function showReview() {
   ['sec-1','sec-2','sec-3','sec-4'].forEach(id =>
     document.getElementById(id)?.classList.add('sec-step-hidden'));
+  _activeStep = 0;
+  syncIntroCardVisibility();
   buildReview();
   document.getElementById('sec-review')?.classList.remove('sec-step-hidden');
   for (let i = 1; i <= 4; i++)
@@ -2874,7 +3089,7 @@ function buildReview() {
   const titleEn  = document.getElementById('editor-title-en')?.value  || '—';
   const lang     = document.getElementById('editor-lang')?.value  || '';
   const level    = document.getElementById('editor-level')?.value || '';
-  const band     = (document.getElementById('editor-band')?.value || '').split(' ')[0];
+  const band     = (document.getElementById('editor-band')?.value || '') || '—';
   const mtype    = document.querySelector('#sec-1 .pill-opt.sel')?.textContent?.trim() || '—';
   const objective= document.getElementById('editor-objective')?.value || '—';
   const task     = document.getElementById('editor-task')?.value || '—';
@@ -2898,7 +3113,7 @@ function buildReview() {
     </div>
     <div class="review-grid">
       ${row('Mission', `${emoji} <strong>${titleMtl}</strong> · ${titleEn}`)}
-      ${row('Designed for', `${lang} · ${level} · ${band} &nbsp;·&nbsp; ${mtype}`)}
+      ${row('Mission for', `${lang} · ${level} · ${band} &nbsp;·&nbsp; ${mtype}`)}
       ${row('Objective', objective)}
       ${row('Task', task)}
       ${row('Resources', `${topicsN} topic${topicsN !== 1 ? 's' : ''} · ${vocabN} vocab word${vocabN !== 1 ? 's' : ''}`)}
@@ -3080,23 +3295,11 @@ function showEditorExisting(key) {
 
   // Audience dropdowns
   const levelSel = document.getElementById('editor-level');
-  if (levelSel && d.level) {
-    for (let i = 0; i < levelSel.options.length; i++) {
-      if (levelSel.options[i].text.includes(d.level)) { levelSel.selectedIndex = i; break; }
-    }
-  }
+  setSelectByText(levelSel, d.level);
   const bandSel = document.getElementById('editor-band');
-  if (bandSel && d.band) {
-    for (let i = 0; i < bandSel.options.length; i++) {
-      if (bandSel.options[i].text.includes(d.band)) { bandSel.selectedIndex = i; break; }
-    }
-  }
+  setSelectByText(bandSel, d.band);
   const langSel = document.getElementById('editor-lang');
-  if (langSel && d.lang) {
-    for (let i = 0; i < langSel.options.length; i++) {
-      if (langSel.options[i].text.includes(d.lang.split(' ')[0])) { langSel.selectedIndex = i; break; }
-    }
-  }
+  setSelectByText(langSel, d.lang);
 
   // Mission type pills
   const typePills = document.querySelectorAll('#s-editor .pill-group')[0]?.querySelectorAll('.pill-opt');
@@ -3127,7 +3330,7 @@ function showEditorExisting(key) {
   }
 
   // Reset more-opts panels
-  ['sec1-more','sec2-more','sec3-more'].forEach(id => {
+  ['sec2-more','sec3-more'].forEach(id => {
     const mo = document.getElementById(id);
     if (mo) mo.classList.remove('open');
   });
@@ -3139,6 +3342,7 @@ function showEditorExisting(key) {
   const bb = document.getElementById('step-back-btn');
   if (bb) bb.textContent = '← ' + (d.titleEn || d.titleMtl || 'Mission');
 
+  applyLanguageAwareCopy();
   syncKnowledgeBase();
   showScreen('s-editor');
   goToStep(1);
@@ -3206,7 +3410,7 @@ const TOPIC_DATA = {
     'Unit 8B — 义工服务 (Volunteer Work)',
     'Unit 9A — 传统与现代 (Tradition & Modernity)',
     'Unit 9B — 华族习俗 (Chinese Customs)',
-    'Unit 10A — 口试综合复习 (Oral Exam Revision)',
+    'Unit 10A — 口试综合练习 (Oral Practice Revision)',
     'Unit 10B — 议论技巧 (Debating Skills)',
   ],
   'Chinese Language|Sec 3|G1': [
@@ -3239,7 +3443,7 @@ const TOPIC_DATA = {
     'Unit 3 — 传统与现代 (Tradition & Modernity)',
     'Unit 4 — 华语的重要性 (Importance of CL)',
     'Unit 5 — 综合复习 (Revision — Topics 1–4)',
-    'Unit 6 — 口试备考 (Oral Exam Prep)',
+    'Unit 6 — 口试练习 (Oral Practice)',
   ],
   'Chinese Language|Sec 4|G2': [
     'Unit 1 — 时事与观点 (Current Affairs)',
@@ -3247,7 +3451,7 @@ const TOPIC_DATA = {
     'Unit 3 — 文化遗产 (Cultural Heritage)',
     'Unit 4 — 全球公民 (Global Citizenship)',
     'Unit 5 — 综合复习 (Revision — Topics 1–4)',
-    'Unit 6 — 口试备考 (Oral Exam Prep)',
+    'Unit 6 — 口试练习 (Oral Practice)',
   ],
   'Chinese Language|Sec 4|G3': [
     'Unit 1 — 社会变迁 (Social Change)',
@@ -3255,7 +3459,7 @@ const TOPIC_DATA = {
     'Unit 3 — 国际关系 (International Relations)',
     'Unit 4 — 文学与批评 (Literature & Criticism)',
     'Unit 5 — 综合复习 (Revision — Topics 1–4)',
-    'Unit 6 — 口试备考 (Oral Exam Prep)',
+    'Unit 6 — 口试练习 (Oral Practice)',
   ],
   // Malay Language
   'Malay Language|Sec 1|G1': [
@@ -3336,7 +3540,7 @@ const TOPIC_DATA = {
     'Unit 3 — Tradisi dan Kemodenan (Tradition & Modernity)',
     'Unit 4 — Kepentingan Bahasa Melayu (Importance of ML)',
     'Unit 5 — Ulangkaji Menyeluruh (Revision)',
-    'Unit 6 — Persediaan Lisan (Oral Exam Prep)',
+    'Unit 6 — Latihan Lisan (Oral Practice)',
   ],
   'Malay Language|Sec 4|G2': [
     'Unit 1 — Hal Semasa (Current Affairs)',
@@ -3344,7 +3548,7 @@ const TOPIC_DATA = {
     'Unit 3 — Warisan Budaya (Cultural Heritage)',
     'Unit 4 — Warga Global (Global Citizenship)',
     'Unit 5 — Ulangkaji Menyeluruh (Revision)',
-    'Unit 6 — Persediaan Lisan (Oral Exam Prep)',
+    'Unit 6 — Latihan Lisan (Oral Practice)',
   ],
   'Malay Language|Sec 4|G3': [
     'Unit 1 — Perubahan Sosial (Social Change)',
@@ -3352,7 +3556,7 @@ const TOPIC_DATA = {
     'Unit 3 — Hubungan Antarabangsa (International Relations)',
     'Unit 4 — Sastera dan Kritikan (Literature & Criticism)',
     'Unit 5 — Ulangkaji Menyeluruh (Revision)',
-    'Unit 6 — Persediaan Lisan (Oral Exam Prep)',
+    'Unit 6 — Latihan Lisan (Oral Practice)',
   ],
   // Tamil Language
   'Tamil Language|Sec 1|G1': [
@@ -3433,7 +3637,7 @@ const TOPIC_DATA = {
     'Unit 3 — பாரம்பரியமும் நவீனமும் (Tradition & Modernity)',
     'Unit 4 — தமிழின் முக்கியத்துவம் (Importance of Tamil)',
     'Unit 5 — விரிவான மதிப்பாய்வு (Revision)',
-    'Unit 6 — வாய்மொழி தேர்வு தயாரிப்பு (Oral Exam Prep)',
+    'Unit 6 — வாய்மொழி பயிற்சி (Oral Practice)',
   ],
   'Tamil Language|Sec 4|G2': [
     'Unit 1 — நடப்பு நிகழ்வுகள் (Current Affairs)',
@@ -3441,7 +3645,7 @@ const TOPIC_DATA = {
     'Unit 3 — கலாச்சார மரபு (Cultural Heritage)',
     'Unit 4 — உலகளாவிய குடிமகன் (Global Citizenship)',
     'Unit 5 — விரிவான மதிப்பாய்வு (Revision)',
-    'Unit 6 — வாய்மொழி தேர்வு தயாரிப்பு (Oral Exam Prep)',
+    'Unit 6 — வாய்மொழி பயிற்சி (Oral Practice)',
   ],
   'Tamil Language|Sec 4|G3': [
     'Unit 1 — சமூக மாற்றம் (Social Change)',
@@ -3449,17 +3653,17 @@ const TOPIC_DATA = {
     'Unit 3 — சர்வதேச உறவுகள் (International Relations)',
     'Unit 4 — இலக்கியமும் விமர்சனமும் (Literature & Criticism)',
     'Unit 5 — விரிவான மதிப்பாய்வு (Revision)',
-    'Unit 6 — வாய்மொழி தேர்வு தயாரிப்பு (Oral Exam Prep)',
+    'Unit 6 — வாய்மொழி பயிற்சி (Oral Practice)',
   ],
 };
 
 function renderTopicList(lang, level, bandFull) {
-  const band   = bandFull.split(' ')[0];
+  const band   = normalizeBandForDataset(bandFull);
   const key    = `${lang}|${level}|${band}`;
   let topics   = (TOPIC_DATA[key] || []).slice();
   // Pad to 20 for simulation
   let i = topics.length + 1;
-  while (topics.length < 20) { topics.push(`Unit ${i} — 补充单元 (Supplementary Unit ${i})`); i++; }
+  while (topics.length < 20) { topics.push(`Unit ${i} — Supplementary Topic ${i}`); i++; }
   const list   = document.getElementById('topic-list');
   if (!list) return;
   list.innerHTML = '';
@@ -3519,12 +3723,12 @@ function filterTopics(q) {
 
 function syncKnowledgeBase() {
   const lang     = (document.getElementById('editor-lang')  || {}).value || 'Chinese Language';
+  const lookupLang = normalizeLanguageForDataset(lang);
   const level    = (document.getElementById('editor-level') || {}).value || 'Sec 2';
-  const bandFull = (document.getElementById('editor-band')  || {}).value || 'G3 (Advanced)';
-  const band     = bandFull.split(' ')[0];
+  const bandFull = (document.getElementById('editor-band')  || {}).value || 'G3';
   const sub = document.getElementById('kb-curriculum-sub');
-  if (sub) sub.textContent = `${lang} · ${level} · ${band}`;
-  renderTopicList(lang, level, bandFull);
+  if (sub) sub.textContent = `${lang} · ${level} · ${bandFull}`;
+  renderTopicList(lookupLang, level, bandFull);
 }
 
 function toggleCurriculumKB(checked) {
@@ -3532,6 +3736,11 @@ function toggleCurriculumKB(checked) {
   if (!detail) return;
   detail.classList.toggle('hidden', !checked);
 }
+
+syncIntroCardVisibility();
+applyLanguageAwareCopy({ forceStarterVocab: true });
+syncKnowledgeBase();
+updateLangMix(document.getElementById('lang-mix-range')?.value || 0);
 </script>
 
 <!-- ═══════════════════════════════════════════════════════ CHANGELOG SCREEN -->
@@ -3549,14 +3758,44 @@ function toggleCurriculumKB(checked) {
   <div class="page-mid" style="max-width:580px;">
     <div class="ph">
       <div class="ph-title">Changelog</div>
-      <div class="ph-sub">Mission creation flow — tracked from v13.</div>
+      <div class="ph-sub">Recent mission creation updates.</div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-ver">Current</span>
+        <span class="cl-date">11 Apr 2026</span>
+        <span class="badge b-blue" style="margin-left:auto;font-size:10px;">Latest</span>
+      </div>
+      <div class="cl-list">
+        <div class="cl-row">
+          <div class="cl-what">The top intro now invites teachers into what they can create for students</div>
+          <div class="cl-why">Instead of explaining the product mechanically, the intro now frames missions as something teachers can shape to help students speak more independently and use the language in conversation.</div>
+        </div>
+        <div class="cl-row">
+          <div class="cl-what">"About this mission" is now a simpler setup prompt</div>
+          <div class="cl-why">Moving the product explanation out of Step 1 keeps the first section lighter and makes it easier to focus on the mission basics straight away.</div>
+        </div>
+        <div class="cl-row">
+          <div class="cl-what">Placeholders are back to a more example-led, teacher-guiding style across Chinese, Malay, and Tamil</div>
+          <div class="cl-why">The earlier rewrite became too flat and generic. Richer examples make it clearer how to write a fun, classroom-ready mission while keeping the structure simple.</div>
+        </div>
+        <div class="cl-row">
+          <div class="cl-what">"Design the mission" now stays focused on the mission itself, not Buddy setup</div>
+          <div class="cl-why">The planning section now talks about the scenario, student speaking goal, and language support, while Buddy-specific guidance is kept in the later Buddy step where it belongs.</div>
+        </div>
+        <div class="cl-row">
+          <div class="cl-what">Banding simplified to G1, G2, G3, and Higher MTL, with Step 1 kept focused on the mission itself</div>
+          <div class="cl-why">Higher MTL belongs in the banding, not as a separate language. Removing extra class-context fields from Step 1 also keeps the opening setup lighter and easier to scan.</div>
+        </div>
+      </div>
     </div>
 
     <div class="cl-entry">
       <div class="cl-head">
         <span class="cl-ver">v16</span>
         <span class="cl-date">11 Apr 2026</span>
-        <span class="badge b-blue" style="margin-left:auto;font-size:10px;">Latest</span>
+        <span class="badge b-muted" style="margin-left:auto;font-size:10px;"></span>
       </div>
       <div class="cl-list">
         <div class="cl-row">
@@ -3608,8 +3847,8 @@ function toggleCurriculumKB(checked) {
       </div>
       <div class="cl-list">
         <div class="cl-row">
-          <div class="cl-what">"Audience" renamed to "Designed for"</div>
-          <div class="cl-why">Closer to how teachers think — you're choosing who this is for, not describing an audience segment.</div>
+          <div class="cl-what">Audience selector rewritten to feel more teacher-first</div>
+          <div class="cl-why">The goal was to make the setup sound like how teachers actually think when choosing the student group for a mission.</div>
         </div>
         <div class="cl-row">
           <div class="cl-what">Knowledge base syncs to selected group</div>
