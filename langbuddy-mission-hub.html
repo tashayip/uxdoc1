@@ -218,32 +218,19 @@ button, input, select, textarea { font-family: inherit; }
   radial-gradient(circle at top left, rgba(12,159,229,.13) 0, rgba(12,159,229,0) 38%),
   linear-gradient(135deg, #f3f9ff 0%, #ffffff 56%, #eef7ff 100%);
   border-color: #cfe3f6;
-  padding: 22px 24px 20px;
+  padding: 16px 18px;
   margin-bottom: 18px;
-  box-shadow: 0 18px 38px rgba(12,159,229,.08);
+  box-shadow: 0 12px 28px rgba(12,159,229,.07);
 }
-.intro-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
-.intro-card-copy { display: flex; align-items: center; gap: 9px; min-width: 0; }
-.intro-card-icon { width: 36px; height: 36px; border-radius: 12px; background: rgba(12,159,229,.1); color: var(--blue-dk); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-.intro-card .section-title { font-size: 22px; line-height: 1.15; margin-bottom: 6px; max-width: 700px; }
-.intro-card .section-sub { font-size: 14px; color: var(--ink2); line-height: 1.45; max-width: 760px; }
+.intro-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.intro-card-copy { min-width: 0; }
+.intro-card-label { font-family: var(--head); font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--blue); }
+.intro-card-text { margin-top: 6px; font-size: 15px; color: var(--ink2); line-height: 1.45; max-width: 760px; }
 .intro-dismiss { width: 30px; height: 30px; border-radius: 10px; border: 1px solid transparent; background: rgba(255,255,255,.66); color: var(--muted); font-size: 17px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
 .intro-dismiss:hover { background: rgba(255,255,255,.9); border-color: #d8e6f2; color: var(--ink2); }
-.intro-flow { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 14px; }
-.intro-node { border: 1.5px solid #d8e8f6; border-radius: 16px; background: rgba(255,255,255,.88); padding: 14px 16px; display: flex; align-items: center; gap: 12px; min-width: 0; box-shadow: 0 8px 20px rgba(12,159,229,.05); }
-.intro-node-visual { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 26px; box-shadow: inset 0 0 0 1px rgba(12,159,229,.08); }
-.intro-node-visual.teacher { background: linear-gradient(180deg, #e8f5ff 0%, #d7efff 100%); }
-.intro-node-visual.buddy { background: linear-gradient(180deg, #eef7ff 0%, #deefff 100%); }
-.intro-node-copy { min-width: 0; }
-.intro-node-title { font-family: var(--head); font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.3; }
-.intro-node-example { font-size: 11.5px; color: var(--muted); margin-top: 4px; line-height: 1.35; }
-.intro-arrow { width: 42px; height: 42px; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.94); border: 1.5px solid #d8e8f5; color: var(--blue); font-size: 22px; font-weight: 700; flex-shrink: 0; box-shadow: 0 6px 16px rgba(12,159,229,.05); }
 @media (max-width: 720px) {
-  .intro-card { padding: 18px 18px 16px; }
-  .intro-card .section-title { font-size: 18px; }
-  .intro-card .section-sub { font-size: 13px; }
-  .intro-flow { grid-template-columns: 1fr; }
-  .intro-arrow { justify-self: center; transform: rotate(90deg); width: 28px; height: 28px; font-size: 15px; }
+  .intro-card { padding: 14px 16px; }
+  .intro-card-text { font-size: 14px; }
 }
 /* Section header — step badge + big title */
 .section-header { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 24px; }
@@ -1537,27 +1524,10 @@ button, input, select, textarea { font-family: inherit; }
     <div class="section-card intro-card">
       <div class="intro-card-head">
         <div class="intro-card-copy">
-          <div class="intro-card-icon">💬</div>
-          <div>
-            <div class="section-title">Design a fun mission for students to practise speaking</div>
-          </div>
+          <div class="intro-card-label">How does this work?</div>
+          <div class="intro-card-text">Students will practise speaking with an AI Buddy using a mission designed by you.</div>
         </div>
         <button class="intro-dismiss" type="button" aria-label="Dismiss how this works" onclick="dismissIntroCard()">✕</button>
-      </div>
-      <div class="intro-flow">
-        <div class="intro-node">
-          <div class="intro-node-visual teacher">📝</div>
-          <div class="intro-node-copy">
-            <div class="intro-node-title">You set the mission</div>
-          </div>
-        </div>
-        <div class="intro-arrow" aria-hidden="true">→</div>
-        <div class="intro-node">
-          <div class="intro-node-visual buddy">🤖</div>
-          <div class="intro-node-copy">
-            <div class="intro-node-title">Students talk with an AI Buddy to complete the mission</div>
-          </div>
-        </div>
       </div>
     </div>
 
