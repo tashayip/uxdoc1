@@ -132,13 +132,23 @@ hr.rule { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
 
 /* ── SPECTRUM ── */
 .scale-section { margin-bottom: 8px; }
-.scale-group   { margin-bottom: 36px; }
+.scale-group {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 32px 36px 28px;
+  margin-bottom: 16px;
+}
 
 .scale-name {
   font-size: 1.3rem; font-weight: 700; margin-bottom: 14px; color: var(--text); letter-spacing: -0.3px;
 }
 .scale-name .note {
   font-size: 0.68rem; font-weight: 400; color: var(--muted); margin-left: 8px;
+}
+.scale-sublabel {
+  font-size: 0.72rem; font-weight: 600; color: var(--secondary);
+  margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.8px; font-size: 0.62rem;
 }
 
 /* outer flex row: [end-label] [inner track area] [end-label] */
@@ -236,57 +246,120 @@ hr.rule { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
 /* ── PRINCIPLES CAROUSEL ── */
 .p-carousel-wrap { position: relative; }
 
-.p-carousel-nav {
-  display: flex; gap: 6px; justify-content: flex-end; margin-bottom: 14px;
-}
-.p-nav-btn {
-  width: 30px; height: 30px; border-radius: 50%;
-  border: 1px solid var(--border); background: var(--card);
-  cursor: pointer; font-size: 13px; color: var(--secondary);
-  display: flex; align-items: center; justify-content: center;
-  transition: border-color 0.15s, color 0.15s; font-family: inherit;
-}
-.p-nav-btn:hover { border-color: var(--text); color: var(--text); }
-
 .p-track {
-  display: flex; gap: 14px;
+  display: flex; gap: 16px;
   overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-  padding-bottom: 8px;
   -ms-overflow-style: none; scrollbar-width: none;
 }
 .p-track::-webkit-scrollbar { display: none; }
 
 .p-card {
-  flex: 0 0 calc(50% - 7px);
+  flex: 0 0 calc(100% - 32px); /* peek of next card */
   scroll-snap-align: start;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 22px 20px 18px;
+  border-radius: 10px;
+  padding: 36px 40px 30px;
   display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+  min-height: 340px;
 }
-.p-card.decide { border-left: 3px solid var(--bad); }
+.p-card.decide { border-color: var(--bad); }
 
+/* big faded number — graphic anchor */
 .p-card-num {
-  font-size: 0.58rem; font-weight: 700; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+  font-size: 5rem; font-weight: 700; letter-spacing: -4px;
+  color: var(--border); line-height: 1;
+  margin-bottom: 20px; user-select: none;
 }
+.p-card.decide .p-card-num { color: rgba(139,32,32,0.15); }
+
 .p-card-decide-tag {
-  font-size: 0.58rem; font-weight: 700; letter-spacing: 1px;
-  text-transform: uppercase; color: var(--bad); margin-bottom: 10px;
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--bad);
+  margin-bottom: 14px; display: block;
 }
 .p-card-head {
-  font-size: 1.05rem; font-weight: 600; line-height: 1.45;
-  color: var(--text); margin-bottom: 10px;
+  font-size: 1.35rem; font-weight: 700; line-height: 1.4;
+  color: var(--text); margin-bottom: 18px; flex: 1;
+  letter-spacing: -0.3px;
+}
+.p-card-hmw {
+  font-size: 0.8rem; font-weight: 600; color: var(--good);
+  line-height: 1.45; margin-bottom: 14px;
 }
 .p-card-body {
-  font-size: 0.72rem; color: var(--secondary); line-height: 1.6;
-  margin-bottom: 12px; flex: 1;
+  font-size: 0.78rem; color: var(--secondary); line-height: 1.65;
+  margin-bottom: 16px;
 }
 .p-card-data {
-  font-size: 0.62rem; color: var(--muted); line-height: 1.5;
-  padding-top: 10px; border-top: 1px solid var(--border); margin-top: auto;
+  font-size: 0.63rem; color: var(--muted); line-height: 1.55;
+  padding-top: 12px; border-top: 1px solid var(--border);
 }
+
+/* discussion panel */
+.disc-card {
+  background: var(--card);
+  border: 1.5px solid var(--bad);
+  border-radius: 10px;
+  padding: 28px 32px 24px;
+  margin-top: 16px;
+}
+.disc-badge {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--bad); margin-bottom: 18px;
+}
+.disc-tension {
+  display: grid; grid-template-columns: 1fr 40px 1fr;
+  align-items: center; gap: 0; margin-bottom: 20px;
+}
+.disc-side { padding: 16px 20px; background: var(--bg); border-radius: 8px; }
+.disc-side-label {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+}
+.disc-side-word {
+  font-size: 1.3rem; font-weight: 700; letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+.disc-side-word.red  { color: var(--bad); }
+.disc-side-word.dark { color: var(--text); }
+.disc-side-note {
+  font-size: 0.68rem; color: var(--secondary); line-height: 1.5;
+}
+.disc-vs {
+  text-align: center; font-size: 1.1rem; color: var(--border);
+  font-weight: 300;
+}
+.disc-hmw {
+  font-size: 0.9rem; font-weight: 600; color: var(--good);
+  line-height: 1.5; margin-bottom: 12px;
+}
+.disc-data {
+  font-size: 0.63rem; color: var(--muted); line-height: 1.5;
+  padding-top: 12px; border-top: 1px solid var(--border);
+}
+
+/* progress dots + nav row */
+.p-controls {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 18px;
+}
+.p-dots { display: flex; gap: 6px; }
+.p-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border); transition: background 0.2s, width 0.2s;
+}
+.p-dot.active { background: var(--text); width: 18px; border-radius: 3px; }
+.p-nav-row { display: flex; gap: 6px; }
+.p-nav-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--card);
+  cursor: pointer; font-size: 14px; color: var(--secondary);
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.15s, color 0.15s; font-family: inherit;
+}
+.p-nav-btn:hover { border-color: var(--text); color: var(--text); }
 
 /* ── DECISIONS ── */
 .d-item {
@@ -496,7 +569,7 @@ hr.rule { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
 
     <!-- Scale 2: Analytical ↔ Reflective (6pt). PT=70%, AST=60% -->
     <div class="scale-group">
-      <div class="scale-name">Experience feel</div>
+      <div class="scale-name">Experience</div>
       <div class="scale-outer">
         <span class="scale-end-l">Analytical</span>
         <div class="scale-inner">
@@ -528,9 +601,11 @@ hr.rule { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
       <span class="s-status aligned">Aligned — leans reflective</span>
     </div>
 
-    <!-- Scale 3: Structured ↔ Exploratory (6pt). Both at 3.3 → 46% -->
+    <!-- Scale 3 + 4: grouped under Interaction -->
     <div class="scale-group">
-      <div class="scale-name">Structure feel</div>
+      <div class="scale-name">Interaction</div>
+
+      <div class="scale-sublabel">Guided vs. open</div>
       <div class="scale-outer">
         <span class="scale-end-l">Structured /<br>Guided</span>
         <div class="scale-inner">
@@ -545,7 +620,6 @@ hr.rule { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
             <div class="s-tick" style="left:60%"></div>
             <div class="s-tick" style="left:80%"></div>
             <div class="s-tick" style="left:100%"></div>
-            <!-- offset slightly so both dots are visible -->
             <div class="s-dot-wrap" style="left:43%">
               <div class="s-dot-val" style="color:var(--ast)">AST 3.3</div>
               <div class="s-dot" style="background:var(--ast)"></div>
@@ -558,12 +632,9 @@ hr.rule { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
         </div>
         <span class="scale-end-r">Exploratory /<br>Open</span>
       </div>
-      <span class="s-status aligned">Exact match — both at midpoint</span>
-    </div>
+      <span class="s-status aligned" style="margin-bottom:28px;display:block;">Exact match — both at midpoint</span>
 
-    <!-- Scale 4: Text ↔ Visual (5pt). PT=(3.8-1)/4*100=70%, AST=(4-1)/4*100=75% -->
-    <div class="scale-group">
-      <div class="scale-name">Presentation format <span class="note">5-point scale</span></div>
+      <div class="scale-sublabel">Text vs. visual <span class="note" style="text-transform:none;letter-spacing:0;">5-point scale</span></div>
       <div class="scale-outer">
         <span class="scale-end-l">Text-based</span>
         <div class="scale-inner">
@@ -619,18 +690,14 @@ hr.rule { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
 <div id="principles" class="section">
   <div class="eyebrow">For discussion</div>
   <div class="page-title">How might we get teachers to use CoVAA and keep coming back?</div>
-  <div class="page-lead">Draft principles from the survey. React to each — what lands, what needs changing?</div>
+  <div class="page-lead">4 principles from the survey. React to each — what lands, what needs changing?</div>
 
   <div class="p-carousel-wrap">
-    <div class="p-carousel-nav">
-      <button class="p-nav-btn" onclick="scrollPC(-1)">&#8592;</button>
-      <button class="p-nav-btn" onclick="scrollPC(1)">&#8594;</button>
-    </div>
     <div class="p-track" id="p-track">
 
       <div class="p-card">
         <div class="p-card-num">01</div>
-        <div class="p-card-head">CoVAA has to feel like a <span style="color:var(--bad);font-weight:700;">safe mentor</span>, not an observer with a clipboard.</div>
+        <div class="p-card-head">CoVAA has to feel like a <span style="color:var(--bad);font-weight:700;">warm mentor</span>, not an observer with a clipboard.</div>
         <div class="p-card-body">The moment a teacher feels CoVAA is grading them rather than helping them, they disengage. That's the thing we most cannot afford.</div>
         <div class="p-card-data">"Feels like judging them" — 8/9 both groups · "Safe space to reflect" and "Help you improve" tied as top desired message (5/9 each)</div>
       </div>
@@ -656,32 +723,65 @@ hr.rule { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
         <div class="p-card-data">"Support easier to understand" tied #1 fix at 5/9 · "Clearer what it's for" and "Clearer how it's different" also flagged</div>
       </div>
 
-      <div class="p-card decide">
-        <div class="p-card-decide-tag">Decide today</div>
-        <div class="p-card-num">05</div>
-        <div class="p-card-head">CoVAA needs to feel both <span style="color:var(--bad);font-weight:700;">approachable</span> to teachers and <span style="color:var(--bad);font-weight:700;">credible</span> to the system. Those aren't opposites — but we haven't pinned down what that balance looks like.</div>
-        <div class="p-card-body">The product team is thinking from a teacher's experience — warm, safe, easy. AST is thinking from an institutional lens — it needs to carry weight. CoVAA has to serve both. The question is where it leans when those two pull in different directions.</div>
-        <div class="p-card-data">2.3 point gap on warm↔professional scale · Product team avg 5.0/6 · AST avg 2.7/6 · AST unanimously picked "Professional" as desired tone (3/3)</div>
+    </div>
+
+    <div class="p-controls">
+      <div class="p-dots" id="p-dots">
+        <div class="p-dot active"></div>
+        <div class="p-dot"></div>
+        <div class="p-dot"></div>
+        <div class="p-dot"></div>
+      </div>
+      <div class="p-nav-row">
+        <button class="p-nav-btn" onclick="scrollPC(-1)">&#8592;</button>
+        <button class="p-nav-btn" onclick="scrollPC(1)">&#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="disc-card">
+
+    <!-- Big HMW — all one size -->
+    <div style="font-size:1.7rem;font-weight:700;letter-spacing:-0.6px;line-height:1.2;color:var(--good);margin-bottom:28px;">How might we design CoVAA so every teacher feels like they have a warm mentor in their corner?</div>
+
+    <div style="border-top:1px solid var(--border);padding-top:24px;display:flex;gap:24px;align-items:flex-start;">
+
+      <!-- Person icon -->
+      <div style="flex-shrink:0;">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="25.5" stroke="var(--border)"/>
+          <circle cx="26" cy="20" r="7" fill="var(--bad)" opacity="0.85"/>
+          <path d="M10 42c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="var(--bad)" stroke-width="2.5" stroke-linecap="round" opacity="0.85"/>
+        </svg>
+      </div>
+
+      <!-- Warm mentor qualities -->
+      <div style="flex:1;">
+        <div style="font-size:0.62rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">If CoVAA were a person, they'd be a warm mentor</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--bg);border-radius:8px;padding:12px 16px;">
+            <div style="font-size:0.78rem;font-weight:700;color:var(--text);margin-bottom:2px;">Helps you grow</div>
+            <div style="font-size:0.7rem;color:var(--secondary);">Not an observer with a clipboard</div>
+          </div>
+          <div style="background:var(--bg);border-radius:8px;padding:12px 16px;">
+            <div style="font-size:0.78rem;font-weight:700;color:var(--text);margin-bottom:2px;">Warm and credible</div>
+            <div style="font-size:0.7rem;color:var(--secondary);">Approachable enough to trust, worth coming back to</div>
+          </div>
+          <div style="background:var(--bg);border-radius:8px;padding:12px 16px;">
+            <div style="font-size:0.78rem;font-weight:700;color:var(--text);margin-bottom:2px;">Feels effortless</div>
+            <div style="font-size:0.7rem;color:var(--secondary);">Lighter than not using it</div>
+          </div>
+          <div style="background:var(--bg);border-radius:8px;padding:12px 16px;">
+            <div style="font-size:0.78rem;font-weight:700;color:var(--text);margin-bottom:2px;">Value is immediate</div>
+            <div style="font-size:0.7rem;color:var(--secondary);">"What's in it for me?" answered in 10 seconds</div>
+          </div>
+        </div>
+        <div style="margin-top:14px;font-size:0.63rem;color:var(--muted);">Non-judgmental 8/9 · Supportive 8/9 · Credible 7/9 · "Extra admin" red line 8/9 · "Worth returning to" top fix 5/9</div>
       </div>
 
     </div>
   </div>
 
-  <hr class="rule">
-
-  <div class="eyebrow" style="margin-bottom:20px;">Needs a decision today</div>
-  <div class="d-item">
-    <div class="d-mark">?</div>
-    <div class="d-q">CoVAA needs to feel approachable to teachers and credible to institutions — what does that balance actually look like, and where does it lean?</div>
-  </div>
-  <div class="d-item">
-    <div class="d-mark">?</div>
-    <div class="d-q">Safe space to reflect, or practical feedback tool — does CoVAA lead with one, or hold both?</div>
-  </div>
-  <div class="d-item">
-    <div class="d-mark">?</div>
-    <div class="d-q">Build trust on first use, or design for teachers to return — which comes first?</div>
-  </div>
 </div>
 
 </main>
@@ -835,8 +935,18 @@ new Chart(document.getElementById('c-q9'), {
 function scrollPC(dir) {
   const track = document.getElementById('p-track');
   const card  = track.querySelector('.p-card');
-  track.scrollBy({ left: dir * (card.offsetWidth + 14), behavior: 'smooth' });
+  track.scrollBy({ left: dir * (card.offsetWidth + 16), behavior: 'smooth' });
 }
+
+(function() {
+  const track = document.getElementById('p-track');
+  const dots  = document.querySelectorAll('#p-dots .p-dot');
+  track.addEventListener('scroll', () => {
+    const card  = track.querySelector('.p-card');
+    const idx   = Math.round(track.scrollLeft / (card.offsetWidth + 16));
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }, { passive: true });
+})();
 
 // ── Navigation ──
 function go(id) {
