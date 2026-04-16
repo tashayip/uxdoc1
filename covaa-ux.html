@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoVAA Rebrand Survey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<style>
+:root {
+  --bg:        #F8F5EF;
+  --surface:   #EFE9DF;
+  --border:    #DDD7CE;
+  --text:      #1C1916;
+  --secondary: #6B6057;
+  --muted:     #A89890;
+  --pt:        #1C1916;   /* product team — near-black     */
+  --ast:       #B55032;   /* AST — terracotta, full weight */
+  --bad:       #8B2020;   /* warning / needs decision      */
+  --good:      #3D6B45;   /* aligned / positive            */
+  --card:      #FFFFFF;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+header {
+  border-bottom: 1px solid var(--border);
+  padding: 18px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0;
+  background: var(--bg);
+  z-index: 100;
+}
+.h-title { font-size: 0.85rem; font-weight: 600; }
+.h-meta  { font-size: 0.68rem; color: var(--secondary); margin-top: 2px; }
+.legend  { display: flex; gap: 20px; }
+.leg-item {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 0.7rem; color: var(--secondary);
+}
+.leg-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+/* ── NAV ── */
+#nav-wrap {
+  position: sticky; top: 57px; z-index: 90;
+  background: var(--bg);
+}
+nav {
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  display: flex;
+}
+nav button {
+  background: none; border: none; cursor: pointer;
+  padding: 13px 16px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem; font-weight: 500; color: var(--secondary);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap; transition: color 0.15s;
+}
+nav button:hover { color: var(--text); }
+nav button.active { color: var(--text); border-bottom-color: var(--text); }
+
+/* ── DATA SIDEBAR (fixed, floats in left gutter) ── */
+#data-sidebar {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.28s ease;
+  background: var(--bg);
+  border-right: 1px solid transparent;
+  z-index: 80;
+}
+#data-sidebar.open {
+  width: 180px;
+  border-right-color: var(--border);
+}
+.ds-inner {
+  width: 180px;
+  padding: 32px 16px 60px 20px;
+  overflow-y: auto;
+  height: 100%;
+}
+.ds-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+  padding-left: 8px;
+}
+.ds-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-left: 2px solid transparent;
+  padding: 8px 8px 8px 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--secondary);
+  cursor: pointer;
+  line-height: 1.4;
+  border-radius: 0 4px 4px 0;
+  transition: color 0.15s;
+  margin-bottom: 2px;
+}
+.ds-btn:hover { color: var(--text); }
+.ds-btn.active {
+  color: var(--text);
+  font-weight: 600;
+  border-left-color: var(--text);
+  background: var(--surface);
+}
+
+/* ── MAIN ── */
+main { max-width: 800px; margin: 0 auto; padding: 52px 48px 80px; }
+
+.section { display: none; }
+.section.active {
+  display: block;
+  animation: sectionIn 0.22s ease forwards;
+}
+@keyframes sectionIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── HEADINGS ── */
+.eyebrow {
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 1.8px;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+}
+.page-title {
+  font-size: 1.75rem; font-weight: 700; letter-spacing: -0.6px;
+  line-height: 1.15; margin-bottom: 6px;
+}
+.page-lead {
+  font-size: 0.85rem; color: var(--secondary); line-height: 1.6; margin-bottom: 36px;
+}
+
+/* ── CHART ── */
+.chart-box { position: relative; margin-bottom: 12px; }
+.chart-caption {
+  font-size: 0.75rem; color: var(--secondary); line-height: 1.6;
+  padding-top: 14px; border-top: 1px solid var(--border);
+}
+
+hr.rule { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
+
+/* ── STAT GRID ── */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; margin-bottom: 44px;
+}
+.stat { background: var(--card); padding: 24px 20px; }
+.stat-n {
+  font-size: 2.2rem; font-weight: 700; letter-spacing: -1.5px;
+  line-height: 1; margin-bottom: 5px;
+}
+.stat-n.warn { color: var(--bad); }
+.stat-l { font-size: 0.72rem; color: var(--secondary); line-height: 1.45; }
+
+/* ── TAG BLOCKS ── */
+.tag-block { margin-bottom: 28px; }
+.block-label {
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 1.8px;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  font-size: 1rem; font-weight: 600;
+  padding: 11px 24px; border-radius: 999px; border: 1px solid var(--border);
+}
+
+/* ── DROPDOWN ── */
+.nav-dropdown { position: relative; display: flex; align-items: stretch; }
+.dropdown-trigger {
+  background: none; border: none; cursor: pointer;
+  padding: 13px 16px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem; font-weight: 500; color: var(--secondary);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap; transition: color 0.15s;
+}
+.dropdown-trigger:hover { color: var(--text); }
+.dropdown-trigger.active { color: var(--text); border-bottom-color: var(--text); }
+.dropdown-menu {
+  display: none; position: absolute;
+  top: calc(100% + 1px); left: 0;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  min-width: 160px; z-index: 200; padding: 6px 0;
+}
+.dropdown-menu.open { display: block; }
+.dropdown-menu button {
+  display: block; width: 100%; background: none; border: none;
+  padding: 10px 18px; text-align: left; cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem; font-weight: 500; color: var(--secondary);
+  transition: background 0.1s, color 0.1s;
+}
+.dropdown-menu button:hover { background: var(--bg); color: var(--text); }
+.dropdown-menu button.active { color: var(--text); font-weight: 600; }
+.tag.yes  { background: var(--text); color: var(--bg); border-color: var(--text); }
+.tag.no   {
+  background: var(--surface); color: var(--secondary);
+  text-decoration: line-through; text-decoration-color: var(--bad);
+}
+
+/* ── SPECTRUM ── */
+.scale-section { margin-bottom: 8px; }
+.scale-group {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 32px 36px 28px;
+  margin-bottom: 16px;
+}
+
+.scale-name {
+  font-size: 1.3rem; font-weight: 700; margin-bottom: 14px; color: var(--text); letter-spacing: -0.3px;
+}
+.scale-name .note {
+  font-size: 0.68rem; font-weight: 400; color: var(--muted); margin-left: 8px;
+}
+.scale-sublabel {
+  font-size: 0.72rem; font-weight: 600; color: var(--secondary);
+  margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.8px; font-size: 0.62rem;
+}
+
+/* outer flex row: [end-label] [inner track area] [end-label] */
+.scale-outer {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.scale-inner { flex: 1; min-width: 0; }
+
+/* endpoint labels — flank the track */
+.scale-end-l,
+.scale-end-r {
+  font-size: 0.67rem;
+  color: var(--secondary);
+  line-height: 1.35;
+  flex-shrink: 0;
+  width: 80px;
+  text-align: center;
+}
+.scale-end-l { text-align: right; }
+.scale-end-r { text-align: left; }
+
+/* tick row */
+.scale-ticks {
+  display: flex; justify-content: space-between;
+  padding: 0 1px; margin-bottom: 2px;
+}
+.scale-ticks span {
+  font-size: 0.58rem; color: var(--muted); min-width: 12px; text-align: center;
+}
+
+/* track wrapper */
+.scale-track-wrap {
+  position: relative;
+  height: 56px;
+  margin-bottom: 0;
+}
+
+/* track line */
+.s-track {
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 5px;
+  background: var(--border);
+  border-radius: 999px;
+  transform: translateY(-50%);
+}
+
+/* gap/aligned fill between dots */
+.s-fill {
+  position: absolute;
+  top: 0; height: 100%;
+  border-radius: 999px;
+}
+
+/* tick marks on the track */
+.s-tick {
+  position: absolute;
+  top: 50%; width: 1px; height: 10px;
+  background: var(--border);
+  transform: translateY(-50%);
+}
+
+/* dot + label wrapper */
+.s-dot-wrap {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.s-dot-val {
+  font-size: 0.62rem; font-weight: 700;
+  line-height: 1; margin-bottom: 5px;
+  white-space: nowrap;
+}
+.s-dot {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 1.5px rgba(0,0,0,0.15), 0 2px 6px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+/* status badge */
+.s-status {
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; margin-top: 10px; display: block;
+}
+.s-status.gap     { color: var(--bad); }
+.s-status.aligned { color: var(--good); }
+
+/* ── PRINCIPLES CAROUSEL ── */
+.p-carousel-wrap { position: relative; }
+
+.p-track {
+  display: flex; gap: 16px;
+  overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  -ms-overflow-style: none; scrollbar-width: none;
+}
+.p-track::-webkit-scrollbar { display: none; }
+
+.p-card {
+  flex: 0 0 calc(100% - 32px); /* peek of next card */
+  scroll-snap-align: start;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 36px 40px 30px;
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+  min-height: 340px;
+}
+.p-card.decide { border-color: var(--bad); }
+
+/* big faded number — graphic anchor */
+.p-card-num {
+  font-size: 5rem; font-weight: 700; letter-spacing: -4px;
+  color: var(--border); line-height: 1;
+  margin-bottom: 20px; user-select: none;
+}
+.p-card.decide .p-card-num { color: rgba(139,32,32,0.15); }
+
+.p-card-decide-tag {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--bad);
+  margin-bottom: 14px; display: block;
+}
+.p-card-head {
+  font-size: 1.35rem; font-weight: 700; line-height: 1.4;
+  color: var(--text); margin-bottom: 18px; flex: 1;
+  letter-spacing: -0.3px;
+}
+.p-card-hmw {
+  font-size: 0.8rem; font-weight: 600; color: var(--good);
+  line-height: 1.45; margin-bottom: 14px;
+}
+.p-card-body {
+  font-size: 0.78rem; color: var(--secondary); line-height: 1.65;
+  margin-bottom: 16px;
+}
+.p-card-data {
+  font-size: 0.63rem; color: var(--muted); line-height: 1.55;
+  padding-top: 12px; border-top: 1px solid var(--border);
+}
+
+/* discussion panel */
+.disc-card {
+  background: var(--card);
+  border: 1.5px solid var(--bad);
+  border-radius: 10px;
+  padding: 28px 32px 24px;
+  margin-top: 16px;
+}
+.disc-badge {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--bad); margin-bottom: 18px;
+}
+.disc-tension {
+  display: grid; grid-template-columns: 1fr 40px 1fr;
+  align-items: center; gap: 0; margin-bottom: 20px;
+}
+.disc-side { padding: 16px 20px; background: var(--bg); border-radius: 8px; }
+.disc-side-label {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+}
+.disc-side-word {
+  font-size: 1.3rem; font-weight: 700; letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+.disc-side-word.red  { color: var(--bad); }
+.disc-side-word.dark { color: var(--text); }
+.disc-side-note {
+  font-size: 0.68rem; color: var(--secondary); line-height: 1.5;
+}
+.disc-vs {
+  text-align: center; font-size: 1.1rem; color: var(--border);
+  font-weight: 300;
+}
+.disc-hmw {
+  font-size: 0.9rem; font-weight: 600; color: var(--good);
+  line-height: 1.5; margin-bottom: 12px;
+}
+.disc-data {
+  font-size: 0.63rem; color: var(--muted); line-height: 1.5;
+  padding-top: 12px; border-top: 1px solid var(--border);
+}
+
+/* progress dots + nav row */
+.p-controls {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 18px;
+}
+.p-dots { display: flex; gap: 6px; }
+.p-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border); transition: background 0.2s, width 0.2s;
+}
+.p-dot.active { background: var(--text); width: 18px; border-radius: 3px; }
+.p-nav-row { display: flex; gap: 6px; }
+.p-nav-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--card);
+  cursor: pointer; font-size: 14px; color: var(--secondary);
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.15s, color 0.15s; font-family: inherit;
+}
+.p-nav-btn:hover { border-color: var(--text); color: var(--text); }
+
+/* ── DATA NAV ── */
+.data-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border);
+}
+.data-nav-btn {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 999px; padding: 8px 20px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem; font-weight: 500; color: var(--secondary);
+  cursor: pointer; transition: border-color 0.15s, color 0.15s;
+}
+.data-nav-btn:hover { border-color: var(--text); color: var(--text); }
+.data-nav-btn.ghost { opacity: 0; pointer-events: none; }
+
+/* ── DECISIONS ── */
+.d-item {
+  display: flex; gap: 14px; align-items: baseline;
+  padding: 18px 0; border-bottom: 1px solid var(--border);
+}
+.d-item:last-child { border-bottom: none; }
+.d-mark { font-size: 0.7rem; font-weight: 700; color: var(--bad); flex-shrink: 0; }
+.d-q    { font-size: 0.85rem; line-height: 1.55; }
+
+/* ── OVERVIEW SPECTRUM ── */
+.ov-scale-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px 32px 24px;
+  margin-top: 8px;
+}
+.ov-scale-title {
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 1.8px;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="h-title">CoVAA Rebrand — Survey</div>
+    <div class="h-meta">10 responses · April 2026 · Directional</div>
+  </div>
+  <div class="legend">
+    <div class="leg-item">
+      <div class="leg-swatch" style="background:var(--pt)"></div>
+      Product team (6)
+    </div>
+    <div class="leg-item">
+      <div class="leg-swatch" style="background:var(--ast)"></div>
+      AST (4)
+    </div>
+  </div>
+</header>
+
+<div id="nav-wrap">
+<nav>
+  <button id="data-btn" onclick="go('q1')">Data</button>
+  <button onclick="go('principles')">For discussion</button>
+  <button onclick="go('voices')">Voices</button>
+</nav>
+</div>
+
+<div id="content-wrap">
+
+<aside id="data-sidebar">
+  <div class="ds-inner">
+    <div class="ds-label">Questions</div>
+    <button class="ds-btn" onclick="go('q1')" data-tab="q1">What should CoVAA signal?</button>
+    <button class="ds-btn" onclick="go('q2')" data-tab="q2">How should it come across?</button>
+    <button class="ds-btn" onclick="go('q3')" data-tab="q3">Which tones don't fit?</button>
+    <button class="ds-btn" onclick="go('q4')" data-tab="q4">How should it feel?</button>
+    <button class="ds-btn" onclick="go('q8')" data-tab="q8">What makes teachers wary?</button>
+    <button class="ds-btn" onclick="go('q9')" data-tab="q9">What to improve first?</button>
+  </div>
+</aside>
+
+<main>
+
+<!-- ═══ Q1 ═══ -->
+<div id="q1" class="section">
+  <div class="eyebrow">Q1 · Pick 2</div>
+  <div class="page-title">What should CoVAA signal to teachers?</div>
+  <div class="page-lead">"Safe space to reflect" leads at 6/10. "Help you improve" and "Practical professional feedback" follow at 5/10 each.</div>
+  <div class="chart-box" style="height:220px;"><canvas id="c-q1"></canvas></div>
+  <div class="chart-caption">The two top messages scored equally. The product may need to hold both rather than choose one.</div>
+  <div class="data-nav">
+    <button class="data-nav-btn ghost">←</button>
+    <button class="data-nav-btn" onclick="go('q2')">Tone →</button>
+  </div>
+</div>
+
+<!-- ═══ Q2 ═══ -->
+<div id="q2" class="section">
+  <div class="eyebrow">Q2 · Pick 3</div>
+  <div class="page-title">How should it come across to teachers?</div>
+  <div class="page-lead">Supportive 9/10 and Credible 8/10 — near-unanimous. Approachable vs. Professional is where the groups split.</div>
+  <div class="chart-box" style="height:260px;"><canvas id="c-q2"></canvas></div>
+  <div class="chart-caption">Approachable: 5 product team, 0 AST. Professional: 3 AST, 1 product team. The core tension is visible here.</div>
+  <div class="data-nav">
+    <button class="data-nav-btn" onclick="go('q1')">← Message</button>
+    <button class="data-nav-btn" onclick="go('q3')">Rejected tones →</button>
+  </div>
+</div>
+
+<!-- ═══ Q3 ═══ -->
+<div id="q3" class="section">
+  <div class="eyebrow">Q3 · Pick 2</div>
+  <div class="page-title">Which tones feel least suitable?</div>
+  <div class="page-lead">Authoritative — 7/10. Both groups agree it must not feel top-down.</div>
+  <div class="chart-box" style="height:240px;"><canvas id="c-q3"></canvas></div>
+  <div class="chart-caption">Corporate was mainly flagged by the product team. Casual was mainly flagged by AST.</div>
+  <div class="data-nav">
+    <button class="data-nav-btn" onclick="go('q2')">← Tone</button>
+    <button class="data-nav-btn" onclick="go('q4')">Feel scales →</button>
+  </div>
+</div>
+
+<!-- ═══ Q4–7 SCALES ═══ -->
+<div id="q4" class="section">
+  <div class="eyebrow">Q4–7 · Scales</div>
+  <div class="page-title">The product should feel more…</div>
+  <div class="page-lead">Aligned on 3 of 4. The only gap is warm vs. polished.</div>
+
+  <div class="scale-section">
+
+    <!-- Scale 1: Professional ↔ Warm (6pt). PT=80%, AST=40% -->
+    <div class="scale-group">
+      <div class="scale-name">Overall product feel</div>
+      <div class="scale-outer">
+        <span class="scale-end-l">Professional /<br>Formal</span>
+        <div class="scale-inner">
+          <div class="scale-ticks">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+          </div>
+          <div class="scale-track-wrap">
+            <div class="s-track">
+              <div class="s-fill" style="left:40%;width:40%;background:rgba(139,32,32,0.13);"></div>
+            </div>
+            <div class="s-tick" style="left:0%"></div>
+            <div class="s-tick" style="left:20%"></div>
+            <div class="s-tick" style="left:40%"></div>
+            <div class="s-tick" style="left:60%"></div>
+            <div class="s-tick" style="left:80%"></div>
+            <div class="s-tick" style="left:100%"></div>
+            <div class="s-dot-wrap" style="left:40%">
+              <div class="s-dot-val" style="color:var(--ast)">AST 3.0</div>
+              <div class="s-dot" style="background:var(--ast)"></div>
+            </div>
+            <div class="s-dot-wrap" style="left:80%">
+              <div class="s-dot-val" style="color:var(--pt)">PT 5.0</div>
+              <div class="s-dot" style="background:var(--pt)"></div>
+            </div>
+          </div>
+        </div>
+        <span class="scale-end-r">Warm /<br>Friendly</span>
+      </div>
+      <span class="s-status gap">2.0 point gap — needs decision</span>
+    </div>
+
+    <!-- Scale 2: Analytical ↔ Reflective (6pt). PT=70%, AST=65% -->
+    <div class="scale-group">
+      <div class="scale-name">Experience</div>
+      <div class="scale-outer">
+        <span class="scale-end-l">Analytical</span>
+        <div class="scale-inner">
+          <div class="scale-ticks">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+          </div>
+          <div class="scale-track-wrap">
+            <div class="s-track">
+              <div class="s-fill" style="left:65%;width:5%;background:rgba(61,107,69,0.15);"></div>
+            </div>
+            <div class="s-tick" style="left:0%"></div>
+            <div class="s-tick" style="left:20%"></div>
+            <div class="s-tick" style="left:40%"></div>
+            <div class="s-tick" style="left:60%"></div>
+            <div class="s-tick" style="left:80%"></div>
+            <div class="s-tick" style="left:100%"></div>
+            <div class="s-dot-wrap" style="left:65%">
+              <div class="s-dot-val" style="color:var(--ast)">AST 4.3</div>
+              <div class="s-dot" style="background:var(--ast)"></div>
+            </div>
+            <div class="s-dot-wrap" style="left:70%">
+              <div class="s-dot-val" style="color:var(--pt)">PT 4.5</div>
+              <div class="s-dot" style="background:var(--pt)"></div>
+            </div>
+          </div>
+        </div>
+        <span class="scale-end-r">Reflective</span>
+      </div>
+      <span class="s-status aligned">Aligned — leans reflective</span>
+    </div>
+
+    <!-- Scale 3 + 4: grouped under Interaction -->
+    <div class="scale-group">
+      <div class="scale-name">Interaction</div>
+
+      <div class="scale-sublabel">Guided vs. open</div>
+      <div class="scale-outer">
+        <span class="scale-end-l">Structured /<br>Guided</span>
+        <div class="scale-inner">
+          <div class="scale-ticks">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+          </div>
+          <div class="scale-track-wrap">
+            <div class="s-track"></div>
+            <div class="s-tick" style="left:0%"></div>
+            <div class="s-tick" style="left:20%"></div>
+            <div class="s-tick" style="left:40%"></div>
+            <div class="s-tick" style="left:60%"></div>
+            <div class="s-tick" style="left:80%"></div>
+            <div class="s-tick" style="left:100%"></div>
+            <div class="s-dot-wrap" style="left:47%">
+              <div class="s-dot-val" style="color:var(--pt)">PT 3.3</div>
+              <div class="s-dot" style="background:var(--pt)"></div>
+            </div>
+            <div class="s-dot-wrap" style="left:50%">
+              <div class="s-dot-val" style="color:var(--ast)">AST 3.5</div>
+              <div class="s-dot" style="background:var(--ast)"></div>
+            </div>
+          </div>
+        </div>
+        <span class="scale-end-r">Exploratory /<br>Open</span>
+      </div>
+      <span class="s-status aligned" style="margin-bottom:28px;display:block;">Aligned — both near midpoint</span>
+
+      <div class="scale-sublabel">Text vs. visual <span class="note" style="text-transform:none;letter-spacing:0;">5-point scale</span></div>
+      <div class="scale-outer">
+        <span class="scale-end-l">Text-based</span>
+        <div class="scale-inner">
+          <div class="scale-ticks">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+          </div>
+          <div class="scale-track-wrap">
+            <div class="s-track">
+              <div class="s-fill" style="left:70%;width:5%;background:rgba(61,107,69,0.15);"></div>
+            </div>
+            <div class="s-tick" style="left:0%"></div>
+            <div class="s-tick" style="left:25%"></div>
+            <div class="s-tick" style="left:50%"></div>
+            <div class="s-tick" style="left:75%"></div>
+            <div class="s-tick" style="left:100%"></div>
+            <div class="s-dot-wrap" style="left:70%">
+              <div class="s-dot-val" style="color:var(--pt)">PT 3.8</div>
+              <div class="s-dot" style="background:var(--pt)"></div>
+            </div>
+            <div class="s-dot-wrap" style="left:75%">
+              <div class="s-dot-val" style="color:var(--ast)">AST 4.0</div>
+              <div class="s-dot" style="background:var(--ast)"></div>
+            </div>
+          </div>
+        </div>
+        <span class="scale-end-r">Visual /<br>Interactive</span>
+      </div>
+      <span class="s-status aligned">Aligned — leans visual</span>
+    </div>
+
+  </div>
+  <div class="data-nav">
+    <button class="data-nav-btn" onclick="go('q3')">← Rejected tones</button>
+    <button class="data-nav-btn" onclick="go('q8')">Concerns →</button>
+  </div>
+</div>
+
+<!-- ═══ Q8 ═══ -->
+<div id="q8" class="section">
+  <div class="eyebrow">Q8 · Pick 3</div>
+  <div class="page-title">Teachers are most wary if it feels…</div>
+  <div class="page-lead">"Feels like judging them" — 9/10. "Like extra admin work" and "Hard to use" — both 8/10. Non-negotiable.</div>
+  <div class="chart-box" style="height:220px;"><canvas id="c-q8"></canvas></div>
+  <div class="chart-caption">Ease of use (80%) is near-universal too — it signals trust, not just convenience.</div>
+  <div class="data-nav">
+    <button class="data-nav-btn" onclick="go('q4')">← Feel scales</button>
+    <button class="data-nav-btn" onclick="go('q9')">Fix first →</button>
+  </div>
+</div>
+
+<!-- ═══ Q9 ═══ -->
+<div id="q9" class="section">
+  <div class="eyebrow">Q9 · Pick any</div>
+  <div class="page-title">What's most important to improve for teachers?</div>
+  <div class="page-lead">"Make the support easier to understand" leads at 6/10. "Make it feel more useful to return to" follows at 5/10.</div>
+  <div class="chart-box" style="height:280px;"><canvas id="c-q9"></canvas></div>
+  <div class="chart-caption">Product team focused on stickiness. AST focused on clarity and trust. Both priorities are close.</div>
+  <div class="data-nav">
+    <button class="data-nav-btn" onclick="go('q8')">← Concerns</button>
+    <button class="data-nav-btn ghost">→</button>
+  </div>
+</div>
+
+<!-- ═══ PRINCIPLES ═══ -->
+<div id="principles" class="section">
+  <div class="eyebrow">For discussion</div>
+  <div class="page-title">Brainstorm activity</div>
+  <div class="page-lead">3 principles from the data. Use them to spark one concrete idea each.</div>
+
+  <div class="p-carousel-wrap">
+    <div class="p-track" id="p-track">
+
+      <div class="p-card">
+        <div class="p-card-num">01</div>
+        <div class="p-card-head">We want CoVAA to feel like a <span style="color:var(--bad);font-weight:700;">warm mentor</span> — supportive and credible.</div>
+        <!-- Profile tags -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+          <svg width="28" height="28" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;align-self:center;">
+            <circle cx="18" cy="17" r="6" fill="var(--bad)" opacity="0.85"/>
+            <path d="M4 38c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="var(--bad)" stroke-width="2.5" stroke-linecap="round" opacity="0.85"/>
+            <circle cx="36" cy="17" r="6" fill="var(--pt)" opacity="0.5"/>
+            <path d="M22 38c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="var(--pt)" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+          </svg>
+          <span style="font-size:0.72rem;font-weight:600;padding:5px 14px;border-radius:999px;background:var(--bg);border:1px solid var(--border);color:var(--text);">Supportive · 9/10</span>
+          <span style="font-size:0.72rem;font-weight:600;padding:5px 14px;border-radius:999px;background:var(--bg);border:1px solid var(--border);color:var(--text);">Credible · 8/10</span>
+          <span style="font-size:0.72rem;font-weight:600;padding:5px 14px;border-radius:999px;background:var(--bg);border:1px solid var(--border);color:var(--bad);">Not judging them · 9/10</span>
+        </div>
+        <div class="p-card-data">Supportive 9/10 · Credible 8/10 · "Feels like judging them" 9/10 · "Safe space to reflect" 6/10 · "Help you improve" 5/10</div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-card-num">02</div>
+        <div class="p-card-head">We don't want CoVAA to make teachers feel <span style="color:var(--bad);font-weight:700;">judged</span>, or burdened with <span style="color:var(--bad);font-weight:700;">extra work</span>.</div>
+        <div class="p-card-body">If it feels like an evaluation, teachers disengage. If it feels like more on top of an already full day, they stop opening it. Either one is enough to lose them.</div>
+        <div class="p-card-data">"Feels like judging them" — 9/10 · "Like extra admin work" — 8/10 · "Hard to use" — 8/10</div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-card-num">03</div>
+        <div class="p-card-head">We want the value of CoVAA to be <span style="color:var(--bad);font-weight:700;">quickly obvious</span> to teachers.</div>
+        <div class="p-card-body">Teachers won't give it a second chance if the first one doesn't land. CoVAA should answer "what's in it for me?" before anyone has to ask.</div>
+        <div class="p-card-data">"Support easier to understand" #1 fix at 6/10 · "Worth returning to" 5/10 · "Clearer what it's for" and "Clearer how it's different" also flagged</div>
+      </div>
+
+    </div>
+
+    <div class="p-controls">
+      <div class="p-dots" id="p-dots">
+        <div class="p-dot active"></div>
+        <div class="p-dot"></div>
+        <div class="p-dot"></div>
+      </div>
+      <div class="p-nav-row">
+        <button class="p-nav-btn" onclick="scrollPC(-1)">&#8592;</button>
+        <button class="p-nav-btn" onclick="scrollPC(1)">&#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Brainstorm activity card -->
+  <div style="background:var(--text);border-radius:12px;padding:48px 52px;margin-top:28px;">
+
+    <!-- Label -->
+    <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:28px;">Brainstorm · 15 min</div>
+
+    <!-- HMW -->
+    <div style="font-size:1.45rem;font-weight:700;color:#FFFFFF;line-height:1.35;letter-spacing:-0.4px;margin-bottom:40px;padding-left:20px;border-left:3px solid var(--ast);">
+      How might we reposition CoVAA so teachers immediately feel it's supportive and credible, not just another admin tool?
+    </div>
+
+    <!-- Discussion prompts -->
+    <div style="display:flex;flex-direction:column;gap:0;">
+      <div style="padding:4px 0 16px;border-top:1px solid rgba(255,255,255,0.08);">
+        <div style="font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ast);margin-bottom:20px;padding-top:16px;">Repositioning</div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <span style="font-size:0.65rem;font-weight:700;color:rgba(255,255,255,0.25);min-width:16px;padding-top:3px;flex-shrink:0;">1</span>
+            <div style="font-size:0.92rem;color:rgba(255,255,255,0.75);line-height:1.55;">What would need to shift — in how CoVAA looks, sounds, or works — for a teacher to see it as supportive?</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <span style="font-size:0.65rem;font-weight:700;color:rgba(255,255,255,0.25);min-width:16px;padding-top:3px;flex-shrink:0;">2</span>
+            <div style="font-size:0.92rem;color:rgba(255,255,255,0.75);line-height:1.55;">What would need to shift — in how CoVAA looks, sounds, or works — for a teacher to see it as credible?</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <span style="font-size:0.65rem;font-weight:700;color:rgba(255,255,255,0.25);min-width:16px;padding-top:3px;flex-shrink:0;">3</span>
+            <div style="font-size:0.92rem;color:rgba(255,255,255,0.75);line-height:1.55;">What would make a teacher feel CoVAA is not just another admin tool?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ═══ VOICES ═══ -->
+<div id="voices" class="section">
+  <div class="eyebrow">Additional comments</div>
+  <div class="page-title">What the team said</div>
+  <div class="page-lead">Voices worth spotlighting from the open responses.</div>
+
+  <!-- Featured quote — Marcus -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:40px 44px;margin-bottom:16px;position:relative;overflow:hidden;">
+    <div style="font-size:6rem;font-weight:700;color:var(--border);line-height:0.7;margin-bottom:20px;font-family:Georgia,serif;">"</div>
+    <div style="font-size:1.25rem;font-weight:600;line-height:1.6;color:var(--text);margin-bottom:28px;letter-spacing:-0.2px;">
+      We want it to be a tool that complements the knowledgeable others. While AI provides actionable feedback, it is important that the <span style="color:var(--bad);">human to human interaction</span> continues during and after using the tool.
+    </div>
+    <div style="display:flex;gap:16px;align-items:center;padding-top:20px;border-top:1px solid var(--border);">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="18" r="17.5" fill="var(--surface)" stroke="var(--border)"/>
+        <circle cx="18" cy="14" r="5" fill="var(--ast)" opacity="0.9"/>
+        <path d="M6 30c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="var(--ast)" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+      </svg>
+      <div>
+        <div style="font-size:0.82rem;font-weight:700;color:var(--text);">Marcus</div>
+        <div style="font-size:0.68rem;color:var(--muted);">AST stakeholder</div>
+      </div>
+      <div style="margin-left:auto;display:flex;gap:8px;">
+        <span style="font-size:0.68rem;font-weight:600;color:var(--ast);background:rgba(181,80,50,0.08);padding:4px 12px;border-radius:999px;border:1px solid rgba(181,80,50,0.2);">Collaborative feedback</span>
+        <span style="font-size:0.68rem;font-weight:600;color:var(--ast);background:rgba(181,80,50,0.08);padding:4px 12px;border-radius:999px;border:1px solid rgba(181,80,50,0.2);">Human connection</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Insight callout -->
+  <div style="background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--good);border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:32px;">
+    <div style="font-size:0.75rem;color:var(--secondary);line-height:1.6;">This reframes CoVAA not as a replacement for human mentoring — but as a <strong style="color:var(--text);">bridge that makes human-to-human moments more meaningful</strong>. The AI does the groundwork; the conversation is where the real growth happens.</div>
+  </div>
+
+  <!-- Weiling quote -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:40px 44px;margin-bottom:16px;">
+    <div style="font-size:6rem;font-weight:700;color:var(--border);line-height:0.7;margin-bottom:20px;font-family:Georgia,serif;">"</div>
+
+    <div style="font-size:0.9rem;color:var(--text);line-height:1.75;margin-bottom:24px;">
+      Can consider behavioural insights <span style="color:var(--bad);font-weight:600;">EAST framework</span> (Easy, Attractive, Social, and Timely) to increase adoption rates. E.g. tease and engage with scarcity — <em>"You have only 3 tokens. Choose 3 areas you want the feedback to be focused on. Come back next week for another 3 tokens."</em> Or language learning app style — timely email reminders to focus on one learning point this week, the next learning point the following week. Idea is to make feedback application manageable in bite sizes for <span style="color:var(--bad);font-weight:600;">tiny tastes of success</span> that will bring the user back because use of the app brought actual results for them. Many more ideas in the EAST framework to explore!
+    </div>
+
+    <!-- EAST grid -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px;">
+      <div style="background:var(--bg);border-radius:8px;padding:16px;">
+        <div style="font-size:1.4rem;font-weight:700;color:var(--bad);margin-bottom:6px;">E</div>
+        <div style="font-size:0.72rem;font-weight:700;color:var(--text);margin-bottom:4px;">Easy</div>
+        <div style="font-size:0.68rem;color:var(--secondary);line-height:1.5;">Bite-sized feedback. One learning point at a time.</div>
+      </div>
+      <div style="background:var(--bg);border-radius:8px;padding:16px;">
+        <div style="font-size:1.4rem;font-weight:700;color:var(--bad);margin-bottom:6px;">A</div>
+        <div style="font-size:0.72rem;font-weight:700;color:var(--text);margin-bottom:4px;">Attractive</div>
+        <div style="font-size:0.68rem;color:var(--secondary);line-height:1.5;">Scarcity mechanic — "You have 3 tokens. Choose 3 areas for feedback."</div>
+      </div>
+      <div style="background:var(--bg);border-radius:8px;padding:16px;">
+        <div style="font-size:1.4rem;font-weight:700;color:var(--bad);margin-bottom:6px;">S</div>
+        <div style="font-size:0.72rem;font-weight:700;color:var(--text);margin-bottom:4px;">Social</div>
+        <div style="font-size:0.68rem;color:var(--secondary);line-height:1.5;">Feedback that connects back to the human mentoring relationship.</div>
+      </div>
+      <div style="background:var(--bg);border-radius:8px;padding:16px;">
+        <div style="font-size:1.4rem;font-weight:700;color:var(--bad);margin-bottom:6px;">T</div>
+        <div style="font-size:0.72rem;font-weight:700;color:var(--text);margin-bottom:4px;">Timely</div>
+        <div style="font-size:0.68rem;color:var(--secondary);line-height:1.5;">Email reminders — focus on one learning point this week, the next the following week.</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:16px;align-items:center;padding-top:20px;border-top:1px solid var(--border);">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="18" r="17.5" fill="var(--surface)" stroke="var(--border)"/>
+        <circle cx="18" cy="14" r="5" fill="var(--pt)" opacity="0.8"/>
+        <path d="M6 30c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="var(--pt)" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+      </svg>
+      <div>
+        <div style="font-size:0.82rem;font-weight:700;color:var(--text);">Weiling</div>
+        <div style="font-size:0.68rem;color:var(--muted);">Product team</div>
+      </div>
+      <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;">
+        <span style="font-size:0.68rem;font-weight:600;color:var(--pt);background:rgba(28,25,22,0.06);padding:4px 12px;border-radius:999px;border:1px solid rgba(28,25,22,0.12);">Behavioural design</span>
+        <span style="font-size:0.68rem;font-weight:600;color:var(--pt);background:rgba(28,25,22,0.06);padding:4px 12px;border-radius:999px;border:1px solid rgba(28,25,22,0.12);">Adoption</span>
+        <span style="font-size:0.68rem;font-weight:600;color:var(--pt);background:rgba(28,25,22,0.06);padding:4px 12px;border-radius:999px;border:1px solid rgba(28,25,22,0.12);">Retention</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+</div><!-- /content-wrap -->
+
+<script>
+// ── Chart defaults ──
+Chart.defaults.font.family = "'Space Grotesk', sans-serif";
+Chart.defaults.font.size   = 11;
+Chart.defaults.color       = '#6B6057';
+
+Chart.register(ChartDataLabels);
+
+const PT  = '#1C1916';
+const AST = '#B55032';
+
+// Raw counts per chart — used for accurate tooltip display
+const COUNTS = {
+  'c-q1': { pt: [3,4,2,2,1],     ast: [3,1,3,1,0]   },
+  'c-q2': { pt: [6,4,5,1,2],     ast: [3,4,0,3,0]   },
+  'c-q3': { pt: [4,5,1,2,1],     ast: [3,1,2,1,2]   },
+  'c-q8': { pt: [5,5,4,4],       ast: [4,3,4,1]     },
+  'c-q9': { pt: [3,3,1,2,2,1],   ast: [3,2,2,0,0,0] }
+};
+
+// % of 10 total respondents for bar width
+const p = n => Math.round(n / 10 * 100);
+
+// opts(boldN, astBold, astFlag, boldExtra)
+//   boldN     — top N items rendered bold/black (high overall score)
+//   astBold   — indices with ≥2/3 AST, near top → bold + terracotta
+//   astFlag   — indices with ≥2/3 AST, further down → normal weight + muted terracotta
+//   boldExtra — bold + black, no colour treatment
+const opts = (boldN = 0, astBold = [], astFlag = [], boldExtra = []) => ({
+  indexAxis: 'y',
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      position: 'top', align: 'start',
+      labels: { boxWidth: 10, boxHeight: 10, padding: 18, borderRadius: 2,
+                color: '#1C1916', font: { size: 11 } }
+    },
+    tooltip: {
+      backgroundColor: '#1C1916',
+      padding: 10,
+      callbacks: {
+        label: ctx => {
+          const chartId = ctx.chart.canvas.id;
+          const isPT    = ctx.dataset.label.includes('Product');
+          const counts  = COUNTS[chartId];
+          const arr     = isPT ? counts.pt : counts.ast;
+          const n       = arr[ctx.dataIndex];
+          const tot     = isPT ? 6 : 4;
+          return `  ${ctx.dataset.label}: ${n} / ${tot}`;
+        }
+      }
+    },
+    datalabels: {
+      color: 'rgba(255,255,255,0.6)',
+      font: { size: 9, weight: '400' },
+      anchor: 'center', align: 'center',
+      formatter: (value, ctx) => {
+        if (value < 10) return '';
+        const chartId = ctx.chart.canvas.id;
+        const isPT = ctx.dataset.label.includes('Product');
+        const counts = COUNTS[chartId];
+        if (!counts) return '';
+        const arr = isPT ? counts.pt : counts.ast;
+        const n = arr[ctx.dataIndex];
+        return n > 0 ? n : '';
+      }
+    }
+  },
+  scales: {
+    x: {
+      stacked: true, max: 100,
+      ticks: { callback: v => v + '%', maxTicksLimit: 5, font: { size: 10 } },
+      grid: { color: '#E8E2DA' },
+      border: { dash: [3,3], color: '#DDD7CE' }
+    },
+    y: {
+      stacked: true,
+      afterFit: scale => { scale.width = Math.max(scale.width, 200); },
+      grid: { display: false },
+      ticks: {
+        font: ctx => ({
+          size: 11,
+          weight: (boldN > 0 && ctx.index < boldN) || astBold.includes(ctx.index) || boldExtra.includes(ctx.index) ? '700' : '400'
+        }),
+        color: ctx => {
+          if (boldN > 0 && ctx.index < boldN) return '#1C1916';   // top overall — near-black
+          if (astBold.includes(ctx.index))     return '#B55032';   // notable AST, near top — terracotta
+          if (boldExtra.includes(ctx.index))   return '#1C1916';   // bold but no colour
+          if (astFlag.includes(ctx.index))     return '#A06040';   // notable AST, further down — muted
+          return '#1C1916';
+        }
+      }
+    }
+  }
+});
+
+// Q1 — sorted high→low · top 2 bold · "Practical professional feedback" bold black (index 2)
+new Chart(document.getElementById('c-q1'), {
+  type: 'bar',
+  data: {
+    labels: ['Safe space to reflect','Help you improve','Practical professional feedback','Here to support you','Different from usual'],
+    datasets: [
+      { label: 'Product team', data: [p(3),p(4),p(2),p(2),p(1)], backgroundColor: PT  },
+      { label: 'AST',          data: [p(3),p(1),p(3),p(1),p(0)], backgroundColor: AST }
+    ]
+  },
+  options: opts(2, [], [], [2])
+});
+
+// Q2 — top 2 bold · "Professional" astFlag (AST 3/3 but far down overall)
+new Chart(document.getElementById('c-q2'), {
+  type: 'bar',
+  data: {
+    labels: ['Supportive','Credible','Approachable','Professional','Layman'],
+    datasets: [
+      { label: 'Product team', data: [p(6),p(4),p(5),p(1),p(2)], backgroundColor: PT  },
+      { label: 'AST',          data: [p(3),p(4),p(0),p(3),p(0)], backgroundColor: AST }
+    ]
+  },
+  options: opts(2, [], [3])
+});
+
+// Q3 — top 2 bold
+new Chart(document.getElementById('c-q3'), {
+  type: 'bar',
+  data: {
+    labels: ['Authoritative','Corporate','Casual','Playful','Formal'],
+    datasets: [
+      { label: 'Product team', data: [p(4),p(5),p(1),p(2),p(1)], backgroundColor: PT  },
+      { label: 'AST',          data: [p(3),p(1),p(2),p(1),p(2)], backgroundColor: AST }
+    ]
+  },
+  options: opts(2, [], [])
+});
+
+// Q8 — top 3 bold, all three also have AST ≥2/3 so already covered by boldN
+new Chart(document.getElementById('c-q8'), {
+  type: 'bar',
+  data: {
+    labels: ['Feels like judging them','Feels like extra admin work','Hard to use','Just another tool'],
+    datasets: [
+      { label: 'Product team', data: [p(5),p(5),p(4),p(4)], backgroundColor: PT  },
+      { label: 'AST',          data: [p(4),p(3),p(4),p(1)], backgroundColor: AST }
+    ]
+  },
+  options: opts(3, [], [])
+});
+
+// Q9 — sorted high→low · top 2 bold · "Trust the feedback" bold black (index 2)
+new Chart(document.getElementById('c-q9'), {
+  type: 'bar',
+  data: {
+    labels: ['Support easier to understand','Worth returning to','Trust the feedback','Clearer what it\'s for','Clearer how it\'s different','Bite-sized practical tips'],
+    datasets: [
+      { label: 'Product team', data: [p(3),p(3),p(1),p(2),p(2),p(1)], backgroundColor: PT  },
+      { label: 'AST',          data: [p(3),p(2),p(2),p(0),p(0),p(0)], backgroundColor: AST }
+    ]
+  },
+  options: opts(2, [], [], [2])
+});
+
+// ── Principles carousel ──
+function scrollPC(dir) {
+  const track = document.getElementById('p-track');
+  const card  = track.querySelector('.p-card');
+  track.scrollBy({ left: dir * (card.offsetWidth + 16), behavior: 'smooth' });
+}
+
+(function() {
+  const track = document.getElementById('p-track');
+  const dots  = document.querySelectorAll('#p-dots .p-dot');
+  track.addEventListener('scroll', () => {
+    const card  = track.querySelector('.p-card');
+    const idx   = Math.round(track.scrollLeft / (card.offsetWidth + 16));
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }, { passive: true });
+})();
+
+// ── Navigation ──
+const DATA_TABS = ['q1','q2','q3','q4','q8','q9'];
+const TAB_MAP   = { principles: 1, voices: 2 };
+
+function go(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  // nav buttons
+  document.querySelectorAll('nav > button').forEach(b => b.classList.remove('active'));
+
+  // sidebar buttons
+  document.querySelectorAll('.ds-btn').forEach(b => b.classList.remove('active'));
+
+  const sidebar = document.getElementById('data-sidebar');
+
+  if (DATA_TABS.includes(id)) {
+    document.getElementById('data-btn').classList.add('active');
+    sidebar.classList.add('open');
+    const sideBtn = document.querySelector(`.ds-btn[data-tab="${id}"]`);
+    if (sideBtn) sideBtn.classList.add('active');
+  } else {
+    sidebar.classList.remove('open');
+    document.querySelectorAll('nav > button')[TAB_MAP[id]].classList.add('active');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Default: show For discussion on load
+go('principles');
+</script>
+</body>
+</html>
