@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>LangBuddy Admin Portal — Module Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #F5F4F1;
+  --surface:  #FFFFFF;
+  --border:   rgba(0,0,0,.08);
+  --border2:  rgba(0,0,0,.13);
+  --text:     #1A1A1A;
+  --muted:    rgba(26,26,26,.48);
+  --dim:      rgba(26,26,26,.24);
+
+  --amber:    #C97A0A;
+  --amber-t:  rgba(201,122,10,.09);
+  --blue:     #2055CC;
+  --blue-t:   rgba(32,85,204,.09);
+  --navy:     #1A2E5A;
+  --navy-t:   rgba(26,46,90,.08);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── HEADER ─── */
+header {
+  background: #fff;
+  border-bottom: 1px solid var(--border2);
+  padding: 36px 64px 32px;
+}
+.hd-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 6px;
+}
+.hd-title {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.section-hd {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-hd::after { content: ''; flex: 1; height: 1px; background: var(--border2); }
+
+/* objective cards */
+.obj-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.obj-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.obj-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.obj-sub   { font-size: 11px; color: var(--muted); margin-bottom: 10px; line-height: 1.45; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+.obj-metric-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border);
+}
+.obj-metric-row:last-child { border-bottom: none; }
+.obj-metric-name { font-size: 11px; color: var(--muted); line-height: 1.4; flex: 1; }
+.obj-metric-name small { display: block; font-size: 10px; color: var(--dim); margin-top: 1px; }
+.badge-target   { font-size: 9.5px; font-weight: 700; background: var(--amber-t); color: var(--amber); border: 1px solid rgba(201,122,10,.22); border-radius: 4px; padding: 2px 7px; white-space: nowrap; flex-shrink: 0; }
+.badge-baseline { font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; color: #C94040; background: rgba(201,64,64,.07); border: 1px solid rgba(201,64,64,.18); border-radius: 4px; padding: 2px 7px; white-space: nowrap; flex-shrink: 0; }
+
+/* how it helps + roles */
+.help-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.help-text { font-size: 12px; color: var(--muted); line-height: 1.55; flex: 1; min-width: 260px; }
+.help-text strong { color: var(--text); font-weight: 600; }
+.role-pills { display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; align-items: flex-start; padding-top: 1px; }
+.role-pill  { font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; white-space: nowrap; }
+.rp-amber { background: var(--amber-t); color: var(--amber); border: 1px solid rgba(201,122,10,.25); }
+.rp-blue  { background: var(--blue-t);  color: var(--blue);  border: 1px solid rgba(32,85,204,.25); }
+
+.tier-key {
+  display: flex;
+  gap: 20px;
+  margin-top: 0;
+  flex-wrap: wrap;
+}
+.tk-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.tk-stripe { width: 20px; height: 3px; border-radius: 2px; flex-shrink: 0; }
+
+/* modules section label */
+.modules-hd {
+  padding: 28px 64px 0;
+}
+
+/* ─── MAIN ─── */
+
+/* ─── APP SHELL ─── */
+.app { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 210px; flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid var(--border2);
+  position: sticky; top: 0; height: 100vh;
+  display: flex; flex-direction: column;
+  padding: 32px 16px 32px 20px;
+  overflow-y: auto;
+}
+.sb-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 8.5px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--dim);
+  margin-bottom: 6px; line-height: 1.5;
+}
+.sb-title {
+  font-size: 14px; font-weight: 800;
+  letter-spacing: -0.3px; color: var(--text);
+  margin-bottom: 36px; line-height: 1.3;
+}
+.sb-nav { display: flex; flex-direction: column; gap: 2px; }
+.sb-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 9px 10px; border-radius: 8px;
+  border: none; background: transparent;
+  cursor: pointer; text-align: left; width: 100%;
+  transition: background .12s;
+}
+.sb-item:hover { background: var(--bg); }
+.sb-item.active { background: var(--navy-t); }
+.sb-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; font-weight: 700;
+  color: var(--dim); flex-shrink: 0; margin-top: 2px;
+}
+.sb-item.active .sb-num { color: var(--navy); }
+.sb-lbl { font-size: 12px; font-weight: 600; color: var(--muted); line-height: 1.4; }
+.sb-item.active .sb-lbl { color: var(--navy); }
+
+.content { flex: 1; overflow-y: auto; background: var(--bg); }
+.cs { display: none; padding: 48px 56px 80px; min-height: 100vh; }
+.cs.active { display: block; animation: fadeUp .2s ease both; }
+.cs-title {
+  font-size: 18px; font-weight: 800; letter-spacing: -0.4px;
+  color: var(--text); margin-bottom: 24px;
+}
+
+/* ─── MAIN ─── */
+main { padding: 0; }
+
+/* ─── TIER SECTION ─── */
+.tier {
+  padding: 36px 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.tier:last-child { border-bottom: none; }
+
+.tier-label { padding-top: 2px; }
+.tier-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 7px;
+}
+.t-coreflow  .tier-tag { background: var(--navy-t);  color: var(--navy);  border: 1px solid rgba(26,46,90,.18); }
+.t-supporting .tier-tag { background: var(--amber-t); color: var(--amber); border: 1px solid rgba(201,122,10,.2); }
+.t-config    .tier-tag { background: rgba(0,0,0,.04); color: var(--muted); border: 1px solid rgba(0,0,0,.1); }
+
+.tier-desc {
+  font-size: 11px;
+  color: var(--dim);
+  line-height: 1.55;
+  max-width: 160px;
+}
+
+/* ─── MODULE CARDS ─── */
+.mods { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.mod {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  width: 210px;
+  overflow: hidden;
+  transition: transform .15s, box-shadow .15s;
+  cursor: default;
+  animation: cardIn .35s ease both;
+}
+.mod:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.09);
+  border-color: rgba(0,0,0,.2);
+}
+.mod:nth-child(1) { animation-delay: .04s; }
+.mod:nth-child(2) { animation-delay: .08s; }
+.mod:nth-child(3) { animation-delay: .12s; }
+.mod:nth-child(4) { animation-delay: .16s; }
+.mod:nth-child(5) { animation-delay: .20s; }
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Top stripe: amber+blue = shared, amber = admin only */
+.mod-stripe { height: 3px; }
+.shared     .mod-stripe { background: linear-gradient(90deg, var(--amber) 50%, var(--blue) 50%); }
+.admin-only .mod-stripe { background: var(--amber); }
+
+.mod-body { padding: 15px 15px 11px; }
+.mod-emoji { font-size: 19px; margin-bottom: 8px; display: block; }
+.mod-name {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: var(--text);
+  line-height: 1.25;
+  margin-bottom: 9px;
+}
+
+.mod-list {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.mod-list li {
+  font-size: 10.5px;
+  color: var(--muted);
+  line-height: 1.45;
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+.mod-list li::before { display: none; }
+.mod-list li.link-note { color: var(--blue); font-weight: 500; }
+.mod-list li.link-note::before { display: inline; content: '↗'; color: var(--blue); margin-right: 4px; font-style: normal; }
+.mod-list li.link-note.done::before    { color: #059669; }
+.mod-list li.link-note.partial::before { color: #D97706; }
+
+.mod-divider { height: 1px; background: var(--border); margin: 0 15px; }
+
+.access { padding: 9px 15px 13px; display: flex; flex-direction: column; gap: 5px; }
+.access-row { display: flex; align-items: center; gap: 7px; }
+.access-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.access-dot.amber { background: var(--amber); }
+.access-dot.blue  { background: var(--blue); }
+.access-dot.off   { background: transparent; border: 1.5px solid rgba(0,0,0,.2); }
+.access-role {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: var(--dim);
+  flex-shrink: 0;
+  width: 48px;
+}
+.access-scope { font-size: 10.5px; font-weight: 600; color: var(--text); opacity: .72; }
+.access-scope.off { color: var(--dim); font-weight: 400; opacity: 1; font-style: italic; }
+
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sb-eyebrow">LangBuddy Admin Portal</div>
+  <div class="sb-title">Vision for the admin portal</div>
+  <nav class="sb-nav">
+    <button class="sb-item active" onclick="showSection('why',this)">
+      <span class="sb-num">01</span>
+      <span class="sb-lbl">Why are we building this?</span>
+    </button>
+    <button class="sb-item" onclick="showSection('access',this)">
+      <span class="sb-num">02</span>
+      <span class="sb-lbl">Access</span>
+    </button>
+    <button class="sb-item" onclick="showSection('modules',this)">
+      <span class="sb-num">03</span>
+      <span class="sb-lbl">Modules for Admin Portal</span>
+    </button>
+  </nav>
+</aside>
+
+<!-- ── CONTENT ── -->
+<div class="content">
+
+<!-- SECTION 1: WHY -->
+<div id="why" class="cs active">
+  <div class="cs-title">Why are we building this?</div>
+
+  <div class="obj-grid">
+    <div class="obj-card">
+      <div class="obj-title">Increase speed of adoption</div>
+      <div class="obj-sub">Self-service for specialists and teachers to manage classes and missions independently</div>
+      <div class="obj-metric-row">
+        <div class="obj-metric-name">Time to onboard 1 grade × level</div>
+        <span class="badge-target">To set target</span>
+      </div>
+      <div class="obj-metric-row">
+        <div class="obj-metric-name">Classes onboarded independently</div>
+        <span class="badge-target">To set target</span>
+      </div>
+      <div class="obj-metric-row">
+        <div class="obj-metric-name">Missions created and published</div>
+        <span class="badge-target">To set target</span>
+      </div>
+    </div>
+    <div class="obj-card">
+      <div class="obj-title">Increase student retention</div>
+      <div class="obj-sub">Higher quality, more diverse content created by specialists and teachers</div>
+      <div class="obj-metric-row">
+        <div class="obj-metric-name">Week-on-week student return rate<small>Baseline: −74% after week 1</small></div>
+        <span class="badge-target">To set target</span>
+      </div>
+      <div class="obj-metric-row">
+        <div class="obj-metric-name">% practising outside class<small>Baseline: 11.1%</small></div>
+        <span class="badge-target">To set target</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /cs why -->
+
+<!-- SECTION 2: ACCESS -->
+<div id="access" class="cs">
+  <div class="cs-title">Access</div>
+  <div class="help-row">
+    <div class="help-text">The admin portal will be accessible by <strong>Admins</strong> (product team, business owner) and <strong>Mission Designers</strong> (specialists, teachers, etc). Both roles use the same portal but have different access levels. <a href="https://sgtechstack.atlassian.net/wiki/spaces/LANGBUDDY/pages/2199552976/Role+matrix" style="color:var(--blue);text-decoration:none;font-weight:600;border-bottom:1px solid rgba(32,85,204,.3);">See role matrix ↗</a></div>
+    <div class="role-pills">
+      <span class="role-pill rp-amber">👑 Admin — MTLB / product team</span>
+      <span class="role-pill rp-blue">👩‍🏫 Mission Designer — specialist / teacher</span>
+    </div>
+  </div>
+</div><!-- /cs access -->
+
+<!-- SECTION 3: MODULES -->
+<div id="modules" class="cs">
+  <div class="cs-title">Modules for Admin Portal</div>
+  <div style="display:flex;gap:20px;margin-bottom:28px;">
+    <div class="tk-item"><div class="tk-stripe" style="background:linear-gradient(90deg,var(--amber) 50%,var(--blue) 50%);"></div>Shared — Admin + Mission Designer</div>
+    <div class="tk-item"><div class="tk-stripe" style="background:var(--amber);"></div>Admin only</div>
+  </div>
+<main>
+
+  <!-- CORE FLOW -->
+  <div class="tier t-coreflow">
+    <div class="tier-label">
+      <div class="tier-tag">Core flow</div>
+      <div class="tier-desc">The main path users follow every time they open the portal.</div>
+    </div>
+    <div class="mods">
+
+      <div class="mod shared">
+        <div class="mod-stripe"></div>
+        <div class="mod-body">
+          <span class="mod-emoji">🏫</span>
+          <div class="mod-name">Classroom Management</div>
+          <ul class="mod-list">
+            <li>View list of classes</li>
+            <li>View active missions and student transcripts/activity per class</li>
+            <li>Add or remove a class</li>
+            <li>Link class to existing groups from external platforms or data sources</li>
+          </ul>
+        </div>
+        <div class="mod-divider"></div>
+        <div class="access">
+          <div class="access-row"><div class="access-dot amber"></div><div class="access-role">Admin</div><div class="access-scope">All schools</div></div>
+          <div class="access-row"><div class="access-dot blue"></div><div class="access-role">Designer</div><div class="access-scope">Own classes</div></div>
+        </div>
+      </div>
+
+      <div class="mod shared">
+        <div class="mod-stripe"></div>
+        <div class="mod-body">
+          <span class="mod-emoji">🗂️</span>
+          <div class="mod-name">Mission Library</div>
+          <ul class="mod-list">
+            <li class="done">Browse all available missions</li>
+            <li class="partial">Filter by language, level, grade, type</li>
+            <li class="done">View mission details for editing</li>
+            <li>Duplicate a mission into Mission Editor</li>
+            <li class="link-note done">Receives missions published from Mission Editor</li>
+          </ul>
+        </div>
+        <div class="mod-divider"></div>
+        <div class="access">
+          <div class="access-row"><div class="access-dot amber"></div><div class="access-role">Admin</div><div class="access-scope">Browse, duplicate, publish</div></div>
+          <div class="access-row"><div class="access-dot blue"></div><div class="access-role">Designer</div><div class="access-scope">Browse, duplicate, publish</div></div>
+        </div>
+      </div>
+
+      <div class="mod shared">
+        <div class="mod-stripe"></div>
+        <div class="mod-body">
+          <span class="mod-emoji">✏️</span>
+          <div class="mod-name">Mission Editor</div>
+          <ul class="mod-list">
+            <li class="done">Create a new mission</li>
+            <li class="done">Edit an existing mission</li>
+            <li>Customise content based on curriculum knowledge base</li>
+            <li class="done">Select a Buddy from Buddy Library</li>
+            <li>Customise Buddy based on Buddy presets specifically for mission</li>
+            <li class="partial">Test prompt</li>
+            <li>Preview mission as a student</li>
+            <li class="done">Save as draft or publish to Mission Library</li>
+            <li>Publish to class</li>
+          </ul>
+        </div>
+        <div class="mod-divider"></div>
+        <div class="access">
+          <div class="access-row"><div class="access-dot amber"></div><div class="access-role">Admin</div><div class="access-scope">HQ + class missions</div></div>
+          <div class="access-row"><div class="access-dot blue"></div><div class="access-role">Designer</div><div class="access-scope">Own class only</div></div>
+        </div>
+      </div>
+
+      <div class="mod admin-only">
+        <div class="mod-stripe"></div>
+        <div class="mod-body">
+          <span class="mod-emoji">🤖</span>
+          <div class="mod-name">Buddy Library</div>
+          <ul class="mod-list">
+            <li class="done">List all created Buddies</li>
+            <li class="partial">Create and configure a Buddy (name, personality, voice, avatar)</li>
+            <li class="done">Buddy options appear as a selector inside Mission Editor</li>
+          </ul>
+        </div>
+        <div class="mod-divider"></div>
+        <div class="access">
+          <div class="access-row"><div class="access-dot amber"></div><div class="access-role">Admin</div><div class="access-scope">Create and manage</div></div>
+          <div class="access-row"><div class="access-dot off"></div><div class="access-role">Designer</div><div class="access-scope off">Selects in Mission Editor</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SUPPORTING -->
+  <div class="tier t-supporting">
+    <div class="tier-label">
+      <div class="tier-tag">Supporting</div>
+      <div class="tier-desc">Makes the core flow more useful. Not required for basic operation.</div>
+    </div>
+    <div class="mods">
+
+      <div class="mod shared">
+        <div class="mod-stripe"></div>
+        <div class="mod-body">
+          <span class="mod-emoji">👤</span>
+          <div class="mod-name">User Management</div>
+          <ul class="mod-list">
+            <li class="done">Create and manage user accounts</li>
+            <li class="done">Assign roles (Admin, Mission Designer)</li>
+            <li class="done">Remove user access</li>
+          </ul>
+        </div>
+        <div class="mod-divider"></div>
+        <div class="access">
+          <div class="access-row"><div class="access-dot amber"></div><div class="access-role">Admin</div><div class="access-scope">All users</div></div>
+          <div class="access-row"><div class="access-dot blue"></div><div class="access-role">Designer</div><div class="access-scope">Own students</div></div>
+        </div>
+      </div>
+
+      <div class="mod admin-only">
+        <div class="mod-stripe"></div>
+        <div class="mod-body">
+          <span class="mod-emoji">📚</span>
+          <div class="mod-name">Knowledge Base</div>
+          <ul class="mod-list">
+            <li>Upload textbook content and vocab lists</li>
+            <li>Tag content by language, level, grade</li>
+            <li>Content uploaded here is reflected in Mission Editor as a data source that informs the mission prompt</li>
+          </ul>
+        </div>
+        <div class="mod-divider"></div>
+        <div class="access">
+          <div class="access-row"><div class="access-dot amber"></div><div class="access-role">Admin</div><div class="access-scope">Full access</div></div>
+          <div class="access-row"><div class="access-dot off"></div><div class="access-role">Designer</div><div class="access-scope off">Auto-surfaces in sessions</div></div>
+        </div>
+      </div>
+
+      <div class="mod shared">
+        <div class="mod-stripe"></div>
+        <div class="mod-body">
+          <span class="mod-emoji">📊</span>
+          <div class="mod-name">Analytics</div>
+          <ul class="mod-list">
+            <li>Session completion rates per class</li>
+            <li>Speaking time per student</li>
+            <li>Vocabulary gaps and common errors</li>
+            <li class="done">Access full session transcripts across all students/schools</li>
+          </ul>
+        </div>
+        <div class="mod-divider"></div>
+        <div class="access">
+          <div class="access-row"><div class="access-dot amber"></div><div class="access-role">Admin</div><div class="access-scope">All schools</div></div>
+          <div class="access-row"><div class="access-dot blue"></div><div class="access-role">Designer</div><div class="access-scope">Own class</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONFIG -->
+  <div class="tier t-config">
+    <div class="tier-label">
+      <div class="tier-tag">Config</div>
+      <div class="tier-desc">Low-frequency setup. Rarely changed once configured.</div>
+    </div>
+    <div class="mods">
+
+      <div class="mod admin-only">
+        <div class="mod-stripe"></div>
+        <div class="mod-body">
+          <span class="mod-emoji">⚙️</span>
+          <div class="mod-name">Platform Settings</div>
+          <ul class="mod-list">
+            <li>Define system prompt settings per grade band (G1, G2, G3)</li>
+            <li>Define other system-level settings, e.g. cultural context</li>
+            <li>Onboard new schools</li>
+          </ul>
+        </div>
+        <div class="mod-divider"></div>
+        <div class="access">
+          <div class="access-row"><div class="access-dot amber"></div><div class="access-role">Admin</div><div class="access-scope">Full access</div></div>
+          <div class="access-row"><div class="access-dot off"></div><div class="access-role">Designer</div><div class="access-scope off">Values shown as dropdowns</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+</div><!-- /cs modules -->
+
+</div><!-- /content -->
+</div><!-- /app -->
+
+<script>
+function showSection(id, btn) {
+  document.querySelectorAll('.cs').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+<script>
+document.querySelectorAll('.mod-list li:not(.link-note)').forEach(li => {
+  const done    = li.classList.contains('done');
+  const partial = li.classList.contains('partial');
+  const cb = document.createElement('span');
+  cb.style.cssText = [
+    'width:14px','height:14px','border-radius:3px','flex-shrink:0',
+    'display:inline-flex','align-items:center','justify-content:center',
+    'font-size:10px','font-weight:700','margin-top:2px','line-height:1'
+  ].join(';');
+  if (done) {
+    cb.style.background = '#D1FAE5';
+    cb.style.border = '1.5px solid #059669';
+    cb.style.color = '#059669';
+    cb.textContent = '✓';
+  } else if (partial) {
+    cb.style.background = '#FEF3C7';
+    cb.style.border = '1.5px solid #D97706';
+    cb.style.color = '#D97706';
+    cb.textContent = '~';
+  } else {
+    cb.style.background = '#fff';
+    cb.style.border = '1.5px solid rgba(0,0,0,.18)';
+  }
+  li.insertBefore(cb, li.firstChild);
+});
+</script>
+</body></html>
