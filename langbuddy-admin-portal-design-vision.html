@@ -305,6 +305,70 @@ main { padding: 0; }
 .access-scope { font-size: 10.5px; font-weight: 600; color: var(--text); opacity: .72; }
 .access-scope.off { color: var(--dim); font-weight: 400; opacity: 1; font-style: italic; }
 
+/* ── TARS SUB-TABS ── */
+.why-tabs { display:flex; gap:6px; margin-bottom:24px; flex-wrap:wrap; }
+.wtab { font-size:12px; font-weight:600; padding:6px 16px; border-radius:20px; border:1.5px solid var(--border2); background:transparent; color:var(--muted); cursor:pointer; transition:all .12s; }
+.wtab:hover { border-color:var(--blue); color:var(--blue); }
+.wtab.active { background:var(--blue-t); border-color:var(--blue); color:var(--blue); }
+.wpanel { display:none; }
+.wpanel.active { display:block; animation:fadeUp .2s ease both; }
+
+/* TARS tables */
+.tt { width:100%; border-collapse:collapse; background:var(--surface); border:1px solid var(--border2); border-radius:10px; overflow:hidden; margin-bottom:20px; }
+.tt th { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:.8px; text-transform:uppercase; color:var(--dim); font-weight:700; text-align:left; padding:6px 12px; background:var(--bg); border-bottom:1px solid var(--border2); }
+.tt td { font-size:12px; color:var(--text); padding:9px 12px; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.5; }
+.tt tr:last-child td { border-bottom:none; }
+.tt td:first-child { width:120px; }
+.tt td[rowspan] { vertical-align:middle; border-right:1px solid var(--border2); }
+.sp { font-family:'Space Mono',monospace; font-size:11px; font-weight:700; padding:5px 10px; border-radius:5px; display:inline-block; white-space:nowrap; letter-spacing:.3px; }
+.sp-t { background:var(--navy-t); color:var(--navy); border:1px solid rgba(26,46,90,.18); }
+.sp-a { background:var(--blue-t); color:var(--blue); border:1px solid rgba(32,85,204,.2); }
+.sp-r { background:var(--amber-t); color:var(--amber); border:1px solid rgba(201,122,10,.2); }
+.sp-s { background:var(--green-t); color:var(--green); border:1px solid rgba(26,112,66,.2); }
+.td-def { font-size:10px; color:var(--dim); margin-top:2px; line-height:1.4; }
+.tslbl { font-family:'Space Mono',monospace; font-size:8.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--dim); margin:20px 0 8px; display:flex; align-items:center; gap:10px; }
+.tslbl::after { content:''; flex:1; height:1px; background:var(--border2); }
+
+/* funnel top */
+.funnel-top { display:flex; margin-bottom:20px; background:var(--surface); border:1px solid var(--border2); border-radius:10px; overflow:hidden; }
+.ft-step { flex:1; padding:14px 16px; border-right:1px solid var(--border2); }
+.ft-step:last-child { border-right:none; }
+.ft-tag { font-family:'Space Mono',monospace; font-size:8px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+.ft-tag.t { color:var(--navy); } .ft-tag.a { color:var(--blue); } .ft-tag.r { color:var(--amber); } .ft-tag.s { color:var(--green); }
+.ft-val { font-size:18px; font-weight:800; letter-spacing:-0.3px; color:var(--text); margin-bottom:3px; }
+.ft-label { font-size:10px; color:var(--muted); line-height:1.4; }
+
+/* editable */
+[contenteditable] { display:inline-block; min-width:32px; padding:2px 6px; border-radius:4px; border:1.5px dashed rgba(201,122,10,.35); cursor:text; outline:none; -webkit-user-modify:read-write; user-select:text; }
+[contenteditable]:hover { background:var(--amber-t); border-color:var(--amber); }
+[contenteditable]:focus { background:var(--amber-t); border-color:var(--amber); border-style:solid; }
+.edit-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.edit-hint { font-family:'Space Mono',monospace; font-size:8px; color:var(--dim); letter-spacing:.5px; }
+.copy-btn { font-family:'Space Mono',monospace; font-size:9px; font-weight:700; padding:5px 12px; border-radius:5px; border:1px solid var(--border2); background:var(--surface); color:var(--muted); cursor:pointer; letter-spacing:.3px; transition:all .12s; }
+.copy-btn:hover { background:var(--navy-t); color:var(--navy); border-color:rgba(26,46,90,.25); }
+.copy-btn.copied { background:var(--green-t); color:var(--green); border-color:rgba(26,112,66,.25); }
+.stat-red { font-family:'Space Mono',monospace; font-weight:700; color:var(--red); font-size:13px; }
+
+/* teacher sub-tabs */
+.subtab-nav { display:flex; gap:6px; margin-bottom:20px; }
+.stab { font-size:12px; font-weight:600; padding:6px 16px; border-radius:20px; border:1.5px solid var(--border2); background:transparent; color:var(--muted); cursor:pointer; transition:all .12s; }
+.stab:hover { border-color:var(--blue); color:var(--blue); }
+.stab.active { background:var(--blue-t); border-color:var(--blue); color:var(--blue); }
+.stab-panel { display:none; }
+.stab-panel.active { display:block; animation:fadeUp .2s ease both; }
+
+/* demand signals */
+.demand { background:var(--navy-t); border:1px solid rgba(26,46,90,.15); border-radius:8px; padding:10px 14px; margin-top:8px; }
+.demand-title { font-family:'Space Mono',monospace; font-size:8px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--navy); margin-bottom:8px; }
+.demand-row { display:flex; gap:10px; align-items:baseline; font-size:11.5px; color:var(--text); margin-bottom:5px; }
+.demand-row:last-child { margin-bottom:0; }
+.demand-stat { font-family:'Space Mono',monospace; font-weight:700; font-size:13px; color:var(--navy); flex-shrink:0; width:72px; }
+.demand-lbl { color:var(--muted); font-size:11px; line-height:1.4; }
+
+/* tars problem bar */
+.tproblem { border-left:3px solid var(--navy); background:var(--surface); border:1px solid var(--border2); border-left:3px solid var(--navy); border-radius:8px; padding:10px 14px; margin-bottom:20px; font-size:11.5px; color:var(--muted); line-height:1.55; }
+.tproblem strong { color:var(--text); font-weight:600; }
+
 </style>
 </head>
 <body>
@@ -337,35 +401,123 @@ main { padding: 0; }
 <div id="why" class="cs active">
   <div class="cs-title">Why are we building this?</div>
 
-  <div class="obj-grid">
-    <div class="obj-card">
-      <div class="obj-title">Increase speed of adoption</div>
-      <div class="obj-sub">Self-service for specialists and teachers to manage classes and missions independently</div>
-      <div class="obj-metric-row">
-        <div class="obj-metric-name">Time to onboard 1 grade × level</div>
-        <span class="badge-target">To set target</span>
-      </div>
-      <div class="obj-metric-row">
-        <div class="obj-metric-name">Classes onboarded independently</div>
-        <span class="badge-target">To set target</span>
-      </div>
-      <div class="obj-metric-row">
-        <div class="obj-metric-name">Missions created and published</div>
-        <span class="badge-target">To set target</span>
-      </div>
+  <div class="why-tabs">
+    <button class="wtab active" onclick="showWhy('specialists',this)">Specialists</button>
+    <button class="wtab" onclick="showWhy('teachers',this)">Teachers</button>
+    <button class="wtab" onclick="showWhy('downstream',this)">Downstream</button>
+  </div>
+
+  <!-- SPECIALISTS TARS -->
+  <div id="why-specialists" class="wpanel active">
+    <div class="tproblem"><strong>Problem — </strong>MTLB specialists need to create curriculum-anchored missions independently, but today the product team does this for them. The current experience is difficult and time-consuming, limiting scale and speed.</div>
+    <div class="edit-row"><div class="edit-hint">↗ Click any number to edit</div><button class="copy-btn" onclick="copyTARS('why-specialists',this)">Copy metrics ↗</button></div>
+    <div class="funnel-top">
+      <div class="ft-step"><div class="ft-tag t">Target</div><div class="ft-val"><span contenteditable="true">~100%</span></div><div class="ft-label">cannot create missions independently</div></div>
+      <div class="ft-step"><div class="ft-tag a">Adoption</div><div class="ft-val"><span contenteditable="true">0%</span></div><div class="ft-label">published ≥1 mission via portal</div></div>
+      <div class="ft-step"><div class="ft-tag r">Retention</div><div class="ft-val"><span contenteditable="true">—</span></div><div class="ft-label">return to publish · target <span contenteditable="true">≥50%</span></div></div>
+      <div class="ft-step"><div class="ft-tag s">Satisfaction</div><div class="ft-val"><span contenteditable="true">—</span></div><div class="ft-label">CES · target <span contenteditable="true">≥3</span></div></div>
     </div>
-    <div class="obj-card">
-      <div class="obj-title">Increase student retention</div>
-      <div class="obj-sub">Higher quality, more diverse content created by specialists and teachers</div>
-      <div class="obj-metric-row">
-        <div class="obj-metric-name">Week-on-week student return rate<small>Baseline: −74% after week 1</small></div>
-        <span class="badge-target">To set target</span>
-      </div>
-      <div class="obj-metric-row">
-        <div class="obj-metric-name">% practising outside class<small>Baseline: 11.1%</small></div>
-        <span class="badge-target">To set target</span>
-      </div>
+    <table class="tt">
+      <tr><th>Stage</th><th>Metric</th><th>Baseline</th><th>Target</th></tr>
+      <tr><td><span class="sp sp-t">T — Target</span></td><td>% of specialists who cannot create missions independently<div class="td-def">Sets the ceiling for all downstream metrics.</div></td><td><span contenteditable="true">~100%</span></td><td>—</td></tr>
+      <tr><td rowspan="3"><span class="sp sp-a">A — Adoption</span></td><td>% of specialists who publish ≥1 mission per term<div class="td-def">Breadth — active usage, resets each term.</div></td><td><span contenteditable="true">0%</span></td><td><span contenteditable="true">To set</span></td></tr>
+      <tr><td>Total missions published by specialists<div class="td-def">Volume — how much content is being created.</div></td><td><span contenteditable="true">0</span></td><td><span contenteditable="true">To set</span></td></tr>
+      <tr><td>% of HQ missions created by specialists vs product team<div class="td-def">Independence — tracks shift in reliance. Today: 0% specialist.</div></td><td><span contenteditable="true">0%</span></td><td><span contenteditable="true">To set</span></td></tr>
+      <tr><td rowspan="2"><span class="sp sp-r">R — Retention</span></td><td>% of adopters who return to publish again<div class="td-def">Rate — are they coming back?</div></td><td><span contenteditable="true">To measure</span></td><td><span contenteditable="true">≥50%</span></td></tr>
+      <tr><td>Avg missions published per active specialist<div class="td-def">Depth — how much when they return?</div></td><td><span contenteditable="true">To measure</span></td><td><span contenteditable="true">To set</span></td></tr>
+      <tr><td><span class="sp sp-s">S — Satisfaction</span></td><td>CES — "How easy was it to create and publish a mission?"<div class="td-def">Retained users only. Scale 1–5.</div></td><td><span contenteditable="true">To measure</span></td><td><span contenteditable="true">≥3</span></td></tr>
+    </table>
+    <div class="tslbl">Speed</div>
+    <table class="tt">
+      <tr><th>Metric</th><th>Baseline</th><th>Target</th></tr>
+      <tr><td>Time to create and publish a mission</td><td><span contenteditable="true">1–2 hours</span></td><td><span contenteditable="true">To set</span></td></tr>
+      <tr><td>Time to get content ready to onboard 1 grade × level</td><td><span contenteditable="true">X weeks (product team today)</span></td><td><span contenteditable="true">To set</span></td></tr>
+    </table>
+  </div>
+
+  <!-- TEACHERS TARS -->
+  <div id="why-teachers" class="wpanel">
+    <div class="tproblem"><strong>Problem — </strong>Teachers want to run LangBuddy for their classes to facilitate more student oral practice but have no self-service tools for class setup, mission creation or student tracking.</div>
+    <table class="tt" style="margin-bottom:16px;">
+      <tr><th>Stage</th><th>Signal</th></tr>
+      <tr><td><span class="sp sp-t">T — Target Audience</span></td>
+        <td>Teachers introduced to LangBuddy who cannot customise missions for their own class — they have to work around existing content rather than build what their students need.
+          <div class="demand" style="margin-top:10px;"><div class="demand-title">Evidence from pilot</div>
+            <div class="demand-row"><span class="demand-stat">~X%</span><span class="demand-lbl">of observed pilot teachers explicitly requested visibility or class management tools (9 teachers — denominator to confirm)</span></div>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div class="subtab-nav">
+      <button class="stab active" onclick="showStab('why-teachers','mc',this)">Mission Creation</button>
+      <button class="stab" onclick="showStab('why-teachers','cs',this)">Classroom Setup</button>
     </div>
+    <!-- Mission Creation -->
+    <div id="why-teachers-mc" class="stab-panel active">
+      <div class="edit-row"><div class="edit-hint">↗ Click any number to edit</div><button class="copy-btn" onclick="copyTARS('why-teachers',this)">Copy metrics ↗</button></div>
+      <div class="funnel-top">
+        <div class="ft-step"><div class="ft-tag t">Target</div><div class="ft-val"><span contenteditable="true">~100%</span></div><div class="ft-label">introduced, no missions running</div></div>
+        <div class="ft-step"><div class="ft-tag a">Adoption</div><div class="ft-val"><span contenteditable="true">0%</span></div><div class="ft-label">published ≥1 mission to class</div></div>
+        <div class="ft-step"><div class="ft-tag r">Retention</div><div class="ft-val"><span contenteditable="true">—</span></div><div class="ft-label">return to publish · target <span contenteditable="true">≥50%</span></div></div>
+        <div class="ft-step"><div class="ft-tag s">Satisfaction</div><div class="ft-val"><span contenteditable="true">—</span></div><div class="ft-label">CES · target <span contenteditable="true">≥3</span></div></div>
+      </div>
+      <table class="tt">
+        <tr><th>Stage</th><th>Metric</th><th>Baseline</th><th>Target</th></tr>
+        <tr><td rowspan="3"><span class="sp sp-a">A — Adoption</span></td><td>% who publish ≥1 mission per term<div class="td-def">Breadth — active usage.</div></td><td><span contenteditable="true">0%</span></td><td><span contenteditable="true">To set</span></td></tr>
+        <tr><td>Total missions published by teachers<div class="td-def">Volume.</div></td><td><span contenteditable="true">0</span></td><td><span contenteditable="true">To set</span></td></tr>
+        <tr><td>% self-servicing without support<div class="td-def">Independence.</div></td><td><span contenteditable="true">0%</span></td><td><span contenteditable="true">To set</span></td></tr>
+        <tr><td rowspan="2"><span class="sp sp-r">R — Retention</span></td><td>% who return to publish again<div class="td-def">Rate.</div></td><td><span contenteditable="true">To measure</span></td><td><span contenteditable="true">≥50%</span></td></tr>
+        <tr><td>Avg missions per active teacher<div class="td-def">Depth.</div></td><td><span contenteditable="true">To measure</span></td><td><span contenteditable="true">To set</span></td></tr>
+        <tr><td><span class="sp sp-s">S — Satisfaction</span></td><td>CES — "How easy was it to create and assign a mission?"<div class="td-def">Retained users only.</div></td><td><span contenteditable="true">To measure</span></td><td><span contenteditable="true">≥3</span></td></tr>
+      </table>
+      <div class="tslbl">Speed</div>
+      <table class="tt"><tr><th>Metric</th><th>Baseline</th><th>Target</th></tr>
+        <tr><td>Time to create and publish a mission</td><td><span contenteditable="true">To measure</span></td><td><span contenteditable="true">To set</span></td></tr>
+      </table>
+    </div>
+    <!-- Classroom Setup -->
+    <div id="why-teachers-cs" class="stab-panel">
+      <div class="edit-row"><div class="edit-hint">↗ Click any number to edit</div></div>
+      <div class="funnel-top">
+        <div class="ft-step"><div class="ft-tag t">Target</div><div class="ft-val"><span contenteditable="true">~100%</span></div><div class="ft-label">no class independently set up</div></div>
+        <div class="ft-step"><div class="ft-tag a">Adoption</div><div class="ft-val"><span contenteditable="true">0%</span></div><div class="ft-label">completed class setup independently</div></div>
+        <div class="ft-step"><div class="ft-tag r">Retention</div><div class="ft-val"><span contenteditable="true">—</span></div><div class="ft-label">publish missions for class · target <span contenteditable="true">≥50%</span></div></div>
+        <div class="ft-step"><div class="ft-tag s">Satisfaction</div><div class="ft-val"><span contenteditable="true">—</span></div><div class="ft-label">CES · target <span contenteditable="true">≥3</span></div></div>
+      </div>
+      <table class="tt">
+        <tr><th>Stage</th><th>Metric</th><th>Baseline</th><th>Target</th></tr>
+        <tr><td rowspan="3"><span class="sp sp-a">A — Adoption</span></td><td>% who complete class setup independently<div class="td-def">Breadth.</div></td><td><span contenteditable="true">0%</span></td><td><span contenteditable="true">To set</span></td></tr>
+        <tr><td>Total classes independently onboarded<div class="td-def">Volume.</div></td><td><span contenteditable="true">0</span></td><td><span contenteditable="true">To set</span></td></tr>
+        <tr><td>% completed without support<div class="td-def">Independence.</div></td><td><span contenteditable="true">0%</span></td><td><span contenteditable="true">To set</span></td></tr>
+        <tr><td rowspan="2"><span class="sp sp-r">R — Retention</span></td><td>% of active teachers who publish missions for their class<div class="td-def">Did setup lead to actual usage?</div></td><td><span contenteditable="true">To measure</span></td><td><span contenteditable="true">≥50%</span></td></tr>
+        <tr><td>Avg active classes per teacher</td><td><span contenteditable="true">To measure</span></td><td><span contenteditable="true">To set</span></td></tr>
+        <tr><td><span class="sp sp-s">S — Satisfaction</span></td><td>CES — "How easy was it to set up your class?"<div class="td-def">Retained users only.</div></td><td><span contenteditable="true">To measure</span></td><td><span contenteditable="true">≥3</span></td></tr>
+      </table>
+      <div class="tslbl">Speed</div>
+      <table class="tt"><tr><th>Metric</th><th>Baseline</th><th>Target</th></tr>
+        <tr><td>Time from portal access to first class live</td><td><span contenteditable="true">To measure</span></td><td><span contenteditable="true">To set</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- DOWNSTREAM -->
+  <div id="why-downstream" class="wpanel">
+    <div style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6;">Student outcomes that move only after specialist and teacher adoption is healthy. Do not use these to judge admin portal performance directly.</div>
+    <table class="tt">
+      <tr><th>Metric</th><th>Baseline</th><th>Target</th></tr>
+      <tr style="background:rgba(26,112,66,.04);">
+        <td><span style="font-family:'Space Mono',monospace;font-size:8px;font-weight:700;color:var(--green);letter-spacing:.5px;text-transform:uppercase;">North star</span>
+          <div style="font-weight:600;margin-top:3px;">Avg sessions per active student per week</div>
+          <div class="td-def">3 sessions × 10 min = 30 min/week of independent practice. Classroom speaking time: ~2–5 min per student in a 45-min class.</div>
+        </td>
+        <td><span class="stat-red" style="font-size:14px;">0.5</span><div class="td-def">sessions/week · pilot</div></td>
+        <td><span contenteditable="true">3 / week</span></td>
+      </tr>
+      <tr><td>Avg total oral practice time per student per week<div class="td-def">Without LangBuddy: ~2–10 min per term. LangBuddy target: 30 min/week.</div></td><td><span style="font-family:'Space Mono',monospace;font-weight:700;font-size:13px;">2–10 min</span><div class="td-def">per term · classroom only</div></td><td><span contenteditable="true">30 min/week</span></td></tr>
+      <tr><td>Avg session duration<div class="td-def">Engaged sessions only (21+ turns).</div></td><td><span style="font-family:'Space Mono',monospace;font-weight:700;font-size:13px;">8.2 min</span></td><td><span contenteditable="true">10 min</span></td></tr>
+      <tr><td>Week-on-week student return rate</td><td><span class="stat-red" style="font-size:14px;">−74%</span><div class="td-def">after week 1</div></td><td><span contenteditable="true">To set</span></td></tr>
+      <tr><td>% of students practising outside class</td><td><span class="stat-red" style="font-size:14px;">11.1%</span></td><td><span contenteditable="true">To set</span></td></tr>
+    </table>
   </div>
 
 </div><!-- /cs why -->
@@ -398,25 +550,6 @@ main { padding: 0; }
       <div class="tier-desc">The main path users follow every time they open the portal.</div>
     </div>
     <div class="mods">
-
-      <div class="mod shared">
-        <div class="mod-stripe"></div>
-        <div class="mod-body">
-          <span class="mod-emoji">🏫</span>
-          <div class="mod-name">Classroom Management</div>
-          <ul class="mod-list">
-            <li>View list of classes</li>
-            <li>View active missions and student transcripts/activity per class</li>
-            <li>Add or remove a class</li>
-            <li>Link class to existing groups from external platforms or data sources</li>
-          </ul>
-        </div>
-        <div class="mod-divider"></div>
-        <div class="access">
-          <div class="access-row"><div class="access-dot amber"></div><div class="access-role">Admin</div><div class="access-scope">All schools</div></div>
-          <div class="access-row"><div class="access-dot blue"></div><div class="access-role">Designer</div><div class="access-scope">Own classes</div></div>
-        </div>
-      </div>
 
       <div class="mod shared">
         <div class="mod-stripe"></div>
@@ -477,6 +610,25 @@ main { padding: 0; }
         <div class="access">
           <div class="access-row"><div class="access-dot amber"></div><div class="access-role">Admin</div><div class="access-scope">Create and manage</div></div>
           <div class="access-row"><div class="access-dot off"></div><div class="access-role">Designer</div><div class="access-scope off">Selects in Mission Editor</div></div>
+        </div>
+      </div>
+
+      <div class="mod shared">
+        <div class="mod-stripe"></div>
+        <div class="mod-body">
+          <span class="mod-emoji">🏫</span>
+          <div class="mod-name">Classroom Management</div>
+          <ul class="mod-list">
+            <li>View list of classes</li>
+            <li>View active missions and student transcripts/activity per class</li>
+            <li>Add or remove a class</li>
+            <li>Link class to existing groups from external platforms or data sources</li>
+          </ul>
+        </div>
+        <div class="mod-divider"></div>
+        <div class="access">
+          <div class="access-row"><div class="access-dot amber"></div><div class="access-role">Admin</div><div class="access-scope">All schools</div></div>
+          <div class="access-row"><div class="access-dot blue"></div><div class="access-role">Designer</div><div class="access-scope">Own classes</div></div>
         </div>
       </div>
 
@@ -585,6 +737,35 @@ main { padding: 0; }
 </div><!-- /app -->
 
 <script>
+function showWhy(id, btn) {
+  document.querySelectorAll('.wpanel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.wtab').forEach(b => b.classList.remove('active'));
+  document.getElementById('why-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+function showStab(parentId, tabId, btn) {
+  const parent = document.getElementById(parentId);
+  parent.querySelectorAll('.stab-panel').forEach(p => p.classList.remove('active'));
+  parent.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+  document.getElementById(parentId + '-' + tabId).classList.add('active');
+  btn.classList.add('active');
+}
+function copyTARS(sectionId, btn) {
+  const section = document.getElementById(sectionId);
+  let out = sectionId.toUpperCase() + ' — metrics\n' + '='.repeat(36) + '\n\n';
+  section.querySelectorAll('[contenteditable]').forEach(el => {
+    const row = el.closest('tr');
+    if (row) {
+      const cells = row.querySelectorAll('td');
+      const label = cells[0]?.firstChild?.textContent?.trim() || '';
+      out += label + ': ' + el.textContent.trim() + '\n';
+    }
+  });
+  navigator.clipboard.writeText(out.trim()).then(() => {
+    btn.textContent = 'Copied ✓'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy metrics ↗'; btn.classList.remove('copied'); }, 2500);
+  });
+}
 function showSection(id, btn) {
   document.querySelectorAll('.cs').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.sb-item').forEach(b => b.classList.remove('active'));
