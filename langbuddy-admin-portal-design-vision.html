@@ -366,8 +366,9 @@ main { padding: 0; }
 .demand-lbl { color:var(--muted); font-size:11px; line-height:1.4; }
 
 /* tars problem bar */
-.tproblem { border-left:3px solid var(--navy); background:var(--surface); border:1px solid var(--border2); border-left:3px solid var(--navy); border-radius:8px; padding:10px 14px; margin-bottom:20px; font-size:11.5px; color:var(--muted); line-height:1.55; }
-.tproblem strong { color:var(--text); font-weight:600; }
+.tproblem { border-left:4px solid var(--navy); background:var(--surface); border:1px solid var(--border2); border-left:4px solid var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:24px; line-height:1.65; }
+.tproblem-label { font-family:'Space Mono',monospace; font-size:9px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--navy); margin-bottom:8px; }
+.tproblem-text { font-size:15px; font-weight:600; color:var(--text); line-height:1.6; letter-spacing:-0.2px; }
 
 </style>
 </head>
@@ -409,7 +410,7 @@ main { padding: 0; }
 
   <!-- SPECIALISTS TARS -->
   <div id="why-specialists" class="wpanel active">
-    <div class="tproblem"><strong>Problem — </strong>MTLB specialists need to create curriculum-anchored missions independently, but today the product team does this for them. The current experience is difficult and time-consuming, limiting scale and speed.</div>
+    <div class="tproblem"><div class="tproblem-label">Problem</div><div class="tproblem-text">MTLB specialists need to create curriculum-anchored missions independently, but today the product team does this for them. The current experience is difficult and time-consuming, limiting scale and speed.</div></div>
     <div class="edit-row"><div class="edit-hint">↗ Click any number to edit</div><button class="copy-btn" onclick="copyTARS('why-specialists',this)">Copy metrics ↗</button></div>
     <div class="funnel-top">
       <div class="ft-step"><div class="ft-tag t">Target</div><div class="ft-val"><span contenteditable="true">~100%</span></div><div class="ft-label">cannot create missions independently</div></div>
@@ -437,7 +438,7 @@ main { padding: 0; }
 
   <!-- TEACHERS TARS -->
   <div id="why-teachers" class="wpanel">
-    <div class="tproblem"><strong>Problem — </strong>Teachers want to run LangBuddy for their classes to facilitate more student oral practice but have no self-service tools for class setup, mission creation or student tracking.</div>
+    <div class="tproblem"><div class="tproblem-label">Problem</div><div class="tproblem-text">Teachers want to run LangBuddy for their classes to facilitate more student oral practice but have no self-service tools for class setup, mission creation or student tracking.</div></div>
     <table class="tt" style="margin-bottom:16px;">
       <tr><th>Stage</th><th>Signal</th></tr>
       <tr><td><span class="sp sp-t">T — Target Audience</span></td>
